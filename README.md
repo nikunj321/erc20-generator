@@ -126,7 +126,7 @@ Note: it is better to analyze the flattened code to have a bigger overview on th
 The `describe` command shows a summary of the contracts and methods in the files provided
 
 ```bash
-surya describe dist/BaseToken.dist.sol
+surya describe dist/SimpleERC20.dist.sol
 ```
 
 ### Dependencies
@@ -134,7 +134,7 @@ surya describe dist/BaseToken.dist.sol
 The `dependencies` command outputs the c3-linearization of a given contract's inheirtance graph. Contracts will be listed starting with most-derived, ie. if the same function is defined in more than one contract, the solidity compiler will use the definition in whichever contract is listed first.
 
 ```bash
-surya dependencies BaseToken dist/BaseToken.dist.sol
+surya dependencies SimpleERC20 dist/SimpleERC20.dist.sol
 ```
 ### Generate Report
 
@@ -155,9 +155,9 @@ The `sol2uml` generates UML class diagram from Solidity contracts.
 
 ## Token verification on Etherscan
 
-Use the dist smart contracts [dist/BaseToken.dist.sol](https://github.com/vittominacori/erc20-generator/blob/master/dist/BaseToken.dist.sol)
+Use the dist smart contracts [dist/SimpleERC20.dist.sol](https://github.com/vittominacori/erc20-generator/blob/master/dist/SimpleERC20.dist.sol)
 
-Solc version is 0.7.1
+Solc version is 0.7.2
 
 
 ## License

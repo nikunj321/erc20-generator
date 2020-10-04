@@ -1,29 +1,6 @@
-// SPDX-License-Identifier: MIT
-
-/*
- * Token was generated for FREE at https://vittominacori.github.io/erc20-generator/
- *
- * Author: @vittominacori (https://vittominacori.github.io)
- *
- * Smart Contract Source Code: https://github.com/vittominacori/erc20-generator
- * Smart Contract Test Builds: https://travis-ci.com/github/vittominacori/erc20-generator
- * Web Site Source Code: https://github.com/vittominacori/erc20-generator/tree/dapp
- *
- * Detailed Info: https://medium.com/@vittominacori/create-an-erc20-token-in-less-than-a-minute-2a8751c4d6f4
- *
- * Note: "Contract Source Code Verified (Similar Match)" means that this Token is similar to other tokens deployed
- *  using the same generator. It is not an issue. It means that you won't need to verify your source code because of
- *  it is already verified.
- *
- * Disclaimer: GENERATOR'S AUTHOR IS FREE OF ANY LIABILITY REGARDING THE TOKEN AND THE USE THAT IS MADE OF IT.
- *  The following code is provided under MIT License. Anyone can use it as per their needs.
- *  The generator's purpose is to make people able to tokenize their ideas without coding or paying for it.
- *  Source code is well tested and continuously updated to reduce risk of bugs and introduce language optimizations.
- *  Anyway the purchase of tokens involves a high degree of risk. Before acquiring tokens, it is recommended to
- *  carefully weighs all the information and risks detailed in Token owner's Conditions.
- */
-
 // File: @openzeppelin/contracts/GSN/Context.sol
+
+// SPDX-License-Identifier: MIT
 
 pragma solidity ^0.7.0;
 
@@ -49,6 +26,8 @@ abstract contract Context {
 }
 
 // File: @openzeppelin/contracts/token/ERC20/IERC20.sol
+
+
 
 pragma solidity ^0.7.0;
 
@@ -127,6 +106,8 @@ interface IERC20 {
 }
 
 // File: @openzeppelin/contracts/math/SafeMath.sol
+
+
 
 pragma solidity ^0.7.0;
 
@@ -288,6 +269,8 @@ library SafeMath {
 
 // File: @openzeppelin/contracts/utils/Address.sol
 
+
+
 pragma solidity ^0.7.0;
 
 /**
@@ -430,7 +413,13 @@ library Address {
 
 // File: @openzeppelin/contracts/token/ERC20/ERC20.sol
 
+
+
 pragma solidity ^0.7.0;
+
+
+
+
 
 /**
  * @dev Implementation of the {IERC20} interface.
@@ -733,7 +722,10 @@ contract ERC20 is Context, IERC20 {
 
 // File: @openzeppelin/contracts/token/ERC20/ERC20Capped.sol
 
+
+
 pragma solidity ^0.7.0;
+
 
 /**
  * @dev Extension of {ERC20} that adds a cap to the supply of tokens.
@@ -777,7 +769,11 @@ abstract contract ERC20Capped is ERC20 {
 
 // File: @openzeppelin/contracts/token/ERC20/ERC20Burnable.sol
 
+
+
 pragma solidity ^0.7.0;
+
+
 
 /**
  * @dev Extension of {ERC20} that allows token holders to destroy both their own
@@ -817,6 +813,8 @@ abstract contract ERC20Burnable is Context, ERC20 {
 
 // File: @openzeppelin/contracts/introspection/IERC165.sol
 
+
+
 pragma solidity ^0.7.0;
 
 /**
@@ -842,7 +840,11 @@ interface IERC165 {
 
 // File: erc-payable-token/contracts/token/ERC1363/IERC1363.sol
 
+
+
 pragma solidity ^0.7.0;
+
+
 
 /**
  * @title IERC1363 Interface
@@ -931,6 +933,8 @@ interface IERC1363 is IERC20, IERC165 {
 
 // File: erc-payable-token/contracts/token/ERC1363/IERC1363Receiver.sol
 
+
+
 pragma solidity ^0.7.0;
 
 /**
@@ -965,6 +969,8 @@ interface IERC1363Receiver {
 
 // File: erc-payable-token/contracts/token/ERC1363/IERC1363Spender.sol
 
+
+
 pragma solidity ^0.7.0;
 
 /**
@@ -997,6 +1003,8 @@ interface IERC1363Spender {
 }
 
 // File: @openzeppelin/contracts/introspection/ERC165Checker.sol
+
+
 
 pragma solidity ^0.7.0;
 
@@ -1105,7 +1113,10 @@ library ERC165Checker {
 
 // File: @openzeppelin/contracts/introspection/ERC165.sol
 
+
+
 pragma solidity ^0.7.0;
+
 
 /**
  * @dev Implementation of the {IERC165} interface.
@@ -1158,7 +1169,16 @@ contract ERC165 is IERC165 {
 
 // File: erc-payable-token/contracts/token/ERC1363/ERC1363.sol
 
+
+
 pragma solidity ^0.7.0;
+
+
+
+
+
+
+
 
 /**
  * @title ERC1363
@@ -1315,6 +1335,8 @@ contract ERC1363 is ERC20, IERC1363, ERC165 {
 
 // File: @openzeppelin/contracts/access/Ownable.sol
 
+
+
 pragma solidity ^0.7.0;
 
 /**
@@ -1383,7 +1405,11 @@ contract Ownable is Context {
 
 // File: eth-token-recover/contracts/TokenRecover.sol
 
+
+
 pragma solidity ^0.7.0;
+
+
 
 /**
  * @title TokenRecover
@@ -1403,6 +1429,8 @@ contract TokenRecover is Ownable {
 }
 
 // File: @openzeppelin/contracts/utils/EnumerableSet.sol
+
+
 
 pragma solidity ^0.7.0;
 
@@ -1648,7 +1676,12 @@ library EnumerableSet {
 
 // File: @openzeppelin/contracts/access/AccessControl.sol
 
+
+
 pragma solidity ^0.7.0;
+
+
+
 
 /**
  * @dev Contract module that allows children to implement role-based access
@@ -1862,7 +1895,10 @@ abstract contract AccessControl is Context {
 
 // File: @vittominacori/erc20-token/contracts/access/Roles.sol
 
+
+
 pragma solidity ^0.7.0;
+
 
 contract Roles is AccessControl {
 
@@ -1888,7 +1924,14 @@ contract Roles is AccessControl {
 
 // File: @vittominacori/erc20-token/contracts/ERC20Base.sol
 
+
+
 pragma solidity ^0.7.0;
+
+
+
+
+
 
 /**
  * @title ERC20Base
@@ -2043,29 +2086,21 @@ contract ERC20Base is ERC20Capped, ERC20Burnable, ERC1363, Roles, TokenRecover {
     }
 }
 
-// File: contracts/BaseToken.sol
+// File: contracts/utils/GeneratorCopyright.sol
 
-pragma solidity ^0.7.1;
+
+
+pragma solidity ^0.7.0;
 
 /**
- * @title BaseToken
- * @author Vittorio Minacori (https://github.com/vittominacori)
- * @dev Implementation of the BaseToken
+ * @title GeneratorCopyright
+ * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
+ * @dev Implementation of the GeneratorCopyright
  */
-contract BaseToken is ERC20Base {
+contract GeneratorCopyright {
 
   string private constant _GENERATOR = "https://vittominacori.github.io/erc20-generator";
   string private constant _VERSION = "v3.2.0";
-
-  constructor (
-    string memory name,
-    string memory symbol,
-    uint8 decimals,
-    uint256 cap,
-    uint256 initialSupply,
-    bool transferEnabled,
-    bool mintingFinished
-  ) ERC20Base(name, symbol, decimals, cap, initialSupply, transferEnabled, mintingFinished) {}
 
   /**
    * @dev Returns the token generator tool.
@@ -2080,4 +2115,30 @@ contract BaseToken is ERC20Base {
   function version() public pure returns (string memory) {
     return _VERSION;
   }
+}
+
+// File: contracts/token/BaseToken.sol
+
+
+
+pragma solidity ^0.7.0;
+
+
+
+/**
+ * @title BaseToken
+ * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
+ * @dev Implementation of the BaseToken
+ */
+contract BaseToken is ERC20Base, GeneratorCopyright  {
+
+  constructor (
+    string memory name,
+    string memory symbol,
+    uint8 decimals,
+    uint256 cap,
+    uint256 initialSupply,
+    bool transferEnabled,
+    bool mintingFinished
+  ) ERC20Base(name, symbol, decimals, cap, initialSupply, transferEnabled, mintingFinished) {}
 }

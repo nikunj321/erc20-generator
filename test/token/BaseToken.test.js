@@ -1,6 +1,7 @@
 const { BN, expectRevert } = require('@openzeppelin/test-helpers');
 
 const { shouldBehaveLikeERC20Base } = require('@vittominacori/erc20-token/test/token/ERC20/behaviours/ERC20Base.behaviour'); // eslint-disable-line max-len
+const { shouldBehaveLikeGeneratorCopyright } = require('../utils/GeneratorCopyright.behaviour');
 
 const BaseToken = artifacts.require('BaseToken');
 
@@ -10,11 +11,6 @@ contract('BaseToken', function ([owner, anotherAccount, minter, operator, recipi
   const _decimals = new BN(18);
   const _cap = new BN(200000000);
   const _initialSupply = new BN(100000000);
-
-  const _builtOn = {
-    generator: 'https://vittominacori.github.io/erc20-generator',
-    version: 'v3.2.0',
-  };
 
   context('creating valid token', function () {
     describe('as a ERC20Capped', function () {
@@ -195,17 +191,17 @@ contract('BaseToken', function ([owner, anotherAccount, minter, operator, recipi
       );
     });
 
-    it('should have a generator value', async function () {
-      _builtOn.generator.should.be.equal(await this.token.generator());
-    });
-
-    it('should have a version value', async function () {
-      _builtOn.version.should.be.equal(await this.token.version());
-    });
-
     shouldBehaveLikeERC20Base(
       [owner, anotherAccount, minter, operator, recipient, thirdParty],
       [_name, _symbol, _decimals, _cap, _initialSupply],
     );
+
+    context('like a GeneratorCopyright', function () {
+      beforeEach(async function () {
+        this.instance = this.token;
+      });
+
+      shouldBehaveLikeGeneratorCopyright();
+    });
   });
 });

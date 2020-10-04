@@ -5,7 +5,7 @@
 
 |  File Name  |  SHA-1 Hash  |
 |-------------|--------------|
-| dist/BaseToken.dist.sol | 9af4a518aa2e38eed36a6d855e16c64b1a27258b |
+| dist/BaseToken.dist.sol | f9016b14d57af70485aed69e1b69f3e8d9a7a601 |
 
 
 ### Contracts Description Table
@@ -168,10 +168,12 @@
 | └ | enableTransfer | Public ❗️ | 🛑  | onlyOwner |
 | └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
 ||||||
-| **BaseToken** | Implementation | ERC20Base |||
-| └ | <Constructor> | Public ❗️ | 🛑  | ERC20Base |
+| **GeneratorCopyright** | Implementation |  |||
 | └ | generator | Public ❗️ |   |NO❗️ |
 | └ | version | Public ❗️ |   |NO❗️ |
+||||||
+| **BaseToken** | Implementation | ERC20Base, GeneratorCopyright |||
+| └ | <Constructor> | Public ❗️ | 🛑  | ERC20Base |
 
 
 ### Legend
