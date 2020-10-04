@@ -2,7 +2,7 @@ function shouldBehaveLikeGeneratorCopyright () {
   describe('should have', function () {
     const _builtOn = {
       generator: 'https://vittominacori.github.io/erc20-generator',
-      version: 'v3.2.0',
+      version: 'v4.0.0-beta',
     };
 
     it('a generator value', async function () {

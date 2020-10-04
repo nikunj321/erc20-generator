@@ -734,7 +734,7 @@ pragma solidity ^0.7.0;
 contract GeneratorCopyright {
 
   string private constant _GENERATOR = "https://vittominacori.github.io/erc20-generator";
-  string private constant _VERSION = "v3.2.0";
+  string private constant _VERSION = "v4.0.0-beta";
 
   /**
    * @dev Returns the token generator tool.
