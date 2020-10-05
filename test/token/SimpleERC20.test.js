@@ -1,6 +1,7 @@
 const { BN, expectRevert } = require('@openzeppelin/test-helpers');
 
-const { shouldBehaveLikeERC20 } = require('@vittominacori/erc20-token/test/token/ERC20/behaviours/ERC20.behaviour'); // eslint-disable-line max-len
+const { shouldBehaveLikeERC20 } = require('@vittominacori/erc20-token/test/token/ERC20/behaviours/ERC20.behaviour');
+
 const { shouldBehaveLikeGeneratorCopyright } = require('../utils/GeneratorCopyright.behaviour');
 
 const SimpleERC20 = artifacts.require('SimpleERC20');
@@ -43,7 +44,7 @@ contract('SimpleERC20', function ([owner, recipient, thirdParty]) {
     });
   });
 
-  context('like a ERC20', function () {
+  context('like a SimpleERC20', function () {
     beforeEach(async function () {
       this.token = await SimpleERC20.new(
         _name,
@@ -53,9 +54,11 @@ contract('SimpleERC20', function ([owner, recipient, thirdParty]) {
       );
     });
 
-    shouldBehaveLikeERC20(
-      _name, _symbol, _decimals, [owner, recipient, thirdParty], _initialSupply,
-    );
+    context('like a ERC20', function () {
+      shouldBehaveLikeERC20(
+        _name, _symbol, _decimals, [owner, recipient, thirdParty], _initialSupply,
+      );
+    });
 
     context('like a GeneratorCopyright', function () {
       beforeEach(async function () {
