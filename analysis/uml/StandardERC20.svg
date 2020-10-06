@@ -142,13 +142,13 @@
 <!-- 5 -->
 <g id="node6" class="node">
 <title>5</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="257.9113,-.5 257.9113,-91.7 652.2333,-91.7 652.2333,-.5 257.9113,-.5"/>
+<polygon fill="#f2f2f2" stroke="#000000" points="211.4453,-.5 211.4453,-91.7 698.6993,-91.7 698.6993,-.5 211.4453,-.5"/>
 <text text-anchor="middle" x="455.0723" y="-75.1" font-family="Times,serif" font-size="14.00" fill="#000000">StandardERC20</text>
-<polyline fill="none" stroke="#000000" points="257.9113,-66.9 652.2333,-66.9 "/>
+<polyline fill="none" stroke="#000000" points="211.4453,-66.9 698.6993,-66.9 "/>
 <text text-anchor="middle" x="455.0723" y="-50.3" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="257.9113,-42.1 652.2333,-42.1 "/>
-<text text-anchor="start" x="265.9113" y="-25.5" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
-<text text-anchor="start" x="265.9113" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(name: string, symbol: string, initialBalance: uint256)</text>
+<polyline fill="none" stroke="#000000" points="211.4453,-42.1 698.6993,-42.1 "/>
+<text text-anchor="start" x="219.4453" y="-25.5" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
+<text text-anchor="start" x="219.4453" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(name: string, symbol: string, decimals: uint8, initialBalance: uint256)</text>
 </g>
 <!-- 5&#45;&gt;4 -->
 <g id="edge5" class="edge">

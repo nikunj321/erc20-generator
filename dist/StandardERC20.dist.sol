@@ -737,9 +737,12 @@ contract StandardERC20 is ERC20 {
     constructor (
         string memory name,
         string memory symbol,
+        uint8 decimals,
         uint256 initialBalance
     ) ERC20(name, symbol) {
         require(initialBalance > 0, "StandardERC20: supply cannot be zero");
+
+        _setupDecimals(decimals);
 
         _mint(_msgSender(), initialBalance);
     }

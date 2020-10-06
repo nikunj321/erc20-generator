@@ -7,14 +7,14 @@ const StandardERC20 = artifacts.require('StandardERC20');
 contract('StandardERC20', function ([owner, recipient, thirdParty]) {
   const _name = 'StandardERC20';
   const _symbol = 'ERC20';
-  const _decimals = new BN(18);
+  const _decimals = new BN(8);
   const _initialSupply = new BN(100000000);
 
   context('creating valid token', function () {
     describe('without initial supply', function () {
       it('should fail', async function () {
         await expectRevert(
-          StandardERC20.new(_name, _symbol, 0),
+          StandardERC20.new(_name, _symbol, _decimals, 0),
           'StandardERC20: supply cannot be zero',
         );
       });
@@ -25,6 +25,7 @@ contract('StandardERC20', function ([owner, recipient, thirdParty]) {
         this.token = await StandardERC20.new(
           _name,
           _symbol,
+          _decimals,
           _initialSupply,
           { from: owner },
         );
@@ -47,6 +48,7 @@ contract('StandardERC20', function ([owner, recipient, thirdParty]) {
       this.token = await StandardERC20.new(
         _name,
         _symbol,
+        _decimals,
         _initialSupply,
         { from: owner },
       );
