@@ -40,4 +40,4 @@ const App = {
   },
 };
 
-App.load(['SimpleERC20', 'MintableBurnableERC20']);
+App.load(['StandardERC20', 'CommonERC20']);

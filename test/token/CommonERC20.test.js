@@ -1,19 +1,17 @@
 const { BN, constants, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 const { ZERO_ADDRESS } = constants;
 
-const { shouldBehaveLikeERC20 } = require('@vittominacori/erc20-token/test/token/ERC20/behaviours/ERC20.behaviour');
-const { shouldBehaveLikeERC20Mintable } = require('@vittominacori/erc20-token/test/token/ERC20/behaviours/ERC20Mintable.behaviour'); // eslint-disable-line max-len
-const { shouldBehaveLikeERC20Capped } = require('@vittominacori/erc20-token/test/token/ERC20/behaviours/ERC20Capped.behaviour'); // eslint-disable-line max-len
-const { shouldBehaveLikeERC20Burnable } = require('@vittominacori/erc20-token/test/token/ERC20/behaviours/ERC20Burnable.behaviour'); // eslint-disable-line max-len
+const { shouldBehaveLikeERC20 } = require('./ERC20/behaviours/ERC20.behaviour');
+const { shouldBehaveLikeERC20Burnable } = require('./ERC20/behaviours/ERC20Burnable.behaviour');
+const { shouldBehaveLikeERC20Capped } = require('./ERC20/behaviours/ERC20Capped.behaviour');
+const { shouldBehaveLikeERC20Mintable } = require('./ERC20/behaviours/ERC20Mintable.behaviour');
 
-const { shouldBehaveLikeTokenRecover } = require('eth-token-recover/test/TokenRecover.behaviour');
+const { shouldBehaveLikeOwnable } = require('../access/Ownable.behavior');
 
-const { shouldBehaveLikeGeneratorCopyright } = require('../utils/GeneratorCopyright.behaviour');
+const CommonERC20 = artifacts.require('CommonERC20');
 
-const MintableBurnableERC20 = artifacts.require('MintableBurnableERC20');
-
-contract('MintableBurnableERC20', function ([owner, anotherAccount, recipient, thirdParty]) {
-  const _name = 'MintableBurnableERC20';
+contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]) {
+  const _name = 'CommonERC20';
   const _symbol = 'ERC20';
   const _decimals = new BN(8);
   const _cap = new BN(200000000);
@@ -23,7 +21,7 @@ contract('MintableBurnableERC20', function ([owner, anotherAccount, recipient, t
     describe('as a ERC20Capped', function () {
       it('requires a non-zero cap', async function () {
         await expectRevert(
-          MintableBurnableERC20.new(
+          CommonERC20.new(
             _name,
             _symbol,
             _decimals,
@@ -36,10 +34,10 @@ contract('MintableBurnableERC20', function ([owner, anotherAccount, recipient, t
       });
     });
 
-    describe('as a MintableBurnableERC20', function () {
+    describe('as a CommonERC20', function () {
       describe('without initial supply', function () {
         beforeEach(async function () {
-          this.token = await MintableBurnableERC20.new(
+          this.token = await CommonERC20.new(
             _name,
             _symbol,
             _decimals,
@@ -62,7 +60,7 @@ contract('MintableBurnableERC20', function ([owner, anotherAccount, recipient, t
 
       describe('with initial supply', function () {
         beforeEach(async function () {
-          this.token = await MintableBurnableERC20.new(
+          this.token = await CommonERC20.new(
             _name,
             _symbol,
             _decimals,
@@ -85,9 +83,9 @@ contract('MintableBurnableERC20', function ([owner, anotherAccount, recipient, t
     });
   });
 
-  context('like a MintableBurnableERC20', function () {
+  context('CommonERC20 token behaviours', function () {
     beforeEach(async function () {
-      this.token = await MintableBurnableERC20.new(
+      this.token = await CommonERC20.new(
         _name,
         _symbol,
         _decimals,
@@ -117,7 +115,7 @@ contract('MintableBurnableERC20', function ([owner, anotherAccount, recipient, t
       shouldBehaveLikeERC20Burnable(owner, _initialSupply, [owner]);
     });
 
-    context('MintableBurnableERC20 token behaviours', function () {
+    context('like a CommonERC20', function () {
       describe('mint', function () {
         const amount = new BN(100);
 
@@ -185,26 +183,18 @@ contract('MintableBurnableERC20', function ([owner, anotherAccount, recipient, t
         it('shouldn\'t mint more tokens', async function () {
           await expectRevert(
             this.token.mint(thirdParty, 1, { from: owner }),
-            'MintableBurnableERC20: minting is finished',
+            'CommonERC20: minting is finished',
           );
         });
       });
-
-      context('like a TokenRecover', function () {
-        beforeEach(async function () {
-          this.instance = this.token;
-        });
-
-        shouldBehaveLikeTokenRecover([owner, thirdParty]);
-      });
     });
 
-    context('like a GeneratorCopyright', function () {
+    context('like an Ownable', function () {
       beforeEach(async function () {
-        this.instance = this.token;
+        this.ownable = this.token;
       });
 
-      shouldBehaveLikeGeneratorCopyright();
+      shouldBehaveLikeOwnable(owner, [thirdParty]);
     });
   });
 });

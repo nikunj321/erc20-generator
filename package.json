@@ -1,7 +1,7 @@
 {
   "name": "erc20-generator",
   "version": "4.0.0-beta",
-  "description": "A simple Smart Contract generator for a Standard, Capped, Mintable, Burnable, Payable ERC20 Token.",
+  "description": "The most used Smart Contract Generator for ERC20 Token.",
   "files": [
     "contracts",
     "test"
@@ -77,6 +77,8 @@
     "truffle-flattener": "^1.5.0"
   },
   "dependencies": {
-    "@vittominacori/erc20-token": "1.2.2"
+    "@openzeppelin/contracts": "3.2.0-solc-0.7",
+    "erc-payable-token": "3.2.0",
+    "eth-token-recover": "3.2.0"
   }
 }

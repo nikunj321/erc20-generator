@@ -25,6 +25,76 @@ abstract contract Context {
     }
 }
 
+// File: @openzeppelin/contracts/access/Ownable.sol
+
+
+
+pragma solidity ^0.7.0;
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor () {
+        address msgSender = _msgSender();
+        _owner = msgSender;
+        emit OwnershipTransferred(address(0), msgSender);
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(_owner == _msgSender(), "Ownable: caller is not the owner");
+        _;
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        emit OwnershipTransferred(_owner, address(0));
+        _owner = address(0);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        emit OwnershipTransferred(_owner, newOwner);
+        _owner = newOwner;
+    }
+}
+
 // File: @openzeppelin/contracts/token/ERC20/IERC20.sol
 
 
@@ -720,38 +790,98 @@ contract ERC20 is Context, IERC20 {
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
 }
 
-// File: contracts/utils/GeneratorCopyright.sol
+// File: @openzeppelin/contracts/token/ERC20/ERC20Burnable.sol
 
 
 
 pragma solidity ^0.7.0;
 
+
+
 /**
- * @title GeneratorCopyright
- * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
- * @dev Implementation of the GeneratorCopyright
+ * @dev Extension of {ERC20} that allows token holders to destroy both their own
+ * tokens and those that they have an allowance for, in a way that can be
+ * recognized off-chain (via event analysis).
  */
-contract GeneratorCopyright {
+abstract contract ERC20Burnable is Context, ERC20 {
+    using SafeMath for uint256;
 
-  string private constant _GENERATOR = "https://vittominacori.github.io/erc20-generator";
-  string private constant _VERSION = "v4.0.0-beta";
+    /**
+     * @dev Destroys `amount` tokens from the caller.
+     *
+     * See {ERC20-_burn}.
+     */
+    function burn(uint256 amount) public virtual {
+        _burn(_msgSender(), amount);
+    }
 
-  /**
-   * @dev Returns the token generator tool.
-   */
-  function generator() public pure returns (string memory) {
-    return _GENERATOR;
-  }
+    /**
+     * @dev Destroys `amount` tokens from `account`, deducting from the caller's
+     * allowance.
+     *
+     * See {ERC20-_burn} and {ERC20-allowance}.
+     *
+     * Requirements:
+     *
+     * - the caller must have allowance for ``accounts``'s tokens of at least
+     * `amount`.
+     */
+    function burnFrom(address account, uint256 amount) public virtual {
+        uint256 decreasedAllowance = allowance(account, _msgSender()).sub(amount, "ERC20: burn amount exceeds allowance");
 
-  /**
-   * @dev Returns the token generator version.
-   */
-  function version() public pure returns (string memory) {
-    return _VERSION;
-  }
+        _approve(account, _msgSender(), decreasedAllowance);
+        _burn(account, amount);
+    }
 }
 
-// File: contracts/token/ERC20/SimpleERC20.sol
+// File: @openzeppelin/contracts/token/ERC20/ERC20Capped.sol
+
+
+
+pragma solidity ^0.7.0;
+
+
+/**
+ * @dev Extension of {ERC20} that adds a cap to the supply of tokens.
+ */
+abstract contract ERC20Capped is ERC20 {
+    using SafeMath for uint256;
+
+    uint256 private _cap;
+
+    /**
+     * @dev Sets the value of the `cap`. This value is immutable, it can only be
+     * set once during construction.
+     */
+    constructor (uint256 cap) {
+        require(cap > 0, "ERC20Capped: cap is 0");
+        _cap = cap;
+    }
+
+    /**
+     * @dev Returns the cap on the token's total supply.
+     */
+    function cap() public view returns (uint256) {
+        return _cap;
+    }
+
+    /**
+     * @dev See {ERC20-_beforeTokenTransfer}.
+     *
+     * Requirements:
+     *
+     * - minted tokens must not cause the total supply to go over the cap.
+     */
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override {
+        super._beforeTokenTransfer(from, to, amount);
+
+        if (from == address(0)) { // When minting tokens
+            require(totalSupply().add(amount) <= _cap, "ERC20Capped: cap exceeded");
+        }
+    }
+}
+
+// File: contracts/token/ERC20/CommonERC20.sol
 
 
 
@@ -759,20 +889,72 @@ pragma solidity ^0.7.0;
 
 
 
+
 /**
- * @title SimpleERC20
+ * @title CommonERC20
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
- * @dev Implementation of the SimpleERC20
+ * @dev Implementation of the CommonERC20
  */
-contract SimpleERC20 is ERC20, GeneratorCopyright {
+contract CommonERC20 is ERC20Capped, ERC20Burnable, Ownable {
+
+    // indicates if minting is finished
+    bool private _mintingFinished = false;
+
+    /**
+     * @dev Emitted during finish minting
+     */
+    event MintFinished();
+
+    /**
+     * @dev Tokens can be minted only before minting finished.
+     */
+    modifier canMint() {
+        require(!_mintingFinished, "CommonERC20: minting is finished");
+        _;
+    }
 
     constructor (
         string memory name,
         string memory symbol,
+        uint8 decimals,
+        uint256 cap,
         uint256 initialBalance
-    ) ERC20(name, symbol) {
-        require(initialBalance > 0, "SimpleERC20: supply cannot be zero");
+    ) ERC20(name, symbol) ERC20Capped(cap) {
+        _setupDecimals(decimals);
 
         _mint(_msgSender(), initialBalance);
+    }
+
+
+    /**
+     * @return if minting is finished or not.
+     */
+    function mintingFinished() public view returns (bool) {
+        return _mintingFinished;
+    }
+
+    /**
+     * @dev Function to mint tokens.
+     * @param to The address that will receive the minted tokens
+     * @param value The amount of tokens to mint
+     */
+    function mint(address to, uint256 value) public canMint onlyOwner {
+        _mint(to, value);
+    }
+
+    /**
+     * @dev Function to stop minting new tokens.
+     */
+    function finishMinting() public canMint onlyOwner {
+        _mintingFinished = true;
+
+        emit MintFinished();
+    }
+
+    /**
+     * @dev See {ERC20-_beforeTokenTransfer}.
+     */
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override(ERC20, ERC20Capped) {
+        super._beforeTokenTransfer(from, to, amount);
     }
 }

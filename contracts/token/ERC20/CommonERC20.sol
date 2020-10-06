@@ -2,18 +2,16 @@
 
 pragma solidity ^0.7.0;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20Capped.sol";
-import "eth-token-recover/contracts/TokenRecover.sol";
-
-import "../utils/GeneratorCopyright.sol";
 
 /**
- * @title MintableBurnableERC20
+ * @title CommonERC20
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
- * @dev Implementation of the MintableBurnableERC20
+ * @dev Implementation of the CommonERC20
  */
-contract MintableBurnableERC20 is ERC20Capped, ERC20Burnable, TokenRecover, GeneratorCopyright {
+contract CommonERC20 is ERC20Capped, ERC20Burnable, Ownable {
 
     // indicates if minting is finished
     bool private _mintingFinished = false;
@@ -27,7 +25,7 @@ contract MintableBurnableERC20 is ERC20Capped, ERC20Burnable, TokenRecover, Gene
      * @dev Tokens can be minted only before minting finished.
      */
     modifier canMint() {
-        require(!_mintingFinished, "MintableBurnableERC20: minting is finished");
+        require(!_mintingFinished, "CommonERC20: minting is finished");
         _;
     }
 

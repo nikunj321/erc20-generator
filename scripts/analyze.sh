@@ -2,7 +2,7 @@
 
 npm run flat
 
-for contract in "SimpleERC20" "MintableBurnableERC20"
+for contract in "SimpleERC20" "StandardERC20" "CommonERC20"
 do
   surya inheritance dist/$contract.dist.sol | dot -Tpng > analysis/inheritance-tree/$contract.png
 

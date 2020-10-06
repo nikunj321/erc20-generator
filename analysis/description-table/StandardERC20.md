@@ -5,7 +5,7 @@
 
 |  File Name  |  SHA-1 Hash  |
 |-------------|--------------|
-| dist/MintableBurnableERC20.dist.sol | bbc2d6fe5dc830d5d909c0269f152c0dfdc5935b |
+| dist/StandardERC20.dist.sol | 49cde6e1bd3fddcb6d1759e542556b3d149f8e60 |
 
 
 ### Contracts Description Table
@@ -66,34 +66,8 @@
 | └ | _setupDecimals | Internal 🔒 | 🛑  | |
 | └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
 ||||||
-| **ERC20Burnable** | Implementation | Context, ERC20 |||
-| └ | burn | Public ❗️ | 🛑  |NO❗️ |
-| └ | burnFrom | Public ❗️ | 🛑  |NO❗️ |
-||||||
-| **ERC20Capped** | Implementation | ERC20 |||
-| └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
-| └ | cap | Public ❗️ |   |NO❗️ |
-| └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
-||||||
-| **Ownable** | Implementation | Context |||
-| └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
-| └ | owner | Public ❗️ |   |NO❗️ |
-| └ | renounceOwnership | Public ❗️ | 🛑  | onlyOwner |
-| └ | transferOwnership | Public ❗️ | 🛑  | onlyOwner |
-||||||
-| **TokenRecover** | Implementation | Ownable |||
-| └ | recoverERC20 | Public ❗️ | 🛑  | onlyOwner |
-||||||
-| **GeneratorCopyright** | Implementation |  |||
-| └ | generator | Public ❗️ |   |NO❗️ |
-| └ | version | Public ❗️ |   |NO❗️ |
-||||||
-| **MintableBurnableERC20** | Implementation | ERC20Capped, ERC20Burnable, TokenRecover, GeneratorCopyright |||
-| └ | <Constructor> | Public ❗️ | 🛑  | ERC20 ERC20Capped |
-| └ | mintingFinished | Public ❗️ |   |NO❗️ |
-| └ | mint | Public ❗️ | 🛑  | canMint onlyOwner |
-| └ | finishMinting | Public ❗️ | 🛑  | canMint onlyOwner |
-| └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
+| **StandardERC20** | Implementation | ERC20 |||
+| └ | <Constructor> | Public ❗️ | 🛑  | ERC20 |
 
 
 ### Legend

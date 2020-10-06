@@ -5,7 +5,7 @@
 
 |  File Name  |  SHA-1 Hash  |
 |-------------|--------------|
-| dist/SimpleERC20.dist.sol | fd0299128c18a4c07b07a79677791a519315e8f3 |
+| dist/CommonERC20.dist.sol | f562bfdbb3d2758b0e9f2b25436628d26ca010ec |
 
 
 ### Contracts Description Table
@@ -18,6 +18,12 @@
 | **Context** | Implementation |  |||
 | └ | _msgSender | Internal 🔒 |   | |
 | └ | _msgData | Internal 🔒 |   | |
+||||||
+| **Ownable** | Implementation | Context |||
+| └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
+| └ | owner | Public ❗️ |   |NO❗️ |
+| └ | renounceOwnership | Public ❗️ | 🛑  | onlyOwner |
+| └ | transferOwnership | Public ❗️ | 🛑  | onlyOwner |
 ||||||
 | **IERC20** | Interface |  |||
 | └ | totalSupply | External ❗️ |   |NO❗️ |
@@ -66,12 +72,21 @@
 | └ | _setupDecimals | Internal 🔒 | 🛑  | |
 | └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
 ||||||
-| **GeneratorCopyright** | Implementation |  |||
-| └ | generator | Public ❗️ |   |NO❗️ |
-| └ | version | Public ❗️ |   |NO❗️ |
+| **ERC20Burnable** | Implementation | Context, ERC20 |||
+| └ | burn | Public ❗️ | 🛑  |NO❗️ |
+| └ | burnFrom | Public ❗️ | 🛑  |NO❗️ |
 ||||||
-| **SimpleERC20** | Implementation | ERC20, GeneratorCopyright |||
-| └ | <Constructor> | Public ❗️ | 🛑  | ERC20 |
+| **ERC20Capped** | Implementation | ERC20 |||
+| └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
+| └ | cap | Public ❗️ |   |NO❗️ |
+| └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
+||||||
+| **CommonERC20** | Implementation | ERC20Capped, ERC20Burnable, Ownable |||
+| └ | <Constructor> | Public ❗️ | 🛑  | ERC20 ERC20Capped |
+| └ | mintingFinished | Public ❗️ |   |NO❗️ |
+| └ | mint | Public ❗️ | 🛑  | canMint onlyOwner |
+| └ | finishMinting | Public ❗️ | 🛑  | canMint onlyOwner |
+| └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
 
 
 ### Legend

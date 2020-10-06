@@ -130,51 +130,31 @@
 <!-- 4&#45;&gt;2 -->
 <g id="edge3" class="edge">
 <title>4&#45;&gt;2</title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M672.8418,-615.6854C675.5906,-618.3486 678.3348,-620.9878 681.0723,-623.6 694.4095,-636.3265 708.6274,-649.2274 723.0537,-661.885"/>
-<polygon fill="#000000" stroke="#000000" points="720.7767,-664.5433 730.6132,-668.4797 725.3784,-659.2684 720.7767,-664.5433"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M672.8191,-588.0985C698.5626,-613.186 724.1065,-638.079 747.8689,-661.2359"/>
+<polygon fill="#000000" stroke="#000000" points="745.58,-663.8924 755.1845,-668.3651 750.4655,-658.8792 745.58,-663.8924"/>
 </g>
 <!-- 4&#45;&gt;3 -->
 <g id="edge4" class="edge">
 <title>4&#45;&gt;3</title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M672.921,-619.3625C675.6207,-620.8215 678.338,-622.2348 681.0723,-623.6 832.06,-698.9837 894.9972,-620.1113 1059.0723,-659.6 1066.899,-661.4837 1074.7908,-663.5269 1082.7168,-665.7064"/>
-<polygon fill="#000000" stroke="#000000" points="1081.8256,-669.0914 1092.3998,-668.4309 1083.7216,-662.3531 1081.8256,-669.0914"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M672.7006,-472.7458C801.8434,-530.215 966.4459,-603.4641 1102.8637,-664.1707"/>
+<polygon fill="#000000" stroke="#000000" points="1101.6625,-667.467 1112.2217,-668.3351 1104.5085,-661.0717 1101.6625,-667.467"/>
 </g>
 <!-- 5 -->
 <g id="node6" class="node">
 <title>5</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="690.3051,-305.1 690.3051,-446.7 847.8395,-446.7 847.8395,-305.1 690.3051,-305.1"/>
-<text text-anchor="middle" x="769.0723" y="-430.1" font-family="Times,serif" font-size="14.00" fill="#000000">GeneratorCopyright</text>
-<polyline fill="none" stroke="#000000" points="690.3051,-421.9 847.8395,-421.9 "/>
-<text text-anchor="start" x="698.3051" y="-405.3" font-family="Times,serif" font-size="14.00" fill="#000000">Private:</text>
-<text text-anchor="start" x="698.3051" y="-388.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;_GENERATOR: string</text>
-<text text-anchor="start" x="698.3051" y="-371.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;_VERSION: string</text>
-<polyline fill="none" stroke="#000000" points="690.3051,-363.5 847.8395,-363.5 "/>
-<text text-anchor="start" x="698.3051" y="-346.9" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
-<text text-anchor="start" x="698.3051" y="-330.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;generator(): string</text>
-<text text-anchor="start" x="698.3051" y="-313.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;version(): string</text>
+<polygon fill="#f2f2f2" stroke="#000000" points="257.9113,-.5 257.9113,-91.7 652.2333,-91.7 652.2333,-.5 257.9113,-.5"/>
+<text text-anchor="middle" x="455.0723" y="-75.1" font-family="Times,serif" font-size="14.00" fill="#000000">StandardERC20</text>
+<polyline fill="none" stroke="#000000" points="257.9113,-66.9 652.2333,-66.9 "/>
+<text text-anchor="middle" x="455.0723" y="-50.3" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="257.9113,-42.1 652.2333,-42.1 "/>
+<text text-anchor="start" x="265.9113" y="-25.5" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
+<text text-anchor="start" x="265.9113" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(name: string, symbol: string, initialBalance: uint256)</text>
 </g>
-<!-- 6 -->
-<g id="node7" class="node">
-<title>6</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="414.9113,-.5 414.9113,-91.7 809.2333,-91.7 809.2333,-.5 414.9113,-.5"/>
-<text text-anchor="middle" x="612.0723" y="-75.1" font-family="Times,serif" font-size="14.00" fill="#000000">SimpleERC20</text>
-<polyline fill="none" stroke="#000000" points="414.9113,-66.9 809.2333,-66.9 "/>
-<text text-anchor="middle" x="612.0723" y="-50.3" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="414.9113,-42.1 809.2333,-42.1 "/>
-<text text-anchor="start" x="422.9113" y="-25.5" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
-<text text-anchor="start" x="422.9113" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(name: string, symbol: string, initialBalance: uint256)</text>
-</g>
-<!-- 6&#45;&gt;4 -->
+<!-- 5&#45;&gt;4 -->
 <g id="edge5" class="edge">
-<title>6&#45;&gt;4</title>
-<path fill="none" stroke="#000000" d="M590.2421,-91.9573C588.8252,-94.9337 587.3556,-98.0208 585.8382,-101.2083"/>
-<polygon fill="none" stroke="#000000" points="576.2391,-96.9442 572.8248,-128.5447 595.2003,-105.9706 576.2391,-96.9442"/>
-</g>
-<!-- 6&#45;&gt;5 -->
-<g id="edge6" class="edge">
-<title>6&#45;&gt;5</title>
-<path fill="none" stroke="#000000" d="M656.3375,-92.0473C665.6845,-103.288 674.8822,-115.6971 682.0723,-128.2 708.4628,-174.0904 728.8147,-229.3262 743.1753,-275.9817"/>
-<polygon fill="none" stroke="#000000" points="733.1249,-279.0229 751.6482,-304.852 753.2751,-273.1092 733.1249,-279.0229"/>
+<title>5&#45;&gt;4</title>
+<path fill="none" stroke="#000000" d="M455.0723,-91.9573C455.0723,-94.0833 455.0723,-96.2658 455.0723,-98.501"/>
+<polygon fill="none" stroke="#000000" points="444.5724,-98.5447 455.0723,-128.5447 465.5724,-98.5448 444.5724,-98.5447"/>
 </g>
 </g>
 </svg>
