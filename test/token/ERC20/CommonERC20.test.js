@@ -1,12 +1,12 @@
 const { BN, constants, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 const { ZERO_ADDRESS } = constants;
 
-const { shouldBehaveLikeERC20 } = require('./ERC20/behaviours/ERC20.behaviour');
-const { shouldBehaveLikeERC20Burnable } = require('./ERC20/behaviours/ERC20Burnable.behaviour');
-const { shouldBehaveLikeERC20Capped } = require('./ERC20/behaviours/ERC20Capped.behaviour');
-const { shouldBehaveLikeERC20Mintable } = require('./ERC20/behaviours/ERC20Mintable.behaviour');
+const { shouldBehaveLikeOwnable } = require('eth-token-recover/test/access/Ownable.behavior');
 
-const { shouldBehaveLikeOwnable } = require('../access/Ownable.behavior');
+const { shouldBehaveLikeERC20 } = require('./behaviours/ERC20.behaviour');
+const { shouldBehaveLikeERC20Burnable } = require('./behaviours/ERC20Burnable.behaviour');
+const { shouldBehaveLikeERC20Capped } = require('./behaviours/ERC20Capped.behaviour');
+const { shouldBehaveLikeERC20Mintable } = require('./behaviours/ERC20Mintable.behaviour');
 
 const CommonERC20 = artifacts.require('CommonERC20');
 

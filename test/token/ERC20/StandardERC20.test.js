@@ -1,6 +1,6 @@
 const { BN, expectRevert } = require('@openzeppelin/test-helpers');
 
-const { shouldBehaveLikeERC20 } = require('./ERC20/behaviours/ERC20.behaviour');
+const { shouldBehaveLikeERC20 } = require('./behaviours/ERC20.behaviour');
 
 const StandardERC20 = artifacts.require('StandardERC20');
 
