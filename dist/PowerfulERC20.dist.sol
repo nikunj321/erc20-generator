@@ -811,6 +811,528 @@ abstract contract ERC20Capped is ERC20 {
     }
 }
 
+// File: @openzeppelin/contracts/introspection/IERC165.sol
+
+
+
+pragma solidity ^0.7.0;
+
+/**
+ * @dev Interface of the ERC165 standard, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-165[EIP].
+ *
+ * Implementers can declare support of contract interfaces, which can then be
+ * queried by others ({ERC165Checker}).
+ *
+ * For an implementation, see {ERC165}.
+ */
+interface IERC165 {
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+}
+
+// File: erc-payable-token/contracts/token/ERC1363/IERC1363.sol
+
+
+
+pragma solidity ^0.7.0;
+
+
+
+/**
+ * @title IERC1363 Interface
+ * @author Vittorio Minacori (https://github.com/vittominacori)
+ * @dev Interface for a Payable Token contract as defined in
+ *  https://eips.ethereum.org/EIPS/eip-1363
+ */
+interface IERC1363 is IERC20, IERC165 {
+    /*
+     * Note: the ERC-165 identifier for this interface is 0x4bbee2df.
+     * 0x4bbee2df ===
+     *   bytes4(keccak256('transferAndCall(address,uint256)')) ^
+     *   bytes4(keccak256('transferAndCall(address,uint256,bytes)')) ^
+     *   bytes4(keccak256('transferFromAndCall(address,address,uint256)')) ^
+     *   bytes4(keccak256('transferFromAndCall(address,address,uint256,bytes)'))
+     */
+
+    /*
+     * Note: the ERC-165 identifier for this interface is 0xfb9ec8ce.
+     * 0xfb9ec8ce ===
+     *   bytes4(keccak256('approveAndCall(address,uint256)')) ^
+     *   bytes4(keccak256('approveAndCall(address,uint256,bytes)'))
+     */
+
+    /**
+     * @notice Transfer tokens from `msg.sender` to another address and then call `onTransferReceived` on receiver
+     * @param to address The address which you want to transfer to
+     * @param value uint256 The amount of tokens to be transferred
+     * @return true unless throwing
+     */
+    function transferAndCall(address to, uint256 value) external returns (bool);
+
+    /**
+     * @notice Transfer tokens from `msg.sender` to another address and then call `onTransferReceived` on receiver
+     * @param to address The address which you want to transfer to
+     * @param value uint256 The amount of tokens to be transferred
+     * @param data bytes Additional data with no specified format, sent in call to `to`
+     * @return true unless throwing
+     */
+    function transferAndCall(address to, uint256 value, bytes calldata data) external returns (bool);
+
+    /**
+     * @notice Transfer tokens from one address to another and then call `onTransferReceived` on receiver
+     * @param from address The address which you want to send tokens from
+     * @param to address The address which you want to transfer to
+     * @param value uint256 The amount of tokens to be transferred
+     * @return true unless throwing
+     */
+    function transferFromAndCall(address from, address to, uint256 value) external returns (bool);
+
+    /**
+     * @notice Transfer tokens from one address to another and then call `onTransferReceived` on receiver
+     * @param from address The address which you want to send tokens from
+     * @param to address The address which you want to transfer to
+     * @param value uint256 The amount of tokens to be transferred
+     * @param data bytes Additional data with no specified format, sent in call to `to`
+     * @return true unless throwing
+     */
+    function transferFromAndCall(address from, address to, uint256 value, bytes calldata data) external returns (bool);
+
+    /**
+     * @notice Approve the passed address to spend the specified amount of tokens on behalf of msg.sender
+     * and then call `onApprovalReceived` on spender.
+     * Beware that changing an allowance with this method brings the risk that someone may use both the old
+     * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     * @param spender address The address which will spend the funds
+     * @param value uint256 The amount of tokens to be spent
+     */
+    function approveAndCall(address spender, uint256 value) external returns (bool);
+
+    /**
+     * @notice Approve the passed address to spend the specified amount of tokens on behalf of msg.sender
+     * and then call `onApprovalReceived` on spender.
+     * Beware that changing an allowance with this method brings the risk that someone may use both the old
+     * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     * @param spender address The address which will spend the funds
+     * @param value uint256 The amount of tokens to be spent
+     * @param data bytes Additional data with no specified format, sent in call to `spender`
+     */
+    function approveAndCall(address spender, uint256 value, bytes calldata data) external returns (bool);
+}
+
+// File: erc-payable-token/contracts/token/ERC1363/IERC1363Receiver.sol
+
+
+
+pragma solidity ^0.7.0;
+
+/**
+ * @title IERC1363Receiver Interface
+ * @author Vittorio Minacori (https://github.com/vittominacori)
+ * @dev Interface for any contract that wants to support transferAndCall or transferFromAndCall
+ *  from ERC1363 token contracts as defined in
+ *  https://eips.ethereum.org/EIPS/eip-1363
+ */
+interface IERC1363Receiver {
+    /*
+     * Note: the ERC-165 identifier for this interface is 0x88a7ca5c.
+     * 0x88a7ca5c === bytes4(keccak256("onTransferReceived(address,address,uint256,bytes)"))
+     */
+
+    /**
+     * @notice Handle the receipt of ERC1363 tokens
+     * @dev Any ERC1363 smart contract calls this function on the recipient
+     * after a `transfer` or a `transferFrom`. This function MAY throw to revert and reject the
+     * transfer. Return of other than the magic value MUST result in the
+     * transaction being reverted.
+     * Note: the token contract address is always the message sender.
+     * @param operator address The address which called `transferAndCall` or `transferFromAndCall` function
+     * @param from address The address which are token transferred from
+     * @param value uint256 The amount of tokens transferred
+     * @param data bytes Additional data with no specified format
+     * @return `bytes4(keccak256("onTransferReceived(address,address,uint256,bytes)"))`
+     *  unless throwing
+     */
+    function onTransferReceived(address operator, address from, uint256 value, bytes calldata data) external returns (bytes4); // solhint-disable-line  max-line-length
+}
+
+// File: erc-payable-token/contracts/token/ERC1363/IERC1363Spender.sol
+
+
+
+pragma solidity ^0.7.0;
+
+/**
+ * @title IERC1363Spender Interface
+ * @author Vittorio Minacori (https://github.com/vittominacori)
+ * @dev Interface for any contract that wants to support approveAndCall
+ *  from ERC1363 token contracts as defined in
+ *  https://eips.ethereum.org/EIPS/eip-1363
+ */
+interface IERC1363Spender {
+    /*
+     * Note: the ERC-165 identifier for this interface is 0x7b04a2d0.
+     * 0x7b04a2d0 === bytes4(keccak256("onApprovalReceived(address,uint256,bytes)"))
+     */
+
+    /**
+     * @notice Handle the approval of ERC1363 tokens
+     * @dev Any ERC1363 smart contract calls this function on the recipient
+     * after an `approve`. This function MAY throw to revert and reject the
+     * approval. Return of other than the magic value MUST result in the
+     * transaction being reverted.
+     * Note: the token contract address is always the message sender.
+     * @param owner address The address which called `approveAndCall` function
+     * @param value uint256 The amount of tokens to be spent
+     * @param data bytes Additional data with no specified format
+     * @return `bytes4(keccak256("onApprovalReceived(address,uint256,bytes)"))`
+     *  unless throwing
+     */
+    function onApprovalReceived(address owner, uint256 value, bytes calldata data) external returns (bytes4);
+}
+
+// File: @openzeppelin/contracts/introspection/ERC165Checker.sol
+
+
+
+pragma solidity ^0.7.0;
+
+/**
+ * @dev Library used to query support of an interface declared via {IERC165}.
+ *
+ * Note that these functions return the actual result of the query: they do not
+ * `revert` if an interface is not supported. It is up to the caller to decide
+ * what to do in these cases.
+ */
+library ERC165Checker {
+    // As per the EIP-165 spec, no interface should ever match 0xffffffff
+    bytes4 private constant _INTERFACE_ID_INVALID = 0xffffffff;
+
+    /*
+     * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
+     */
+    bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
+
+    /**
+     * @dev Returns true if `account` supports the {IERC165} interface,
+     */
+    function supportsERC165(address account) internal view returns (bool) {
+        // Any contract that implements ERC165 must explicitly indicate support of
+        // InterfaceId_ERC165 and explicitly indicate non-support of InterfaceId_Invalid
+        return _supportsERC165Interface(account, _INTERFACE_ID_ERC165) &&
+            !_supportsERC165Interface(account, _INTERFACE_ID_INVALID);
+    }
+
+    /**
+     * @dev Returns true if `account` supports the interface defined by
+     * `interfaceId`. Support for {IERC165} itself is queried automatically.
+     *
+     * See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(address account, bytes4 interfaceId) internal view returns (bool) {
+        // query support of both ERC165 as per the spec and support of _interfaceId
+        return supportsERC165(account) &&
+            _supportsERC165Interface(account, interfaceId);
+    }
+
+    /**
+     * @dev Returns true if `account` supports all the interfaces defined in
+     * `interfaceIds`. Support for {IERC165} itself is queried automatically.
+     *
+     * Batch-querying can lead to gas savings by skipping repeated checks for
+     * {IERC165} support.
+     *
+     * See {IERC165-supportsInterface}.
+     */
+    function supportsAllInterfaces(address account, bytes4[] memory interfaceIds) internal view returns (bool) {
+        // query support of ERC165 itself
+        if (!supportsERC165(account)) {
+            return false;
+        }
+
+        // query support of each interface in _interfaceIds
+        for (uint256 i = 0; i < interfaceIds.length; i++) {
+            if (!_supportsERC165Interface(account, interfaceIds[i])) {
+                return false;
+            }
+        }
+
+        // all interfaces supported
+        return true;
+    }
+
+    /**
+     * @notice Query if a contract implements an interface, does not check ERC165 support
+     * @param account The address of the contract to query for support of an interface
+     * @param interfaceId The interface identifier, as specified in ERC-165
+     * @return true if the contract at account indicates support of the interface with
+     * identifier interfaceId, false otherwise
+     * @dev Assumes that account contains a contract that supports ERC165, otherwise
+     * the behavior of this method is undefined. This precondition can be checked
+     * with {supportsERC165}.
+     * Interface identification is specified in ERC-165.
+     */
+    function _supportsERC165Interface(address account, bytes4 interfaceId) private view returns (bool) {
+        // success determines whether the staticcall succeeded and result determines
+        // whether the contract at account indicates support of _interfaceId
+        (bool success, bool result) = _callERC165SupportsInterface(account, interfaceId);
+
+        return (success && result);
+    }
+
+    /**
+     * @notice Calls the function with selector 0x01ffc9a7 (ERC165) and suppresses throw
+     * @param account The address of the contract to query for support of an interface
+     * @param interfaceId The interface identifier, as specified in ERC-165
+     * @return success true if the STATICCALL succeeded, false otherwise
+     * @return result true if the STATICCALL succeeded and the contract at account
+     * indicates support of the interface with identifier interfaceId, false otherwise
+     */
+    function _callERC165SupportsInterface(address account, bytes4 interfaceId)
+        private
+        view
+        returns (bool, bool)
+    {
+        bytes memory encodedParams = abi.encodeWithSelector(_INTERFACE_ID_ERC165, interfaceId);
+        (bool success, bytes memory result) = account.staticcall{ gas: 30000 }(encodedParams);
+        if (result.length < 32) return (false, false);
+        return (success, abi.decode(result, (bool)));
+    }
+}
+
+// File: @openzeppelin/contracts/introspection/ERC165.sol
+
+
+
+pragma solidity ^0.7.0;
+
+
+/**
+ * @dev Implementation of the {IERC165} interface.
+ *
+ * Contracts may inherit from this and call {_registerInterface} to declare
+ * their support of an interface.
+ */
+contract ERC165 is IERC165 {
+    /*
+     * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
+     */
+    bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
+
+    /**
+     * @dev Mapping of interface ids to whether or not it's supported.
+     */
+    mapping(bytes4 => bool) private _supportedInterfaces;
+
+    constructor () {
+        // Derived contracts need only register support for their own interfaces,
+        // we register support for ERC165 itself here
+        _registerInterface(_INTERFACE_ID_ERC165);
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     *
+     * Time complexity O(1), guaranteed to always use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) public view override returns (bool) {
+        return _supportedInterfaces[interfaceId];
+    }
+
+    /**
+     * @dev Registers the contract as an implementer of the interface defined by
+     * `interfaceId`. Support of the actual ERC165 interface is automatic and
+     * registering its interface id is not required.
+     *
+     * See {IERC165-supportsInterface}.
+     *
+     * Requirements:
+     *
+     * - `interfaceId` cannot be the ERC165 invalid interface (`0xffffffff`).
+     */
+    function _registerInterface(bytes4 interfaceId) internal virtual {
+        require(interfaceId != 0xffffffff, "ERC165: invalid interface id");
+        _supportedInterfaces[interfaceId] = true;
+    }
+}
+
+// File: erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+
+
+
+pragma solidity ^0.7.0;
+
+
+
+
+
+
+
+
+/**
+ * @title ERC1363
+ * @author Vittorio Minacori (https://github.com/vittominacori)
+ * @dev Implementation of an ERC1363 interface
+ */
+contract ERC1363 is ERC20, IERC1363, ERC165 {
+    using Address for address;
+
+    /*
+     * Note: the ERC-165 identifier for this interface is 0x4bbee2df.
+     * 0x4bbee2df ===
+     *   bytes4(keccak256('transferAndCall(address,uint256)')) ^
+     *   bytes4(keccak256('transferAndCall(address,uint256,bytes)')) ^
+     *   bytes4(keccak256('transferFromAndCall(address,address,uint256)')) ^
+     *   bytes4(keccak256('transferFromAndCall(address,address,uint256,bytes)'))
+     */
+    bytes4 internal constant _INTERFACE_ID_ERC1363_TRANSFER = 0x4bbee2df;
+
+    /*
+     * Note: the ERC-165 identifier for this interface is 0xfb9ec8ce.
+     * 0xfb9ec8ce ===
+     *   bytes4(keccak256('approveAndCall(address,uint256)')) ^
+     *   bytes4(keccak256('approveAndCall(address,uint256,bytes)'))
+     */
+    bytes4 internal constant _INTERFACE_ID_ERC1363_APPROVE = 0xfb9ec8ce;
+
+    // Equals to `bytes4(keccak256("onTransferReceived(address,address,uint256,bytes)"))`
+    // which can be also obtained as `IERC1363Receiver(0).onTransferReceived.selector`
+    bytes4 private constant _ERC1363_RECEIVED = 0x88a7ca5c;
+
+    // Equals to `bytes4(keccak256("onApprovalReceived(address,uint256,bytes)"))`
+    // which can be also obtained as `IERC1363Spender(0).onApprovalReceived.selector`
+    bytes4 private constant _ERC1363_APPROVED = 0x7b04a2d0;
+
+    /**
+     * @param name Name of the token
+     * @param symbol A symbol to be used as ticker
+     */
+    constructor (string memory name, string memory symbol) ERC20(name, symbol) {
+        // register the supported interfaces to conform to ERC1363 via ERC165
+        _registerInterface(_INTERFACE_ID_ERC1363_TRANSFER);
+        _registerInterface(_INTERFACE_ID_ERC1363_APPROVE);
+    }
+
+    /**
+     * @dev Transfer tokens to a specified address and then execute a callback on recipient.
+     * @param to The address to transfer to.
+     * @param value The amount to be transferred.
+     * @return A boolean that indicates if the operation was successful.
+     */
+    function transferAndCall(address to, uint256 value) public override returns (bool) {
+        return transferAndCall(to, value, "");
+    }
+
+    /**
+     * @dev Transfer tokens to a specified address and then execute a callback on recipient.
+     * @param to The address to transfer to
+     * @param value The amount to be transferred
+     * @param data Additional data with no specified format
+     * @return A boolean that indicates if the operation was successful.
+     */
+    function transferAndCall(address to, uint256 value, bytes memory data) public override returns (bool) {
+        transfer(to, value);
+        require(_checkAndCallTransfer(_msgSender(), to, value, data), "ERC1363: _checkAndCallTransfer reverts");
+        return true;
+    }
+
+    /**
+     * @dev Transfer tokens from one address to another and then execute a callback on recipient.
+     * @param from The address which you want to send tokens from
+     * @param to The address which you want to transfer to
+     * @param value The amount of tokens to be transferred
+     * @return A boolean that indicates if the operation was successful.
+     */
+    function transferFromAndCall(address from, address to, uint256 value) public override returns (bool) {
+        return transferFromAndCall(from, to, value, "");
+    }
+
+    /**
+     * @dev Transfer tokens from one address to another and then execute a callback on recipient.
+     * @param from The address which you want to send tokens from
+     * @param to The address which you want to transfer to
+     * @param value The amount of tokens to be transferred
+     * @param data Additional data with no specified format
+     * @return A boolean that indicates if the operation was successful.
+     */
+    function transferFromAndCall(address from, address to, uint256 value, bytes memory data) public override returns (bool) {
+        transferFrom(from, to, value);
+        require(_checkAndCallTransfer(from, to, value, data), "ERC1363: _checkAndCallTransfer reverts");
+        return true;
+    }
+
+    /**
+     * @dev Approve spender to transfer tokens and then execute a callback on recipient.
+     * @param spender The address allowed to transfer to
+     * @param value The amount allowed to be transferred
+     * @return A boolean that indicates if the operation was successful.
+     */
+    function approveAndCall(address spender, uint256 value) public override returns (bool) {
+        return approveAndCall(spender, value, "");
+    }
+
+    /**
+     * @dev Approve spender to transfer tokens and then execute a callback on recipient.
+     * @param spender The address allowed to transfer to.
+     * @param value The amount allowed to be transferred.
+     * @param data Additional data with no specified format.
+     * @return A boolean that indicates if the operation was successful.
+     */
+    function approveAndCall(address spender, uint256 value, bytes memory data) public override returns (bool) {
+        approve(spender, value);
+        require(_checkAndCallApprove(spender, value, data), "ERC1363: _checkAndCallApprove reverts");
+        return true;
+    }
+
+    /**
+     * @dev Internal function to invoke `onTransferReceived` on a target address
+     *  The call is not executed if the target address is not a contract
+     * @param from address Representing the previous owner of the given token value
+     * @param to address Target address that will receive the tokens
+     * @param value uint256 The amount mount of tokens to be transferred
+     * @param data bytes Optional data to send along with the call
+     * @return whether the call correctly returned the expected magic value
+     */
+    function _checkAndCallTransfer(address from, address to, uint256 value, bytes memory data) internal returns (bool) {
+        if (!to.isContract()) {
+            return false;
+        }
+        bytes4 retval = IERC1363Receiver(to).onTransferReceived(
+            _msgSender(), from, value, data
+        );
+        return (retval == _ERC1363_RECEIVED);
+    }
+
+    /**
+     * @dev Internal function to invoke `onApprovalReceived` on a target address
+     *  The call is not executed if the target address is not a contract
+     * @param spender address The address which will spend the funds
+     * @param value uint256 The amount of tokens to be spent
+     * @param data bytes Optional data to send along with the call
+     * @return whether the call correctly returned the expected magic value
+     */
+    function _checkAndCallApprove(address spender, uint256 value, bytes memory data) internal returns (bool) {
+        if (!spender.isContract()) {
+            return false;
+        }
+        bytes4 retval = IERC1363Spender(spender).onApprovalReceived(
+            _msgSender(), value, data
+        );
+        return (retval == _ERC1363_APPROVED);
+    }
+}
+
 // File: @openzeppelin/contracts/access/Ownable.sol
 
 
@@ -906,7 +1428,7 @@ contract TokenRecover is Ownable {
     }
 }
 
-// File: contracts/token/ERC20/CommonERC20.sol
+// File: contracts/token/ERC20/PowerfulERC20.sol
 
 
 
@@ -915,12 +1437,13 @@ pragma solidity ^0.7.0;
 
 
 
+
 /**
- * @title CommonERC20
+ * @title PowerfulERC20
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
- * @dev Implementation of the CommonERC20
+ * @dev Implementation of the PowerfulERC20
  */
-contract CommonERC20 is ERC20Capped, ERC20Burnable, TokenRecover {
+contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover {
 
     // indicates if minting is finished
     bool private _mintingFinished = false;
@@ -934,7 +1457,7 @@ contract CommonERC20 is ERC20Capped, ERC20Burnable, TokenRecover {
      * @dev Tokens can be minted only before minting finished.
      */
     modifier canMint() {
-        require(!_mintingFinished, "CommonERC20: minting is finished");
+        require(!_mintingFinished, "PowerfulERC20: minting is finished");
         _;
     }
 
@@ -944,7 +1467,7 @@ contract CommonERC20 is ERC20Capped, ERC20Burnable, TokenRecover {
         uint8 decimals,
         uint256 cap,
         uint256 initialBalance
-    ) ERC20(name, symbol) ERC20Capped(cap) {
+    ) ERC1363(name, symbol) ERC20Capped(cap) {
         _setupDecimals(decimals);
 
         _mint(_msgSender(), initialBalance);

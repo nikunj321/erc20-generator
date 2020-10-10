@@ -5,14 +5,16 @@ pragma solidity ^0.7.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20Capped.sol";
 
+import "erc-payable-token/contracts/token/ERC1363/ERC1363.sol";
+
 import "eth-token-recover/contracts/TokenRecover.sol";
 
 /**
- * @title CommonERC20
+ * @title PowerfulERC20
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
- * @dev Implementation of the CommonERC20
+ * @dev Implementation of the PowerfulERC20
  */
-contract CommonERC20 is ERC20Capped, ERC20Burnable, TokenRecover {
+contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover {
 
     // indicates if minting is finished
     bool private _mintingFinished = false;
@@ -26,7 +28,7 @@ contract CommonERC20 is ERC20Capped, ERC20Burnable, TokenRecover {
      * @dev Tokens can be minted only before minting finished.
      */
     modifier canMint() {
-        require(!_mintingFinished, "CommonERC20: minting is finished");
+        require(!_mintingFinished, "PowerfulERC20: minting is finished");
         _;
     }
 
@@ -36,7 +38,7 @@ contract CommonERC20 is ERC20Capped, ERC20Burnable, TokenRecover {
         uint8 decimals,
         uint256 cap,
         uint256 initialBalance
-    ) ERC20(name, symbol) ERC20Capped(cap) {
+    ) ERC1363(name, symbol) ERC20Capped(cap) {
         _setupDecimals(decimals);
 
         _mint(_msgSender(), initialBalance);

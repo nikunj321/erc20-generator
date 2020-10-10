@@ -5,7 +5,7 @@
 
 |  File Name  |  SHA-1 Hash  |
 |-------------|--------------|
-| dist/CommonERC20.dist.sol | 8a9866d71c5e341915d43811c36b8c257cbfdb96 |
+| dist/PowerfulERC20.dist.sol | 06a9484cbd9e9a7f5dacd15643d851dabb344e5a |
 
 
 ### Contracts Description Table
@@ -75,6 +75,46 @@
 | └ | cap | Public ❗️ |   |NO❗️ |
 | └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
 ||||||
+| **IERC165** | Interface |  |||
+| └ | supportsInterface | External ❗️ |   |NO❗️ |
+||||||
+| **IERC1363** | Interface | IERC20, IERC165 |||
+| └ | transferAndCall | External ❗️ | 🛑  |NO❗️ |
+| └ | transferAndCall | External ❗️ | 🛑  |NO❗️ |
+| └ | transferFromAndCall | External ❗️ | 🛑  |NO❗️ |
+| └ | transferFromAndCall | External ❗️ | 🛑  |NO❗️ |
+| └ | approveAndCall | External ❗️ | 🛑  |NO❗️ |
+| └ | approveAndCall | External ❗️ | 🛑  |NO❗️ |
+||||||
+| **IERC1363Receiver** | Interface |  |||
+| └ | onTransferReceived | External ❗️ | 🛑  |NO❗️ |
+||||||
+| **IERC1363Spender** | Interface |  |||
+| └ | onApprovalReceived | External ❗️ | 🛑  |NO❗️ |
+||||||
+| **ERC165Checker** | Library |  |||
+| └ | supportsERC165 | Internal 🔒 |   | |
+| └ | supportsInterface | Internal 🔒 |   | |
+| └ | supportsAllInterfaces | Internal 🔒 |   | |
+| └ | _supportsERC165Interface | Private 🔐 |   | |
+| └ | _callERC165SupportsInterface | Private 🔐 |   | |
+||||||
+| **ERC165** | Implementation | IERC165 |||
+| └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
+| └ | supportsInterface | Public ❗️ |   |NO❗️ |
+| └ | _registerInterface | Internal 🔒 | 🛑  | |
+||||||
+| **ERC1363** | Implementation | ERC20, IERC1363, ERC165 |||
+| └ | <Constructor> | Public ❗️ | 🛑  | ERC20 |
+| └ | transferAndCall | Public ❗️ | 🛑  |NO❗️ |
+| └ | transferAndCall | Public ❗️ | 🛑  |NO❗️ |
+| └ | transferFromAndCall | Public ❗️ | 🛑  |NO❗️ |
+| └ | transferFromAndCall | Public ❗️ | 🛑  |NO❗️ |
+| └ | approveAndCall | Public ❗️ | 🛑  |NO❗️ |
+| └ | approveAndCall | Public ❗️ | 🛑  |NO❗️ |
+| └ | _checkAndCallTransfer | Internal 🔒 | 🛑  | |
+| └ | _checkAndCallApprove | Internal 🔒 | 🛑  | |
+||||||
 | **Ownable** | Implementation | Context |||
 | └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
 | └ | owner | Public ❗️ |   |NO❗️ |
@@ -84,8 +124,8 @@
 | **TokenRecover** | Implementation | Ownable |||
 | └ | recoverERC20 | Public ❗️ | 🛑  | onlyOwner |
 ||||||
-| **CommonERC20** | Implementation | ERC20Capped, ERC20Burnable, TokenRecover |||
-| └ | <Constructor> | Public ❗️ | 🛑  | ERC20 ERC20Capped |
+| **PowerfulERC20** | Implementation | ERC20Capped, ERC20Burnable, ERC1363, TokenRecover |||
+| └ | <Constructor> | Public ❗️ | 🛑  | ERC1363 ERC20Capped |
 | └ | mintingFinished | Public ❗️ |   |NO❗️ |
 | └ | mint | Public ❗️ | 🛑  | canMint onlyOwner |
 | └ | finishMinting | Public ❗️ | 🛑  | canMint onlyOwner |

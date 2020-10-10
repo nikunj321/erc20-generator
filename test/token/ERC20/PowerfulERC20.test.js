@@ -2,16 +2,17 @@ const { BN, constants, expectEvent, expectRevert } = require('@openzeppelin/test
 const { ZERO_ADDRESS } = constants;
 
 const { shouldBehaveLikeTokenRecover } = require('eth-token-recover/test/TokenRecover.behaviour');
+const { shouldBehaveLikeERC1363 } = require('erc-payable-token/test/token/ERC1363/ERC1363.behaviour');
 
 const { shouldBehaveLikeERC20 } = require('./behaviours/ERC20.behaviour');
 const { shouldBehaveLikeERC20Burnable } = require('./behaviours/ERC20Burnable.behaviour');
 const { shouldBehaveLikeERC20Capped } = require('./behaviours/ERC20Capped.behaviour');
 const { shouldBehaveLikeERC20Mintable } = require('./behaviours/ERC20Mintable.behaviour');
 
-const CommonERC20 = artifacts.require('CommonERC20');
+const PowerfulERC20 = artifacts.require('PowerfulERC20');
 
-contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]) {
-  const _name = 'CommonERC20';
+contract('PowerfulERC20', function ([owner, anotherAccount, recipient, thirdParty]) {
+  const _name = 'PowerfulERC20';
   const _symbol = 'ERC20';
   const _decimals = new BN(8);
   const _cap = new BN(200000000);
@@ -21,7 +22,7 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]
     describe('as a ERC20Capped', function () {
       it('requires a non-zero cap', async function () {
         await expectRevert(
-          CommonERC20.new(
+          PowerfulERC20.new(
             _name,
             _symbol,
             _decimals,
@@ -34,10 +35,10 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]
       });
     });
 
-    describe('as a CommonERC20', function () {
+    describe('as a PowerfulERC20', function () {
       describe('without initial supply', function () {
         beforeEach(async function () {
-          this.token = await CommonERC20.new(
+          this.token = await PowerfulERC20.new(
             _name,
             _symbol,
             _decimals,
@@ -60,7 +61,7 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]
 
       describe('with initial supply', function () {
         beforeEach(async function () {
-          this.token = await CommonERC20.new(
+          this.token = await PowerfulERC20.new(
             _name,
             _symbol,
             _decimals,
@@ -83,9 +84,9 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]
     });
   });
 
-  context('CommonERC20 token behaviours', function () {
+  context('PowerfulERC20 token behaviours', function () {
     beforeEach(async function () {
-      this.token = await CommonERC20.new(
+      this.token = await PowerfulERC20.new(
         _name,
         _symbol,
         _decimals,
@@ -115,7 +116,11 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]
       shouldBehaveLikeERC20Burnable(owner, _initialSupply, [owner]);
     });
 
-    context('like a CommonERC20', function () {
+    context('like a ERC1363', function () {
+      shouldBehaveLikeERC1363([owner, anotherAccount, recipient], _initialSupply);
+    });
+
+    context('like a PowerfulERC20', function () {
       describe('mint', function () {
         const amount = new BN(100);
 
@@ -183,7 +188,7 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]
         it('shouldn\'t mint more tokens', async function () {
           await expectRevert(
             this.token.mint(thirdParty, 1, { from: owner }),
-            'CommonERC20: minting is finished',
+            'PowerfulERC20: minting is finished',
           );
         });
       });
