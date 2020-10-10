@@ -146,7 +146,7 @@ The `sol2uml` generates UML class diagram from Solidity contracts.
 
 Use source code inside [dist folder](https://github.com/vittominacori/erc20-generator/blob/master/dist/)
 
-Solc version is 0.7.2
+Solc version is 0.7.3
 
 
 ## License
