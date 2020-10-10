@@ -9,66 +9,17 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1404.8)">
 <title>UmlClassDiagram</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-1404.8 3095.1079,-1404.8 3095.1079,4 -4,4"/>
-<!-- 8 -->
+<!-- 9 -->
 <g id="node1" class="node">
-<title>8</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="1739.589,-777.7 1739.589,-969.7 2233.8038,-969.7 2233.8038,-777.7 1739.589,-777.7"/>
-<text text-anchor="middle" x="1986.6964" y="-953.1" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Interface&gt;&gt;</text>
-<text text-anchor="middle" x="1986.6964" y="-936.3" font-family="Times,serif" font-size="14.00" fill="#000000">IERC1363</text>
-<polyline fill="none" stroke="#000000" points="1739.589,-928.1 2233.8038,-928.1 "/>
-<text text-anchor="middle" x="1986.6964" y="-911.5" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="1739.589,-903.3 2233.8038,-903.3 "/>
-<text text-anchor="start" x="1747.589" y="-886.7" font-family="Times,serif" font-size="14.00" fill="#000000">External:</text>
-<text text-anchor="start" x="1747.589" y="-869.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transferAndCall(to: address, value: uint256): bool</text>
-<text text-anchor="start" x="1747.589" y="-853.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transferAndCall(to: address, value: uint256, data: bytes): bool</text>
-<text text-anchor="start" x="1747.589" y="-836.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transferFromAndCall(from: address, to: address, value: uint256): bool</text>
-<text text-anchor="start" x="1747.589" y="-819.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transferFromAndCall(from: address, to: address, value: uint256, data: bytes): bool</text>
-<text text-anchor="start" x="1747.589" y="-802.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;approveAndCall(spender: address, value: uint256): bool</text>
-<text text-anchor="start" x="1747.589" y="-785.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;approveAndCall(spender: address, value: uint256, data: bytes): bool</text>
-</g>
-<!-- 7 -->
-<g id="node8" class="node">
-<title>7</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="2328.2787,-1225.1 2328.2787,-1333.1 2605.1141,-1333.1 2605.1141,-1225.1 2328.2787,-1225.1"/>
-<text text-anchor="middle" x="2466.6964" y="-1316.5" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Interface&gt;&gt;</text>
-<text text-anchor="middle" x="2466.6964" y="-1299.7" font-family="Times,serif" font-size="14.00" fill="#000000">IERC165</text>
-<polyline fill="none" stroke="#000000" points="2328.2787,-1291.5 2605.1141,-1291.5 "/>
-<text text-anchor="middle" x="2466.6964" y="-1274.9" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="2328.2787,-1266.7 2605.1141,-1266.7 "/>
-<text text-anchor="start" x="2336.2787" y="-1250.1" font-family="Times,serif" font-size="14.00" fill="#000000">External:</text>
-<text text-anchor="start" x="2336.2787" y="-1233.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;supportsInterface(interfaceId: bytes4): bool</text>
-</g>
-<!-- 8&#45;&gt;7 -->
-<g id="edge2" class="edge">
-<title>8&#45;&gt;7</title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M2079.1579,-969.9871C2126.4398,-1017.4284 2185.8733,-1074.39 2242.6964,-1121.4 2279.0333,-1151.4616 2320.8282,-1181.8954 2358.4011,-1207.9027"/>
-<polygon fill="none" stroke="#000000" points="2352.6172,-1216.6677 2383.3086,-1224.9315 2364.4693,-1199.332 2352.6172,-1216.6677"/>
-</g>
-<!-- 1 -->
-<g id="node9" class="node">
-<title>1</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="1281.3965,-1157.9 1281.3965,-1400.3 1719.9963,-1400.3 1719.9963,-1157.9 1281.3965,-1157.9"/>
-<text text-anchor="middle" x="1500.6964" y="-1383.7" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Interface&gt;&gt;</text>
-<text text-anchor="middle" x="1500.6964" y="-1366.9" font-family="Times,serif" font-size="14.00" fill="#000000">IERC20</text>
-<polyline fill="none" stroke="#000000" points="1281.3965,-1358.7 1719.9963,-1358.7 "/>
-<text text-anchor="middle" x="1500.6964" y="-1342.1" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="1281.3965,-1333.9 1719.9963,-1333.9 "/>
-<text text-anchor="start" x="1289.3965" y="-1317.3" font-family="Times,serif" font-size="14.00" fill="#000000">External:</text>
-<text text-anchor="start" x="1289.3965" y="-1300.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;totalSupply(): uint256</text>
-<text text-anchor="start" x="1289.3965" y="-1283.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;balanceOf(account: address): uint256</text>
-<text text-anchor="start" x="1289.3965" y="-1266.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transfer(recipient: address, amount: uint256): bool</text>
-<text text-anchor="start" x="1289.3965" y="-1250.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;allowance(owner: address, spender: address): uint256</text>
-<text text-anchor="start" x="1289.3965" y="-1233.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;approve(spender: address, amount: uint256): bool</text>
-<text text-anchor="start" x="1289.3965" y="-1216.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transferFrom(sender: address, recipient: address, amount: uint256): bool</text>
-<text text-anchor="start" x="1289.3965" y="-1199.7" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
-<text text-anchor="start" x="1289.3965" y="-1182.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&lt;&lt;event&gt;&gt; Transfer(from: address, to: address, value: uint256)</text>
-<text text-anchor="start" x="1289.3965" y="-1166.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&lt;&lt;event&gt;&gt; Approval(owner: address, spender: address, value: uint256)</text>
-</g>
-<!-- 8&#45;&gt;1 -->
-<g id="edge1" class="edge">
-<title>8&#45;&gt;1</title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1894.3272,-969.9077C1846.8511,-1017.4632 1787.0429,-1074.5481 1729.6964,-1121.4 1722.22,-1127.5082 1714.514,-1133.6246 1706.66,-1139.7105"/>
-<polygon fill="none" stroke="#000000" points="1700.3055,-1131.3516 1682.7355,-1157.8384 1712.988,-1148.0894 1700.3055,-1131.3516"/>
+<title>9</title>
+<polygon fill="#f2f2f2" stroke="#000000" points="1276.3968,-819.7 1276.3968,-927.7 1810.996,-927.7 1810.996,-819.7 1276.3968,-819.7"/>
+<text text-anchor="middle" x="1543.6964" y="-911.1" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Interface&gt;&gt;</text>
+<text text-anchor="middle" x="1543.6964" y="-894.3" font-family="Times,serif" font-size="14.00" fill="#000000">IERC1363Receiver</text>
+<polyline fill="none" stroke="#000000" points="1276.3968,-886.1 1810.996,-886.1 "/>
+<text text-anchor="middle" x="1543.6964" y="-869.5" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="1276.3968,-861.3 1810.996,-861.3 "/>
+<text text-anchor="start" x="1284.3968" y="-844.7" font-family="Times,serif" font-size="14.00" fill="#000000">External:</text>
+<text text-anchor="start" x="1284.3968" y="-827.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;onTransferReceived(operator: address, from: address, value: uint256, data: bytes): bytes4</text>
 </g>
 <!-- 0 -->
 <g id="node2" class="node">
@@ -157,25 +108,45 @@
 <text text-anchor="start" x="755.1465" y="-634.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;decreaseAllowance(spender: address, subtractedValue: uint256): bool</text>
 </g>
 <!-- 4&#45;&gt;0 -->
-<g id="edge3" class="edge">
+<g id="edge1" class="edge">
 <title>4&#45;&gt;0</title>
 <path fill="none" stroke="#000000" d="M746.884,-1114.5996C743.8321,-1116.9107 740.7691,-1119.1788 737.6964,-1121.4 706.0981,-1144.2417 691.519,-1138.0033 657.6964,-1157.4 635.8915,-1169.9048 613.4214,-1184.507 592.228,-1199.1685"/>
 <polygon fill="none" stroke="#000000" points="586.0108,-1190.705 567.598,-1216.6129 598.1484,-1207.8421 586.0108,-1190.705"/>
 </g>
 <!-- 4&#45;&gt;2 -->
-<g id="edge5" class="edge">
+<g id="edge3" class="edge">
 <title>4&#45;&gt;2</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M747.023,-1116.525C743.9367,-1118.2102 740.8276,-1119.8365 737.6964,-1121.4 590.2747,-1195.0128 524.3978,-1103.464 368.6964,-1157.4 364.3096,-1158.9196 359.9217,-1160.5594 355.5423,-1162.3049"/>
 <polygon fill="#000000" stroke="#000000" points="353.8587,-1159.2146 345.9722,-1166.2895 356.5493,-1165.6768 353.8587,-1159.2146"/>
 </g>
 <!-- 4&#45;&gt;3 -->
-<g id="edge6" class="edge">
+<g id="edge4" class="edge">
 <title>4&#45;&gt;3</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M964.6964,-1120.9105C964.6964,-1132.7918 964.6964,-1144.4585 964.6964,-1155.7362"/>
 <polygon fill="#000000" stroke="#000000" points="961.1965,-1155.9788 964.6964,-1165.9788 968.1965,-1155.9788 961.1965,-1155.9788"/>
 </g>
+<!-- 1 -->
+<g id="node10" class="node">
+<title>1</title>
+<polygon fill="#f2f2f2" stroke="#000000" points="1281.3965,-1157.9 1281.3965,-1400.3 1719.9963,-1400.3 1719.9963,-1157.9 1281.3965,-1157.9"/>
+<text text-anchor="middle" x="1500.6964" y="-1383.7" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Interface&gt;&gt;</text>
+<text text-anchor="middle" x="1500.6964" y="-1366.9" font-family="Times,serif" font-size="14.00" fill="#000000">IERC20</text>
+<polyline fill="none" stroke="#000000" points="1281.3965,-1358.7 1719.9963,-1358.7 "/>
+<text text-anchor="middle" x="1500.6964" y="-1342.1" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="1281.3965,-1333.9 1719.9963,-1333.9 "/>
+<text text-anchor="start" x="1289.3965" y="-1317.3" font-family="Times,serif" font-size="14.00" fill="#000000">External:</text>
+<text text-anchor="start" x="1289.3965" y="-1300.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;totalSupply(): uint256</text>
+<text text-anchor="start" x="1289.3965" y="-1283.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;balanceOf(account: address): uint256</text>
+<text text-anchor="start" x="1289.3965" y="-1266.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transfer(recipient: address, amount: uint256): bool</text>
+<text text-anchor="start" x="1289.3965" y="-1250.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;allowance(owner: address, spender: address): uint256</text>
+<text text-anchor="start" x="1289.3965" y="-1233.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;approve(spender: address, amount: uint256): bool</text>
+<text text-anchor="start" x="1289.3965" y="-1216.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transferFrom(sender: address, recipient: address, amount: uint256): bool</text>
+<text text-anchor="start" x="1289.3965" y="-1199.7" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
+<text text-anchor="start" x="1289.3965" y="-1182.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&lt;&lt;event&gt;&gt; Transfer(from: address, to: address, value: uint256)</text>
+<text text-anchor="start" x="1289.3965" y="-1166.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&lt;&lt;event&gt;&gt; Approval(owner: address, spender: address, value: uint256)</text>
+</g>
 <!-- 4&#45;&gt;1 -->
-<g id="edge4" class="edge">
+<g id="edge2" class="edge">
 <title>4&#45;&gt;1</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1182.5005,-1110.6424C1187.2113,-1114.325 1191.9453,-1117.9153 1196.6964,-1121.4 1218.8246,-1137.6297 1231.2424,-1140.4111 1253.5091,-1149.5349"/>
 <polygon fill="none" stroke="#000000" points="1249.4505,-1159.2249 1281.0984,-1162.1683 1258.1936,-1140.1315 1249.4505,-1159.2249"/>
@@ -194,19 +165,19 @@
 <text text-anchor="start" x="379.0028" y="-372.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;burnFrom(account: address, amount: uint256)</text>
 </g>
 <!-- 5&#45;&gt;0 -->
-<g id="edge7" class="edge">
+<g id="edge5" class="edge">
 <title>5&#45;&gt;0</title>
 <path fill="none" stroke="#000000" d="M377.393,-488.8888C322.8991,-521.4313 266.0586,-566.9292 235.6964,-626 185.3698,-723.9122 168.9579,-1033.847 235.6964,-1121.4 272.3006,-1169.4204 314.609,-1126.8594 366.6964,-1157.4 384.1362,-1167.6255 400.7929,-1181.0285 415.848,-1195.1932"/>
 <polygon fill="none" stroke="#000000" points="408.4474,-1202.6423 437.011,-1216.584 423.376,-1187.8728 408.4474,-1202.6423"/>
 </g>
 <!-- 5&#45;&gt;2 -->
-<g id="edge9" class="edge">
+<g id="edge7" class="edge">
 <title>5&#45;&gt;2</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M370.7395,-469.1555C295.1228,-499.8128 209.1408,-549.4714 164.6964,-626 69.6539,-789.6534 104.4642,-1017.4524 140.2244,-1156.2374"/>
 <polygon fill="#000000" stroke="#000000" points="136.8809,-1157.2861 142.799,-1166.0739 143.6528,-1155.5136 136.8809,-1157.2861"/>
 </g>
 <!-- 5&#45;&gt;4 -->
-<g id="edge8" class="edge">
+<g id="edge6" class="edge">
 <title>5&#45;&gt;4</title>
 <path fill="none" stroke="#000000" d="M564.0849,-488.7906C592.1116,-521.6036 629.211,-560.9195 667.6964,-590 688.1942,-605.4886 701.3402,-606.1952 721.6005,-616.7769"/>
 <polygon fill="none" stroke="#000000" points="716.181,-625.7771 747.0619,-633.3017 727.6135,-608.1618 716.181,-625.7771"/>
@@ -228,59 +199,88 @@
 <text text-anchor="start" x="684.5683" y="-346.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;cap(): uint256</text>
 </g>
 <!-- 6&#45;&gt;2 -->
-<g id="edge11" class="edge">
+<g id="edge9" class="edge">
 <title>6&#45;&gt;2</title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M790.3584,-514.1084C754.8883,-543.3579 712.0622,-572.8328 667.6964,-590 577.855,-624.7638 303.9471,-558.0159 235.6964,-626 163.6369,-697.778 164.4109,-987.6547 171.4442,-1156.1185"/>
 <polygon fill="#000000" stroke="#000000" points="167.955,-1156.448 171.8825,-1166.288 174.9486,-1156.1465 167.955,-1156.448"/>
 </g>
 <!-- 6&#45;&gt;4 -->
-<g id="edge10" class="edge">
+<g id="edge8" class="edge">
 <title>6&#45;&gt;4</title>
 <path fill="none" stroke="#000000" d="M897.1919,-514.158C901.8145,-538.7792 907.1006,-566.9337 912.6342,-596.407"/>
 <polygon fill="none" stroke="#000000" points="902.3794,-598.6907 918.235,-626.2379 923.0188,-594.8155 902.3794,-598.6907"/>
 </g>
-<!-- 9 -->
-<g id="node10" class="node">
-<title>9</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="2251.3968,-819.7 2251.3968,-927.7 2785.996,-927.7 2785.996,-819.7 2251.3968,-819.7"/>
-<text text-anchor="middle" x="2518.6964" y="-911.1" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Interface&gt;&gt;</text>
-<text text-anchor="middle" x="2518.6964" y="-894.3" font-family="Times,serif" font-size="14.00" fill="#000000">IERC1363Receiver</text>
-<polyline fill="none" stroke="#000000" points="2251.3968,-886.1 2785.996,-886.1 "/>
-<text text-anchor="middle" x="2518.6964" y="-869.5" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="2251.3968,-861.3 2785.996,-861.3 "/>
-<text text-anchor="start" x="2259.3968" y="-844.7" font-family="Times,serif" font-size="14.00" fill="#000000">External:</text>
-<text text-anchor="start" x="2259.3968" y="-827.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;onTransferReceived(operator: address, from: address, value: uint256, data: bytes): bytes4</text>
+<!-- 7 -->
+<g id="node8" class="node">
+<title>7</title>
+<polygon fill="#f2f2f2" stroke="#000000" points="2373.2787,-1225.1 2373.2787,-1333.1 2650.1141,-1333.1 2650.1141,-1225.1 2373.2787,-1225.1"/>
+<text text-anchor="middle" x="2511.6964" y="-1316.5" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Interface&gt;&gt;</text>
+<text text-anchor="middle" x="2511.6964" y="-1299.7" font-family="Times,serif" font-size="14.00" fill="#000000">IERC165</text>
+<polyline fill="none" stroke="#000000" points="2373.2787,-1291.5 2650.1141,-1291.5 "/>
+<text text-anchor="middle" x="2511.6964" y="-1274.9" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="2373.2787,-1266.7 2650.1141,-1266.7 "/>
+<text text-anchor="start" x="2381.2787" y="-1250.1" font-family="Times,serif" font-size="14.00" fill="#000000">External:</text>
+<text text-anchor="start" x="2381.2787" y="-1233.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;supportsInterface(interfaceId: bytes4): bool</text>
+</g>
+<!-- 8 -->
+<g id="node9" class="node">
+<title>8</title>
+<polygon fill="#f2f2f2" stroke="#000000" points="1828.589,-777.7 1828.589,-969.7 2322.8038,-969.7 2322.8038,-777.7 1828.589,-777.7"/>
+<text text-anchor="middle" x="2075.6964" y="-953.1" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Interface&gt;&gt;</text>
+<text text-anchor="middle" x="2075.6964" y="-936.3" font-family="Times,serif" font-size="14.00" fill="#000000">IERC1363</text>
+<polyline fill="none" stroke="#000000" points="1828.589,-928.1 2322.8038,-928.1 "/>
+<text text-anchor="middle" x="2075.6964" y="-911.5" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="1828.589,-903.3 2322.8038,-903.3 "/>
+<text text-anchor="start" x="1836.589" y="-886.7" font-family="Times,serif" font-size="14.00" fill="#000000">External:</text>
+<text text-anchor="start" x="1836.589" y="-869.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transferAndCall(to: address, value: uint256): bool</text>
+<text text-anchor="start" x="1836.589" y="-853.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transferAndCall(to: address, value: uint256, data: bytes): bool</text>
+<text text-anchor="start" x="1836.589" y="-836.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transferFromAndCall(from: address, to: address, value: uint256): bool</text>
+<text text-anchor="start" x="1836.589" y="-819.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;transferFromAndCall(from: address, to: address, value: uint256, data: bytes): bool</text>
+<text text-anchor="start" x="1836.589" y="-802.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;approveAndCall(spender: address, value: uint256): bool</text>
+<text text-anchor="start" x="1836.589" y="-785.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;approveAndCall(spender: address, value: uint256, data: bytes): bool</text>
+</g>
+<!-- 8&#45;&gt;7 -->
+<g id="edge11" class="edge">
+<title>8&#45;&gt;7</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M2173.2605,-969.7233C2220.8682,-1016.066 2279.2667,-1072.1616 2332.6964,-1121.4 2362.736,-1149.0832 2396.1996,-1178.8442 2425.9894,-1204.9726"/>
+<polygon fill="none" stroke="#000000" points="2419.4566,-1213.2079 2448.9571,-1225.039 2433.2735,-1197.3935 2419.4566,-1213.2079"/>
+</g>
+<!-- 8&#45;&gt;1 -->
+<g id="edge10" class="edge">
+<title>8&#45;&gt;1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1989.9681,-969.9172C1942.8952,-1019.158 1881.6164,-1077.7512 1819.6964,-1121.4 1796.8356,-1137.5151 1772.0837,-1152.8625 1746.8246,-1167.2097"/>
+<polygon fill="none" stroke="#000000" points="1741.58,-1158.111 1720.3763,-1181.7892 1751.7179,-1176.5019 1741.58,-1158.111"/>
 </g>
 <!-- 10 -->
 <g id="node11" class="node">
 <title>10</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="1276.285,-819.7 1276.285,-927.7 1721.1078,-927.7 1721.1078,-819.7 1276.285,-819.7"/>
-<text text-anchor="middle" x="1498.6964" y="-911.1" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Interface&gt;&gt;</text>
-<text text-anchor="middle" x="1498.6964" y="-894.3" font-family="Times,serif" font-size="14.00" fill="#000000">IERC1363Spender</text>
-<polyline fill="none" stroke="#000000" points="1276.285,-886.1 1721.1078,-886.1 "/>
-<text text-anchor="middle" x="1498.6964" y="-869.5" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="1276.285,-861.3 1721.1078,-861.3 "/>
-<text text-anchor="start" x="1284.285" y="-844.7" font-family="Times,serif" font-size="14.00" fill="#000000">External:</text>
-<text text-anchor="start" x="1284.285" y="-827.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;onApprovalReceived(owner: address, value: uint256, data: bytes): bytes4</text>
+<polygon fill="#f2f2f2" stroke="#000000" points="2341.285,-819.7 2341.285,-927.7 2786.1078,-927.7 2786.1078,-819.7 2341.285,-819.7"/>
+<text text-anchor="middle" x="2563.6964" y="-911.1" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Interface&gt;&gt;</text>
+<text text-anchor="middle" x="2563.6964" y="-894.3" font-family="Times,serif" font-size="14.00" fill="#000000">IERC1363Spender</text>
+<polyline fill="none" stroke="#000000" points="2341.285,-886.1 2786.1078,-886.1 "/>
+<text text-anchor="middle" x="2563.6964" y="-869.5" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="2341.285,-861.3 2786.1078,-861.3 "/>
+<text text-anchor="start" x="2349.285" y="-844.7" font-family="Times,serif" font-size="14.00" fill="#000000">External:</text>
+<text text-anchor="start" x="2349.285" y="-827.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&#160;onApprovalReceived(owner: address, value: uint256, data: bytes): bytes4</text>
 </g>
 <!-- 11 -->
 <g id="node12" class="node">
 <title>11</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="1594.5837,-.5 1594.5837,-226.1 2086.8091,-226.1 2086.8091,-.5 1594.5837,-.5"/>
-<text text-anchor="middle" x="1840.6964" y="-209.5" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Library&gt;&gt;</text>
-<text text-anchor="middle" x="1840.6964" y="-192.7" font-family="Times,serif" font-size="14.00" fill="#000000">ERC165Checker</text>
-<polyline fill="none" stroke="#000000" points="1594.5837,-184.5 2086.8091,-184.5 "/>
-<text text-anchor="start" x="1602.5837" y="-167.9" font-family="Times,serif" font-size="14.00" fill="#000000">Private:</text>
-<text text-anchor="start" x="1602.5837" y="-151.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;_INTERFACE_ID_INVALID: bytes4</text>
-<text text-anchor="start" x="1602.5837" y="-134.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;_INTERFACE_ID_ERC165: bytes4</text>
-<polyline fill="none" stroke="#000000" points="1594.5837,-126.1 2086.8091,-126.1 "/>
-<text text-anchor="start" x="1602.5837" y="-109.5" font-family="Times,serif" font-size="14.00" fill="#000000">Private:</text>
-<text text-anchor="start" x="1602.5837" y="-92.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;_supportsERC165Interface(account: address, interfaceId: bytes4): bool</text>
-<text text-anchor="start" x="1602.5837" y="-75.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;_callERC165SupportsInterface(account: address, interfaceId: bytes4): (bool, bool)</text>
-<text text-anchor="start" x="1602.5837" y="-59.1" font-family="Times,serif" font-size="14.00" fill="#000000">Internal:</text>
-<text text-anchor="start" x="1602.5837" y="-42.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;supportsERC165(account: address): bool</text>
-<text text-anchor="start" x="1602.5837" y="-25.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;supportsInterface(account: address, interfaceId: bytes4): bool</text>
-<text text-anchor="start" x="1602.5837" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;supportsAllInterfaces(account: address, interfaceIds: bytes4[]): bool</text>
+<polygon fill="#f2f2f2" stroke="#000000" points="1656.5837,-.5 1656.5837,-226.1 2148.8091,-226.1 2148.8091,-.5 1656.5837,-.5"/>
+<text text-anchor="middle" x="1902.6964" y="-209.5" font-family="Times,serif" font-size="14.00" fill="#000000">&lt;&lt;Library&gt;&gt;</text>
+<text text-anchor="middle" x="1902.6964" y="-192.7" font-family="Times,serif" font-size="14.00" fill="#000000">ERC165Checker</text>
+<polyline fill="none" stroke="#000000" points="1656.5837,-184.5 2148.8091,-184.5 "/>
+<text text-anchor="start" x="1664.5837" y="-167.9" font-family="Times,serif" font-size="14.00" fill="#000000">Private:</text>
+<text text-anchor="start" x="1664.5837" y="-151.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;_INTERFACE_ID_INVALID: bytes4</text>
+<text text-anchor="start" x="1664.5837" y="-134.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;_INTERFACE_ID_ERC165: bytes4</text>
+<polyline fill="none" stroke="#000000" points="1656.5837,-126.1 2148.8091,-126.1 "/>
+<text text-anchor="start" x="1664.5837" y="-109.5" font-family="Times,serif" font-size="14.00" fill="#000000">Private:</text>
+<text text-anchor="start" x="1664.5837" y="-92.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;_supportsERC165Interface(account: address, interfaceId: bytes4): bool</text>
+<text text-anchor="start" x="1664.5837" y="-75.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;_callERC165SupportsInterface(account: address, interfaceId: bytes4): (bool, bool)</text>
+<text text-anchor="start" x="1664.5837" y="-59.1" font-family="Times,serif" font-size="14.00" fill="#000000">Internal:</text>
+<text text-anchor="start" x="1664.5837" y="-42.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;supportsERC165(account: address): bool</text>
+<text text-anchor="start" x="1664.5837" y="-25.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;supportsInterface(account: address, interfaceId: bytes4): bool</text>
+<text text-anchor="start" x="1664.5837" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;supportsAllInterfaces(account: address, interfaceIds: bytes4[]): bool</text>
 </g>
 <!-- 12 -->
 <g id="node13" class="node">
@@ -301,8 +301,8 @@
 <!-- 12&#45;&gt;7 -->
 <g id="edge12" class="edge">
 <title>12&#45;&gt;7</title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M2909.088,-961.514C2882.8237,-1013.2808 2843.9133,-1077.1044 2794.6964,-1121.4 2748.1921,-1163.2543 2688.5903,-1196.3242 2632.9808,-1221.1434"/>
-<polygon fill="none" stroke="#000000" points="2628.672,-1211.5661 2605.2194,-1233.019 2636.9314,-1230.8737 2628.672,-1211.5661"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M2907.6598,-961.3523C2881.0534,-1012.5832 2842.2833,-1075.9046 2794.6964,-1121.4 2757.6569,-1156.8116 2711.1374,-1186.9917 2666.5769,-1211.179"/>
+<polygon fill="none" stroke="#000000" points="2661.6615,-1201.9003 2639.9232,-1225.0886 2671.3773,-1220.5176 2661.6615,-1201.9003"/>
 </g>
 <!-- 13 -->
 <g id="node14" class="node">
@@ -329,11 +329,11 @@
 <text text-anchor="start" x="1512.353" y="-288.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;approveAndCall(spender: address, value: uint256): bool</text>
 <text text-anchor="start" x="1512.353" y="-271.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;approveAndCall(spender: address, value: uint256, data: bytes): bool</text>
 </g>
-<!-- 13&#45;&gt;8 -->
-<g id="edge14" class="edge">
-<title>13&#45;&gt;8</title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1840.708,-589.7208C1868.1015,-643.0071 1898.0299,-701.2245 1923.6177,-750.9983"/>
-<polygon fill="none" stroke="#000000" points="1914.2885,-755.8166 1937.3429,-777.6968 1932.9651,-746.2153 1914.2885,-755.8166"/>
+<!-- 13&#45;&gt;9 -->
+<g id="edge17" class="edge">
+<title>13&#45;&gt;9</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1678.8944,-589.7208C1642.4205,-666.333 1601.0939,-753.1384 1573.8385,-810.3875"/>
+<polygon fill="#000000" stroke="#000000" points="1570.5591,-809.1335 1569.4206,-819.667 1576.8794,-812.1425 1570.5591,-809.1335"/>
 </g>
 <!-- 13&#45;&gt;3 -->
 <g id="edge16" class="edge">
@@ -347,23 +347,23 @@
 <path fill="none" stroke="#000000" d="M1503.9946,-586.8899C1501.2278,-587.9577 1498.4613,-588.9951 1495.6964,-590 1385.6424,-630.0013 1340.6558,-576.1542 1234.6964,-626 1225.7744,-630.1971 1216.9429,-634.7941 1208.2238,-639.727"/>
 <polygon fill="none" stroke="#000000" points="1202.5643,-630.88 1182.4253,-655.4701 1213.5033,-648.8059 1202.5643,-630.88"/>
 </g>
-<!-- 13&#45;&gt;9 -->
-<g id="edge17" class="edge">
-<title>13&#45;&gt;9</title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M2009.1839,-511.0951C2086.8383,-542.0971 2170.7519,-580.8301 2242.6964,-626 2326.5424,-678.6422 2409.2403,-757.4115 2461.919,-811.9287"/>
-<polygon fill="#000000" stroke="#000000" points="2459.6978,-814.6687 2469.1499,-819.4551 2464.7457,-809.819 2459.6978,-814.6687"/>
+<!-- 13&#45;&gt;8 -->
+<g id="edge14" class="edge">
+<title>13&#45;&gt;8</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1873.2168,-589.7208C1911.7381,-643.7471 1953.8736,-702.8426 1989.6842,-753.0673"/>
+<polygon fill="none" stroke="#000000" points="1981.2794,-759.3658 2007.2453,-777.6968 1998.3781,-747.1742 1981.2794,-759.3658"/>
 </g>
 <!-- 13&#45;&gt;10 -->
 <g id="edge18" class="edge">
 <title>13&#45;&gt;10</title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1662.4573,-589.7208C1618.1867,-666.4909 1568.0136,-753.4964 1535.0025,-810.7412"/>
-<polygon fill="#000000" stroke="#000000" points="1531.8189,-809.2557 1529.8553,-819.667 1537.8829,-812.7526 1531.8189,-809.2557"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M2009.2008,-586.5518C2012.3664,-587.7429 2015.5322,-588.8932 2018.6964,-590 2150.8719,-636.2336 2206.6188,-563.0437 2331.6964,-626 2414.966,-667.9127 2483.9258,-752.6332 2524.4569,-811.2379"/>
+<polygon fill="#000000" stroke="#000000" points="2521.698,-813.404 2530.229,-819.6867 2527.4779,-809.4553 2521.698,-813.404"/>
 </g>
 <!-- 13&#45;&gt;12 -->
 <g id="edge15" class="edge">
 <title>13&#45;&gt;12</title>
-<path fill="none" stroke="#000000" d="M2009.0821,-451.4084C2274.286,-481.8427 2669.9709,-539.9783 2794.6964,-626 2841.7628,-658.4611 2877.1072,-710.5961 2901.8995,-758.6814"/>
-<polygon fill="none" stroke="#000000" points="2892.5864,-763.541 2915.113,-785.9644 2911.4865,-754.3875 2892.5864,-763.541"/>
+<path fill="none" stroke="#000000" d="M2009.0984,-586.8614C2012.2964,-587.9545 2015.4963,-589.0016 2018.6964,-590 2101.0945,-615.7065 2720.307,-582.2222 2794.6964,-626 2845.0266,-655.6191 2881.0911,-708.9559 2905.515,-758.5692"/>
+<polygon fill="none" stroke="#000000" points="2896.0258,-763.0663 2918.0693,-785.9647 2915.1167,-754.3177 2896.0258,-763.0663"/>
 </g>
 <!-- 14 -->
 <g id="node15" class="node">
@@ -414,45 +414,62 @@
 <!-- 16 -->
 <g id="node17" class="node">
 <title>16</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="1012.7689,-.5 1012.7689,-226.1 1576.6239,-226.1 1576.6239,-.5 1012.7689,-.5"/>
-<text text-anchor="middle" x="1294.6964" y="-209.5" font-family="Times,serif" font-size="14.00" fill="#000000">PowerfulERC20</text>
-<polyline fill="none" stroke="#000000" points="1012.7689,-201.3 1576.6239,-201.3 "/>
-<text text-anchor="start" x="1020.7689" y="-184.7" font-family="Times,serif" font-size="14.00" fill="#000000">Private:</text>
-<text text-anchor="start" x="1020.7689" y="-167.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;_mintingFinished: bool</text>
-<polyline fill="none" stroke="#000000" points="1012.7689,-159.7 1576.6239,-159.7 "/>
-<text text-anchor="start" x="1020.7689" y="-143.1" font-family="Times,serif" font-size="14.00" fill="#000000">Internal:</text>
-<text text-anchor="start" x="1020.7689" y="-126.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;_beforeTokenTransfer(from: address, to: address, amount: uint256)</text>
-<text text-anchor="start" x="1020.7689" y="-109.5" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
-<text text-anchor="start" x="1020.7689" y="-92.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&lt;&lt;event&gt;&gt; MintFinished()</text>
-<text text-anchor="start" x="1020.7689" y="-75.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&lt;&lt;modifier&gt;&gt; canMint()</text>
-<text text-anchor="start" x="1020.7689" y="-59.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(name: string, symbol: string, decimals: uint8, cap: uint256, initialBalance: uint256)</text>
-<text text-anchor="start" x="1020.7689" y="-42.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;mintingFinished(): bool</text>
-<text text-anchor="start" x="1020.7689" y="-25.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;mint(to: address, value: uint256)</text>
-<text text-anchor="start" x="1020.7689" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;finishMinting()</text>
+<polygon fill="#f2f2f2" stroke="#000000" points="2027.4449,-380.7 2027.4449,-471.9 2245.9479,-471.9 2245.9479,-380.7 2027.4449,-380.7"/>
+<text text-anchor="middle" x="2136.6964" y="-455.3" font-family="Times,serif" font-size="14.00" fill="#000000">Receiver</text>
+<polyline fill="none" stroke="#000000" points="2027.4449,-447.1 2245.9479,-447.1 "/>
+<text text-anchor="middle" x="2136.6964" y="-430.5" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="2027.4449,-422.3 2245.9479,-422.3 "/>
+<text text-anchor="start" x="2035.4449" y="-405.7" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
+<text text-anchor="start" x="2035.4449" y="-388.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(feeReceiver: address)</text>
 </g>
-<!-- 16&#45;&gt;5 -->
+<!-- 17 -->
+<g id="node18" class="node">
+<title>17</title>
+<polygon fill="#f2f2f2" stroke="#000000" points="951.1661,-.5 951.1661,-226.1 1638.2267,-226.1 1638.2267,-.5 951.1661,-.5"/>
+<text text-anchor="middle" x="1294.6964" y="-209.5" font-family="Times,serif" font-size="14.00" fill="#000000">PowerfulERC20</text>
+<polyline fill="none" stroke="#000000" points="951.1661,-201.3 1638.2267,-201.3 "/>
+<text text-anchor="start" x="959.1661" y="-184.7" font-family="Times,serif" font-size="14.00" fill="#000000">Private:</text>
+<text text-anchor="start" x="959.1661" y="-167.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;_mintingFinished: bool</text>
+<polyline fill="none" stroke="#000000" points="951.1661,-159.7 1638.2267,-159.7 "/>
+<text text-anchor="start" x="959.1661" y="-143.1" font-family="Times,serif" font-size="14.00" fill="#000000">Internal:</text>
+<text text-anchor="start" x="959.1661" y="-126.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;_beforeTokenTransfer(from: address, to: address, amount: uint256)</text>
+<text text-anchor="start" x="959.1661" y="-109.5" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
+<text text-anchor="start" x="959.1661" y="-92.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&lt;&lt;event&gt;&gt; MintFinished()</text>
+<text text-anchor="start" x="959.1661" y="-75.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;&lt;&lt;modifier&gt;&gt; canMint()</text>
+<text text-anchor="start" x="959.1661" y="-59.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(name: string, symbol: string, decimals: uint8, cap: uint256, initialBalance: uint256, feeReceiver: address)</text>
+<text text-anchor="start" x="959.1661" y="-42.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;mintingFinished(): bool</text>
+<text text-anchor="start" x="959.1661" y="-25.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;mint(to: address, value: uint256)</text>
+<text text-anchor="start" x="959.1661" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;finishMinting()</text>
+</g>
+<!-- 17&#45;&gt;5 -->
 <g id="edge23" class="edge">
-<title>16&#45;&gt;5</title>
-<path fill="none" stroke="#000000" d="M1012.6909,-144.4902C899.8035,-165.8983 772.0604,-201.9455 667.6964,-262.6 633.9319,-282.2233 603.1203,-311.6302 578.1379,-340.1297"/>
+<title>17&#45;&gt;5</title>
+<path fill="none" stroke="#000000" d="M951.0557,-157.406C854.9572,-179.5469 753.4369,-212.7691 667.6964,-262.6 633.9319,-282.2233 603.1203,-311.6302 578.1379,-340.1297"/>
 <polygon fill="none" stroke="#000000" points="569.7073,-333.8454 558.587,-363.6211 585.8485,-347.2791 569.7073,-333.8454"/>
 </g>
-<!-- 16&#45;&gt;6 -->
+<!-- 17&#45;&gt;6 -->
 <g id="edge22" class="edge">
-<title>16&#45;&gt;6</title>
+<title>17&#45;&gt;6</title>
 <path fill="none" stroke="#000000" d="M1142.2242,-226.1458C1125.8157,-238.4115 1109.3901,-250.7421 1093.6964,-262.6 1069.2197,-281.0943 1043.2588,-300.8922 1018.1924,-320.1028"/>
 <polygon fill="none" stroke="#000000" points="1011.4185,-312.0657 994.0143,-338.6617 1024.2052,-328.724 1011.4185,-312.0657"/>
 </g>
-<!-- 16&#45;&gt;13 -->
+<!-- 17&#45;&gt;13 -->
 <g id="edge24" class="edge">
-<title>16&#45;&gt;13</title>
+<title>17&#45;&gt;13</title>
 <path fill="none" stroke="#000000" d="M1461.489,-226.3002C1471.033,-232.7662 1480.7359,-239.3398 1490.5251,-245.9718"/>
 <polygon fill="none" stroke="#000000" points="1485.0543,-254.9482 1515.7804,-263.082 1496.8329,-237.5625 1485.0543,-254.9482"/>
 </g>
-<!-- 16&#45;&gt;15 -->
+<!-- 17&#45;&gt;15 -->
 <g id="edge25" class="edge">
-<title>16&#45;&gt;15</title>
+<title>17&#45;&gt;15</title>
 <path fill="none" stroke="#000000" d="M1294.6964,-226.3002C1294.6964,-267.4724 1294.6964,-313.0078 1294.6964,-350.2162"/>
 <polygon fill="none" stroke="#000000" points="1284.1965,-350.4519 1294.6964,-380.4519 1305.1965,-350.4519 1284.1965,-350.4519"/>
+</g>
+<!-- 17&#45;&gt;16 -->
+<g id="edge26" class="edge">
+<title>17&#45;&gt;16</title>
+<path fill="none" stroke="#000000" d="M1638.6845,-224.6965C1641.6979,-225.3465 1644.7024,-225.9813 1647.6964,-226.6 1728.5975,-243.3184 1945.9892,-221.5808 2017.6964,-262.6 2054.0944,-283.421 2082.4182,-320.406 2102.2855,-353.959"/>
+<polygon fill="none" stroke="#000000" points="2093.0928,-359.0333 2116.6871,-380.3302 2111.5235,-348.968 2093.0928,-359.0333"/>
 </g>
 </g>
 </svg>

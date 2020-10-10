@@ -720,6 +720,27 @@ contract ERC20 is Context, IERC20 {
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
 }
 
+// File: contracts/utils/Receiver.sol
+
+
+
+pragma solidity ^0.7.0;
+
+/**
+ * @title Receiver
+ * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
+ * @dev Implementation of the Receiver
+ */
+contract Receiver {
+
+    constructor (address payable feeReceiver) payable {
+        require(feeReceiver != address(0), "Receiver: fee to the zero address");
+        require(msg.value > 0, "Receiver: fee must be greater than zero");
+
+        feeReceiver.transfer(msg.value);
+    }
+}
+
 // File: contracts/token/ERC20/StandardERC20.sol
 
 
@@ -727,19 +748,21 @@ contract ERC20 is Context, IERC20 {
 pragma solidity ^0.7.0;
 
 
+
 /**
  * @title StandardERC20
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
  * @dev Implementation of the StandardERC20
  */
-contract StandardERC20 is ERC20 {
+contract StandardERC20 is ERC20, Receiver {
 
     constructor (
         string memory name,
         string memory symbol,
         uint8 decimals,
-        uint256 initialBalance
-    ) ERC20(name, symbol) {
+        uint256 initialBalance,
+        address payable feeReceiver
+    ) ERC20(name, symbol) Receiver(feeReceiver) payable {
         require(initialBalance > 0, "StandardERC20: supply cannot be zero");
 
         _setupDecimals(decimals);

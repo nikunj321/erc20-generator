@@ -733,22 +733,22 @@ pragma solidity ^0.7.0;
  */
 contract GeneratorCopyright {
 
-  string private constant _GENERATOR = "https://vittominacori.github.io/erc20-generator";
-  string private constant _VERSION = "v4.0.0-beta";
+    string private constant _GENERATOR = "https://vittominacori.github.io/erc20-generator";
+    string private constant _VERSION = "v4.0.0-beta";
 
-  /**
-   * @dev Returns the token generator tool.
-   */
-  function generator() public pure returns (string memory) {
-    return _GENERATOR;
-  }
+    /**
+     * @dev Returns the token generator tool.
+     */
+    function generator() public pure returns (string memory) {
+        return _GENERATOR;
+    }
 
-  /**
-   * @dev Returns the token generator version.
-   */
-  function version() public pure returns (string memory) {
-    return _VERSION;
-  }
+    /**
+     * @dev Returns the token generator version.
+     */
+    function version() public pure returns (string memory) {
+        return _VERSION;
+    }
 }
 
 // File: contracts/token/ERC20/SimpleERC20.sol

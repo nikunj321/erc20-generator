@@ -1,5 +1,7 @@
-const { BN, constants, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
+const { balance, BN, constants, ether, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 const { ZERO_ADDRESS } = constants;
+
+const { expect } = require('chai');
 
 const { shouldBehaveLikeTokenRecover } = require('eth-token-recover/test/TokenRecover.behaviour');
 
@@ -10,12 +12,14 @@ const { shouldBehaveLikeERC20Mintable } = require('./behaviours/ERC20Mintable.be
 
 const CommonERC20 = artifacts.require('CommonERC20');
 
-contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]) {
+contract('CommonERC20', function ([owner, anotherAccount, recipient, feeReceiver, thirdParty]) {
   const _name = 'CommonERC20';
   const _symbol = 'ERC20';
   const _decimals = new BN(8);
   const _cap = new BN(200000000);
   const _initialSupply = new BN(100000000);
+
+  const fee = ether('0.1');
 
   context('creating valid token', function () {
     describe('as a ERC20Capped', function () {
@@ -27,10 +31,73 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]
             _decimals,
             0,
             _initialSupply,
-            { from: owner },
+            feeReceiver,
+            {
+              from: owner,
+              value: fee,
+            },
           ),
           'ERC20Capped: cap is 0',
         );
+      });
+    });
+
+    describe('as a Receiver', function () {
+      it('requires a non-zero fee', async function () {
+        await expectRevert(
+          CommonERC20.new(
+            _name,
+            _symbol,
+            _decimals,
+            _cap,
+            _initialSupply,
+            feeReceiver,
+            {
+              from: owner,
+              value: new BN(0),
+            },
+          ),
+          'Receiver: fee must be greater than zero',
+        );
+      });
+
+      it('requires a non-zero receiver', async function () {
+        await expectRevert(
+          CommonERC20.new(
+            _name,
+            _symbol,
+            _decimals,
+            _cap,
+            _initialSupply,
+            ZERO_ADDRESS,
+            {
+              from: owner,
+              value: fee,
+            },
+          ),
+          'Receiver: fee to the zero address',
+        );
+      });
+
+      it('transfer fee to receiver', async function () {
+        const initBalance = await balance.current(feeReceiver);
+
+        await CommonERC20.new(
+          _name,
+          _symbol,
+          _decimals,
+          _cap,
+          _initialSupply,
+          feeReceiver,
+          {
+            from: owner,
+            value: fee,
+          },
+        );
+
+        const newBalance = (await balance.current(feeReceiver));
+
+        expect(newBalance).to.be.bignumber.equal(initBalance.add(fee));
       });
     });
 
@@ -43,7 +110,11 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]
             _decimals,
             _cap,
             0,
-            { from: owner },
+            feeReceiver,
+            {
+              from: owner,
+              value: fee,
+            },
           );
         });
 
@@ -66,7 +137,11 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]
             _decimals,
             _cap,
             _initialSupply,
-            { from: owner },
+            feeReceiver,
+            {
+              from: owner,
+              value: fee,
+            },
           );
         });
 
@@ -91,7 +166,11 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]
         _decimals,
         _cap,
         _initialSupply,
-        { from: owner },
+        feeReceiver,
+        {
+          from: owner,
+          value: fee,
+        },
       );
     });
 

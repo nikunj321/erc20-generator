@@ -130,31 +130,48 @@
 <!-- 4&#45;&gt;2 -->
 <g id="edge3" class="edge">
 <title>4&#45;&gt;2</title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M672.8191,-588.0985C698.5626,-613.186 724.1065,-638.079 747.8689,-661.2359"/>
-<polygon fill="#000000" stroke="#000000" points="745.58,-663.8924 755.1845,-668.3651 750.4655,-658.8792 745.58,-663.8924"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M672.872,-614.7442C675.9456,-617.7266 679.0133,-620.6799 682.0723,-623.6 695.3655,-636.2895 709.5259,-649.1659 723.8871,-661.8082"/>
+<polygon fill="#000000" stroke="#000000" points="721.5823,-664.4422 731.4118,-668.3957 726.1932,-659.1753 721.5823,-664.4422"/>
 </g>
 <!-- 4&#45;&gt;3 -->
 <g id="edge4" class="edge">
 <title>4&#45;&gt;3</title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M672.7006,-472.7458C801.8434,-530.215 966.4459,-603.4641 1102.8637,-664.1707"/>
-<polygon fill="#000000" stroke="#000000" points="1101.6625,-667.467 1112.2217,-668.3351 1104.5085,-661.0717 1101.6625,-667.467"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M672.7411,-618.7342C675.8289,-620.4165 678.9395,-622.0397 682.0723,-623.6 832.7374,-698.6393 895.4323,-620.1943 1059.0723,-659.6 1066.8988,-661.4847 1074.7903,-663.5287 1082.7162,-665.709"/>
+<polygon fill="#000000" stroke="#000000" points="1081.8247,-669.094 1092.3989,-668.4344 1083.7213,-662.3558 1081.8247,-669.094"/>
 </g>
 <!-- 5 -->
 <g id="node6" class="node">
 <title>5</title>
-<polygon fill="#f2f2f2" stroke="#000000" points="211.4453,-.5 211.4453,-91.7 698.6993,-91.7 698.6993,-.5 211.4453,-.5"/>
-<text text-anchor="middle" x="455.0723" y="-75.1" font-family="Times,serif" font-size="14.00" fill="#000000">StandardERC20</text>
-<polyline fill="none" stroke="#000000" points="211.4453,-66.9 698.6993,-66.9 "/>
-<text text-anchor="middle" x="455.0723" y="-50.3" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
-<polyline fill="none" stroke="#000000" points="211.4453,-42.1 698.6993,-42.1 "/>
-<text text-anchor="start" x="219.4453" y="-25.5" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
-<text text-anchor="start" x="219.4453" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(name: string, symbol: string, decimals: uint8, initialBalance: uint256)</text>
+<polygon fill="#f2f2f2" stroke="#000000" points="690.8208,-330.3 690.8208,-421.5 909.3238,-421.5 909.3238,-330.3 690.8208,-330.3"/>
+<text text-anchor="middle" x="800.0723" y="-404.9" font-family="Times,serif" font-size="14.00" fill="#000000">Receiver</text>
+<polyline fill="none" stroke="#000000" points="690.8208,-396.7 909.3238,-396.7 "/>
+<text text-anchor="middle" x="800.0723" y="-380.1" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="690.8208,-371.9 909.3238,-371.9 "/>
+<text text-anchor="start" x="698.8208" y="-355.3" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
+<text text-anchor="start" x="698.8208" y="-338.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(feeReceiver: address)</text>
 </g>
-<!-- 5&#45;&gt;4 -->
+<!-- 6 -->
+<g id="node7" class="node">
+<title>6</title>
+<polygon fill="#f2f2f2" stroke="#000000" points="321.8425,-.5 321.8425,-91.7 932.3021,-91.7 932.3021,-.5 321.8425,-.5"/>
+<text text-anchor="middle" x="627.0723" y="-75.1" font-family="Times,serif" font-size="14.00" fill="#000000">StandardERC20</text>
+<polyline fill="none" stroke="#000000" points="321.8425,-66.9 932.3021,-66.9 "/>
+<text text-anchor="middle" x="627.0723" y="-50.3" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
+<polyline fill="none" stroke="#000000" points="321.8425,-42.1 932.3021,-42.1 "/>
+<text text-anchor="start" x="329.8425" y="-25.5" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
+<text text-anchor="start" x="329.8425" y="-8.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(name: string, symbol: string, decimals: uint8, initialBalance: uint256, feeReceiver: address)</text>
+</g>
+<!-- 6&#45;&gt;4 -->
 <g id="edge5" class="edge">
-<title>5&#45;&gt;4</title>
-<path fill="none" stroke="#000000" d="M455.0723,-91.9573C455.0723,-94.0833 455.0723,-96.2658 455.0723,-98.501"/>
-<polygon fill="none" stroke="#000000" points="444.5724,-98.5447 455.0723,-128.5447 465.5724,-98.5448 444.5724,-98.5447"/>
+<title>6&#45;&gt;4</title>
+<path fill="none" stroke="#000000" d="M603.1564,-91.9573C601.5155,-95.1037 599.8099,-98.374 598.0463,-101.7557"/>
+<polygon fill="none" stroke="#000000" points="588.6377,-97.0895 584.075,-128.5447 607.2576,-106.8003 588.6377,-97.0895"/>
+</g>
+<!-- 6&#45;&gt;5 -->
+<g id="edge6" class="edge">
+<title>6&#45;&gt;5</title>
+<path fill="none" stroke="#000000" d="M659.4018,-91.8119C667.1685,-103.4685 675.1986,-116.1225 682.0723,-128.2 714.4943,-185.1676 746.1554,-252.4615 768.5057,-302.5203"/>
+<polygon fill="none" stroke="#000000" points="758.974,-306.9288 780.6787,-330.1486 778.1913,-298.4616 758.974,-306.9288"/>
 </g>
 </g>
 </svg>

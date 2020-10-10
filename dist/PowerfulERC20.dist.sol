@@ -1428,6 +1428,27 @@ contract TokenRecover is Ownable {
     }
 }
 
+// File: contracts/utils/Receiver.sol
+
+
+
+pragma solidity ^0.7.0;
+
+/**
+ * @title Receiver
+ * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
+ * @dev Implementation of the Receiver
+ */
+contract Receiver {
+
+    constructor (address payable feeReceiver) payable {
+        require(feeReceiver != address(0), "Receiver: fee to the zero address");
+        require(msg.value > 0, "Receiver: fee must be greater than zero");
+
+        feeReceiver.transfer(msg.value);
+    }
+}
+
 // File: contracts/token/ERC20/PowerfulERC20.sol
 
 
@@ -1438,12 +1459,13 @@ pragma solidity ^0.7.0;
 
 
 
+
 /**
  * @title PowerfulERC20
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
  * @dev Implementation of the PowerfulERC20
  */
-contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover {
+contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover, Receiver {
 
     // indicates if minting is finished
     bool private _mintingFinished = false;
@@ -1466,8 +1488,9 @@ contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover {
         string memory symbol,
         uint8 decimals,
         uint256 cap,
-        uint256 initialBalance
-    ) ERC1363(name, symbol) ERC20Capped(cap) {
+        uint256 initialBalance,
+        address payable feeReceiver
+    ) ERC1363(name, symbol) ERC20Capped(cap) Receiver(feeReceiver) payable {
         _setupDecimals(decimals);
 
         _mint(_msgSender(), initialBalance);

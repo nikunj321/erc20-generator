@@ -5,7 +5,7 @@
 
 |  File Name  |  SHA-1 Hash  |
 |-------------|--------------|
-| dist/PowerfulERC20.dist.sol | 06a9484cbd9e9a7f5dacd15643d851dabb344e5a |
+| dist/PowerfulERC20.dist.sol | 64b02f55c6bea46bfdebb0a38fcd3272fbc59db2 |
 
 
 ### Contracts Description Table
@@ -124,8 +124,11 @@
 | **TokenRecover** | Implementation | Ownable |||
 | └ | recoverERC20 | Public ❗️ | 🛑  | onlyOwner |
 ||||||
-| **PowerfulERC20** | Implementation | ERC20Capped, ERC20Burnable, ERC1363, TokenRecover |||
-| └ | <Constructor> | Public ❗️ | 🛑  | ERC1363 ERC20Capped |
+| **Receiver** | Implementation |  |||
+| └ | <Constructor> | Public ❗️ |  💵 |NO❗️ |
+||||||
+| **PowerfulERC20** | Implementation | ERC20Capped, ERC20Burnable, ERC1363, TokenRecover, Receiver |||
+| └ | <Constructor> | Public ❗️ |  💵 | ERC1363 ERC20Capped Receiver |
 | └ | mintingFinished | Public ❗️ |   |NO❗️ |
 | └ | mint | Public ❗️ | 🛑  | canMint onlyOwner |
 | └ | finishMinting | Public ❗️ | 🛑  | canMint onlyOwner |
