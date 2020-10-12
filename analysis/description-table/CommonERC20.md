@@ -5,7 +5,7 @@
 
 |  File Name  |  SHA-1 Hash  |
 |-------------|--------------|
-| dist/CommonERC20.dist.sol | c5bc66efd48ac18aa79f96f35f95e62a8a2f7d5b |
+| dist/CommonERC20.dist.sol | b508a3fb8fd0b1acf723b5023cdd4967fac892d5 |
 
 
 ### Contracts Description Table
@@ -18,6 +18,12 @@
 | **Context** | Implementation |  |||
 | └ | _msgSender | Internal 🔒 |   | |
 | └ | _msgData | Internal 🔒 |   | |
+||||||
+| **Ownable** | Implementation | Context |||
+| └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
+| └ | owner | Public ❗️ |   |NO❗️ |
+| └ | renounceOwnership | Public ❗️ | 🛑  | onlyOwner |
+| └ | transferOwnership | Public ❗️ | 🛑  | onlyOwner |
 ||||||
 | **IERC20** | Interface |  |||
 | └ | totalSupply | External ❗️ |   |NO❗️ |
@@ -75,19 +81,10 @@
 | └ | cap | Public ❗️ |   |NO❗️ |
 | └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
 ||||||
-| **Ownable** | Implementation | Context |||
-| └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
-| └ | owner | Public ❗️ |   |NO❗️ |
-| └ | renounceOwnership | Public ❗️ | 🛑  | onlyOwner |
-| └ | transferOwnership | Public ❗️ | 🛑  | onlyOwner |
-||||||
-| **TokenRecover** | Implementation | Ownable |||
-| └ | recoverERC20 | Public ❗️ | 🛑  | onlyOwner |
-||||||
 | **Receiver** | Implementation |  |||
 | └ | <Constructor> | Public ❗️ |  💵 |NO❗️ |
 ||||||
-| **CommonERC20** | Implementation | ERC20Capped, ERC20Burnable, TokenRecover, Receiver |||
+| **CommonERC20** | Implementation | ERC20Capped, ERC20Burnable, Ownable, Receiver |||
 | └ | <Constructor> | Public ❗️ |  💵 | ERC20 ERC20Capped Receiver |
 | └ | mintingFinished | Public ❗️ |   |NO❗️ |
 | └ | mint | Public ❗️ | 🛑  | canMint onlyOwner |

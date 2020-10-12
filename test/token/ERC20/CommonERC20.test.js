@@ -3,7 +3,7 @@ const { ZERO_ADDRESS } = constants;
 
 const { expect } = require('chai');
 
-const { shouldBehaveLikeTokenRecover } = require('eth-token-recover/test/TokenRecover.behaviour');
+const { shouldBehaveLikeOwnable } = require('eth-token-recover/test/access/Ownable.behavior');
 
 const { shouldBehaveLikeERC20 } = require('./behaviours/ERC20.behaviour');
 const { shouldBehaveLikeERC20Burnable } = require('./behaviours/ERC20Burnable.behaviour');
@@ -268,12 +268,12 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, feeReceiver
       });
     });
 
-    context('like a TokenRecover', function () {
+    context('like a Ownable', function () {
       beforeEach(async function () {
-        this.instance = this.token;
+        this.ownable = this.token;
       });
 
-      shouldBehaveLikeTokenRecover([owner, thirdParty]);
+      shouldBehaveLikeOwnable(owner, [thirdParty]);
     });
   });
 });

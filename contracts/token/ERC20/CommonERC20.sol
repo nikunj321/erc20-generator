@@ -2,10 +2,9 @@
 
 pragma solidity ^0.7.0;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20Capped.sol";
-
-import "eth-token-recover/contracts/TokenRecover.sol";
 
 import "../../utils/Receiver.sol";
 
@@ -14,7 +13,7 @@ import "../../utils/Receiver.sol";
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
  * @dev Implementation of the CommonERC20
  */
-contract CommonERC20 is ERC20Capped, ERC20Burnable, TokenRecover, Receiver {
+contract CommonERC20 is ERC20Capped, ERC20Burnable, Ownable, Receiver {
 
     // indicates if minting is finished
     bool private _mintingFinished = false;
