@@ -5,7 +5,7 @@
 
 |  File Name  |  SHA-1 Hash  |
 |-------------|--------------|
-| dist/CommonERC20.dist.sol | b508a3fb8fd0b1acf723b5023cdd4967fac892d5 |
+| dist/CommonERC20.dist.sol | b54b6e5f63fe140f88f2d9651a8c3a118fc0534b |
 
 
 ### Contracts Description Table
@@ -81,11 +81,21 @@
 | └ | cap | Public ❗️ |   |NO❗️ |
 | └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
 ||||||
-| **Receiver** | Implementation |  |||
+| **TokenRecover** | Implementation | Ownable |||
+| └ | recoverERC20 | Public ❗️ | 🛑  | onlyOwner |
+||||||
+| **ServiceReceiver** | Implementation | TokenRecover |||
+| └ | pay | Public ❗️ |  💵 |NO❗️ |
+| └ | getPrice | Public ❗️ |   |NO❗️ |
+| └ | setPrice | Public ❗️ | 🛑  | onlyOwner |
+| └ | withdraw | Public ❗️ | 🛑  | onlyOwner |
+| └ | _toBytes32 | Private 🔐 |   | |
+||||||
+| **ServicePayer** | Implementation |  |||
 | └ | <Constructor> | Public ❗️ |  💵 |NO❗️ |
 ||||||
-| **CommonERC20** | Implementation | ERC20Capped, ERC20Burnable, Ownable, Receiver |||
-| └ | <Constructor> | Public ❗️ |  💵 | ERC20 ERC20Capped Receiver |
+| **CommonERC20** | Implementation | ERC20Capped, ERC20Burnable, Ownable, ServicePayer |||
+| └ | <Constructor> | Public ❗️ |  💵 | ERC20 ERC20Capped ServicePayer |
 | └ | mintingFinished | Public ❗️ |   |NO❗️ |
 | └ | mint | Public ❗️ | 🛑  | canMint onlyOwner |
 | └ | finishMinting | Public ❗️ | 🛑  | canMint onlyOwner |

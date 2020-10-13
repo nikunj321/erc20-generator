@@ -102,13 +102,13 @@
 <text text-anchor="start" x="245.5224" y="-372.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;_setupDecimals(decimals_: uint8)</text>
 <text text-anchor="start" x="245.5224" y="-355.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;_beforeTokenTransfer(from: address, to: address, amount: uint256)</text>
 <text text-anchor="start" x="245.5224" y="-338.5" font-family="Times,serif" font-size="14.00" fill="#000000">Public:</text>
-<text text-anchor="start" x="245.5224" y="-321.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;transfer(recipient: address, amount: uint256): bool</text>
-<text text-anchor="start" x="245.5224" y="-304.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(name: string, symbol: string)</text>
+<text text-anchor="start" x="245.5224" y="-321.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;constructor(name: string, symbol: string)</text>
+<text text-anchor="start" x="245.5224" y="-304.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;name(): string</text>
 <text text-anchor="start" x="245.5224" y="-288.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;symbol(): string</text>
 <text text-anchor="start" x="245.5224" y="-271.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;decimals(): uint8</text>
 <text text-anchor="start" x="245.5224" y="-254.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;totalSupply(): uint256</text>
 <text text-anchor="start" x="245.5224" y="-237.7" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;balanceOf(account: address): uint256</text>
-<text text-anchor="start" x="245.5224" y="-220.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;name(): string</text>
+<text text-anchor="start" x="245.5224" y="-220.9" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;transfer(recipient: address, amount: uint256): bool</text>
 <text text-anchor="start" x="245.5224" y="-204.1" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;allowance(owner: address, spender: address): uint256</text>
 <text text-anchor="start" x="245.5224" y="-187.3" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;approve(spender: address, amount: uint256): bool</text>
 <text text-anchor="start" x="245.5224" y="-170.5" font-family="Times,serif" font-size="14.00" fill="#000000"> &#160;&#160;&#160;transferFrom(sender: address, recipient: address, amount: uint256): bool</text>

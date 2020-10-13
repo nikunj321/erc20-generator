@@ -881,24 +881,84 @@ abstract contract ERC20Capped is ERC20 {
     }
 }
 
-// File: contracts/utils/Receiver.sol
+// File: eth-token-recover/contracts/TokenRecover.sol
 
 
 
 pragma solidity ^0.7.0;
 
+
+
 /**
- * @title Receiver
- * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
- * @dev Implementation of the Receiver
+ * @title TokenRecover
+ * @author Vittorio Minacori (https://github.com/vittominacori)
+ * @dev Allow to recover any ERC20 sent into the contract for error
  */
-contract Receiver {
+contract TokenRecover is Ownable {
 
-    constructor (address payable feeReceiver) payable {
-        require(feeReceiver != address(0), "Receiver: fee to the zero address");
-        require(msg.value > 0, "Receiver: fee must be greater than zero");
+    /**
+     * @dev Remember that only owner can call so be careful when use on contracts generated from other contracts.
+     * @param tokenAddress The token contract address
+     * @param tokenAmount Number of tokens to be sent
+     */
+    function recoverERC20(address tokenAddress, uint256 tokenAmount) public onlyOwner {
+        IERC20(tokenAddress).transfer(owner(), tokenAmount);
+    }
+}
 
-        feeReceiver.transfer(msg.value);
+// File: contracts/service/ServiceReceiver.sol
+
+
+
+pragma solidity ^0.7.0;
+
+
+/**
+ * @title ServiceReceiver
+ * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
+ * @dev Implementation of the ServiceReceiver
+ */
+contract ServiceReceiver is TokenRecover {
+
+    mapping (bytes32 => uint256) private _prices;
+
+    function pay(string memory serviceName) public payable {
+        require(msg.value == _prices[_toBytes32(serviceName)], "ServiceReceiver: incorrect price");
+    }
+
+    function getPrice(string memory serviceName) public view returns (uint256) {
+        return _prices[_toBytes32(serviceName)];
+    }
+
+    function setPrice(string memory serviceName, uint256 amount) public onlyOwner {
+        _prices[_toBytes32(serviceName)] = amount;
+    }
+
+    function withdraw(uint256 amount) public onlyOwner {
+        payable(owner()).transfer(amount);
+    }
+
+    function _toBytes32(string memory serviceName) private pure returns (bytes32) {
+        return keccak256(abi.encode(serviceName));
+    }
+}
+
+// File: contracts/service/ServicePayer.sol
+
+
+
+pragma solidity ^0.7.0;
+
+
+/**
+ * @title ServicePayer
+ * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
+ * @dev Implementation of the ServicePayer
+ */
+contract ServicePayer {
+
+    constructor (address payable receiver, string memory serviceName) payable {
+        ServiceReceiver(receiver).pay{value: msg.value}(serviceName);
     }
 }
 
@@ -917,7 +977,7 @@ pragma solidity ^0.7.0;
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
  * @dev Implementation of the CommonERC20
  */
-contract CommonERC20 is ERC20Capped, ERC20Burnable, Ownable, Receiver {
+contract CommonERC20 is ERC20Capped, ERC20Burnable, Ownable, ServicePayer {
 
     // indicates if minting is finished
     bool private _mintingFinished = false;
@@ -942,7 +1002,7 @@ contract CommonERC20 is ERC20Capped, ERC20Burnable, Ownable, Receiver {
         uint256 cap,
         uint256 initialBalance,
         address payable feeReceiver
-    ) ERC20(name, symbol) ERC20Capped(cap) Receiver(feeReceiver) payable {
+    ) ERC20(name, symbol) ERC20Capped(cap) ServicePayer(feeReceiver, "CommonERC20") payable {
         _setupDecimals(decimals);
 
         _mint(_msgSender(), initialBalance);

@@ -1428,24 +1428,59 @@ contract TokenRecover is Ownable {
     }
 }
 
-// File: contracts/utils/Receiver.sol
+// File: contracts/service/ServiceReceiver.sol
 
 
 
 pragma solidity ^0.7.0;
 
+
 /**
- * @title Receiver
+ * @title ServiceReceiver
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
- * @dev Implementation of the Receiver
+ * @dev Implementation of the ServiceReceiver
  */
-contract Receiver {
+contract ServiceReceiver is TokenRecover {
 
-    constructor (address payable feeReceiver) payable {
-        require(feeReceiver != address(0), "Receiver: fee to the zero address");
-        require(msg.value > 0, "Receiver: fee must be greater than zero");
+    mapping (bytes32 => uint256) private _prices;
 
-        feeReceiver.transfer(msg.value);
+    function pay(string memory serviceName) public payable {
+        require(msg.value == _prices[_toBytes32(serviceName)], "ServiceReceiver: incorrect price");
+    }
+
+    function getPrice(string memory serviceName) public view returns (uint256) {
+        return _prices[_toBytes32(serviceName)];
+    }
+
+    function setPrice(string memory serviceName, uint256 amount) public onlyOwner {
+        _prices[_toBytes32(serviceName)] = amount;
+    }
+
+    function withdraw(uint256 amount) public onlyOwner {
+        payable(owner()).transfer(amount);
+    }
+
+    function _toBytes32(string memory serviceName) private pure returns (bytes32) {
+        return keccak256(abi.encode(serviceName));
+    }
+}
+
+// File: contracts/service/ServicePayer.sol
+
+
+
+pragma solidity ^0.7.0;
+
+
+/**
+ * @title ServicePayer
+ * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
+ * @dev Implementation of the ServicePayer
+ */
+contract ServicePayer {
+
+    constructor (address payable receiver, string memory serviceName) payable {
+        ServiceReceiver(receiver).pay{value: msg.value}(serviceName);
     }
 }
 
@@ -1465,7 +1500,7 @@ pragma solidity ^0.7.0;
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
  * @dev Implementation of the PowerfulERC20
  */
-contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover, Receiver {
+contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover, ServicePayer {
 
     // indicates if minting is finished
     bool private _mintingFinished = false;
@@ -1490,7 +1525,7 @@ contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover, Rec
         uint256 cap,
         uint256 initialBalance,
         address payable feeReceiver
-    ) ERC1363(name, symbol) ERC20Capped(cap) Receiver(feeReceiver) payable {
+    ) ERC1363(name, symbol) ERC20Capped(cap) ServicePayer(feeReceiver, "PowerfulERC20") payable {
         _setupDecimals(decimals);
 
         _mint(_msgSender(), initialBalance);

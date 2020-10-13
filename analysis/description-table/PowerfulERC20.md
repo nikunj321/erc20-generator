@@ -5,7 +5,7 @@
 
 |  File Name  |  SHA-1 Hash  |
 |-------------|--------------|
-| dist/PowerfulERC20.dist.sol | 64b02f55c6bea46bfdebb0a38fcd3272fbc59db2 |
+| dist/PowerfulERC20.dist.sol | 2dbbae3148734cef8e71f88554343c198f0ba3aa |
 
 
 ### Contracts Description Table
@@ -124,11 +124,18 @@
 | **TokenRecover** | Implementation | Ownable |||
 | └ | recoverERC20 | Public ❗️ | 🛑  | onlyOwner |
 ||||||
-| **Receiver** | Implementation |  |||
+| **ServiceReceiver** | Implementation | TokenRecover |||
+| └ | pay | Public ❗️ |  💵 |NO❗️ |
+| └ | getPrice | Public ❗️ |   |NO❗️ |
+| └ | setPrice | Public ❗️ | 🛑  | onlyOwner |
+| └ | withdraw | Public ❗️ | 🛑  | onlyOwner |
+| └ | _toBytes32 | Private 🔐 |   | |
+||||||
+| **ServicePayer** | Implementation |  |||
 | └ | <Constructor> | Public ❗️ |  💵 |NO❗️ |
 ||||||
-| **PowerfulERC20** | Implementation | ERC20Capped, ERC20Burnable, ERC1363, TokenRecover, Receiver |||
-| └ | <Constructor> | Public ❗️ |  💵 | ERC1363 ERC20Capped Receiver |
+| **PowerfulERC20** | Implementation | ERC20Capped, ERC20Burnable, ERC1363, TokenRecover, ServicePayer |||
+| └ | <Constructor> | Public ❗️ |  💵 | ERC1363 ERC20Capped ServicePayer |
 | └ | mintingFinished | Public ❗️ |   |NO❗️ |
 | └ | mint | Public ❗️ | 🛑  | canMint onlyOwner |
 | └ | finishMinting | Public ❗️ | 🛑  | canMint onlyOwner |

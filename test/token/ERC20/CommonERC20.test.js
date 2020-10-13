@@ -1,7 +1,5 @@
-const { balance, BN, constants, ether, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
+const { BN, constants, ether, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 const { ZERO_ADDRESS } = constants;
-
-const { expect } = require('chai');
 
 const { shouldBehaveLikeOwnable } = require('eth-token-recover/test/access/Ownable.behavior');
 
@@ -11,8 +9,9 @@ const { shouldBehaveLikeERC20Capped } = require('./behaviours/ERC20Capped.behavi
 const { shouldBehaveLikeERC20Mintable } = require('./behaviours/ERC20Mintable.behaviour');
 
 const CommonERC20 = artifacts.require('CommonERC20');
+const ServiceReceiver = artifacts.require('ServiceReceiver');
 
-contract('CommonERC20', function ([owner, anotherAccount, recipient, feeReceiver, thirdParty]) {
+contract('CommonERC20', function ([owner, anotherAccount, recipient, thirdParty]) {
   const _name = 'CommonERC20';
   const _symbol = 'ERC20';
   const _decimals = new BN(8);
@@ -20,6 +19,11 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, feeReceiver
   const _initialSupply = new BN(100000000);
 
   const fee = ether('0.1');
+
+  beforeEach(async function () {
+    this.serviceReceiver = await ServiceReceiver.new({ from: owner });
+    await this.serviceReceiver.setPrice('CommonERC20', fee);
+  });
 
   context('creating valid token', function () {
     describe('as a ERC20Capped', function () {
@@ -31,7 +35,7 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, feeReceiver
             _decimals,
             0,
             _initialSupply,
-            feeReceiver,
+            this.serviceReceiver.address,
             {
               from: owner,
               value: fee,
@@ -39,65 +43,6 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, feeReceiver
           ),
           'ERC20Capped: cap is 0',
         );
-      });
-    });
-
-    describe('as a Receiver', function () {
-      it('requires a non-zero fee', async function () {
-        await expectRevert(
-          CommonERC20.new(
-            _name,
-            _symbol,
-            _decimals,
-            _cap,
-            _initialSupply,
-            feeReceiver,
-            {
-              from: owner,
-              value: new BN(0),
-            },
-          ),
-          'Receiver: fee must be greater than zero',
-        );
-      });
-
-      it('requires a non-zero receiver', async function () {
-        await expectRevert(
-          CommonERC20.new(
-            _name,
-            _symbol,
-            _decimals,
-            _cap,
-            _initialSupply,
-            ZERO_ADDRESS,
-            {
-              from: owner,
-              value: fee,
-            },
-          ),
-          'Receiver: fee to the zero address',
-        );
-      });
-
-      it('transfer fee to receiver', async function () {
-        const initBalance = await balance.current(feeReceiver);
-
-        await CommonERC20.new(
-          _name,
-          _symbol,
-          _decimals,
-          _cap,
-          _initialSupply,
-          feeReceiver,
-          {
-            from: owner,
-            value: fee,
-          },
-        );
-
-        const newBalance = (await balance.current(feeReceiver));
-
-        expect(newBalance).to.be.bignumber.equal(initBalance.add(fee));
       });
     });
 
@@ -110,7 +55,7 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, feeReceiver
             _decimals,
             _cap,
             0,
-            feeReceiver,
+            this.serviceReceiver.address,
             {
               from: owner,
               value: fee,
@@ -137,7 +82,7 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, feeReceiver
             _decimals,
             _cap,
             _initialSupply,
-            feeReceiver,
+            this.serviceReceiver.address,
             {
               from: owner,
               value: fee,
@@ -166,7 +111,7 @@ contract('CommonERC20', function ([owner, anotherAccount, recipient, feeReceiver
         _decimals,
         _cap,
         _initialSupply,
-        feeReceiver,
+        this.serviceReceiver.address,
         {
           from: owner,
           value: fee,

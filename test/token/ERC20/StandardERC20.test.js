@@ -1,13 +1,11 @@
-const { balance, BN, constants, ether, expectRevert } = require('@openzeppelin/test-helpers');
-const { ZERO_ADDRESS } = constants;
-
-const { expect } = require('chai');
+const { BN, ether, expectRevert } = require('@openzeppelin/test-helpers');
 
 const { shouldBehaveLikeERC20 } = require('./behaviours/ERC20.behaviour');
 
 const StandardERC20 = artifacts.require('StandardERC20');
+const ServiceReceiver = artifacts.require('ServiceReceiver');
 
-contract('StandardERC20', function ([owner, recipient, feeReceiver, thirdParty]) {
+contract('StandardERC20', function ([owner, recipient, thirdParty]) {
   const _name = 'StandardERC20';
   const _symbol = 'ERC20';
   const _decimals = new BN(8);
@@ -15,63 +13,12 @@ contract('StandardERC20', function ([owner, recipient, feeReceiver, thirdParty])
 
   const fee = ether('0.1');
 
+  beforeEach(async function () {
+    this.serviceReceiver = await ServiceReceiver.new({ from: owner });
+    await this.serviceReceiver.setPrice('StandardERC20', fee);
+  });
+
   context('creating valid token', function () {
-    describe('as a Receiver', function () {
-      it('requires a non-zero fee', async function () {
-        await expectRevert(
-          StandardERC20.new(
-            _name,
-            _symbol,
-            _decimals,
-            _initialSupply,
-            feeReceiver,
-            {
-              from: owner,
-              value: new BN(0),
-            },
-          ),
-          'Receiver: fee must be greater than zero',
-        );
-      });
-
-      it('requires a non-zero receiver', async function () {
-        await expectRevert(
-          StandardERC20.new(
-            _name,
-            _symbol,
-            _decimals,
-            _initialSupply,
-            ZERO_ADDRESS,
-            {
-              from: owner,
-              value: fee,
-            },
-          ),
-          'Receiver: fee to the zero address',
-        );
-      });
-
-      it('transfer fee to receiver', async function () {
-        const initBalance = await balance.current(feeReceiver);
-
-        await StandardERC20.new(
-          _name,
-          _symbol,
-          _decimals,
-          _initialSupply,
-          feeReceiver,
-          {
-            from: owner,
-            value: fee,
-          },
-        );
-
-        const newBalance = (await balance.current(feeReceiver));
-
-        expect(newBalance).to.be.bignumber.equal(initBalance.add(fee));
-      });
-    });
-
     describe('as a StandardERC20', function () {
       describe('without initial supply', function () {
         it('should fail', async function () {
@@ -81,7 +28,7 @@ contract('StandardERC20', function ([owner, recipient, feeReceiver, thirdParty])
               _symbol,
               _decimals,
               0,
-              feeReceiver,
+              this.serviceReceiver.address,
               {
                 from: owner,
                 value: fee,
@@ -99,7 +46,7 @@ contract('StandardERC20', function ([owner, recipient, feeReceiver, thirdParty])
             _symbol,
             _decimals,
             _initialSupply,
-            feeReceiver,
+            this.serviceReceiver.address,
             {
               from: owner,
               value: fee,
@@ -127,7 +74,7 @@ contract('StandardERC20', function ([owner, recipient, feeReceiver, thirdParty])
         _symbol,
         _decimals,
         _initialSupply,
-        feeReceiver,
+        this.serviceReceiver.address,
         {
           from: owner,
           value: fee,

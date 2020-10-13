@@ -5,7 +5,7 @@
 
 |  File Name  |  SHA-1 Hash  |
 |-------------|--------------|
-| dist/StandardERC20.dist.sol | f2df789391a7c05c5ba38e9e3efb0422809a5db4 |
+| dist/StandardERC20.dist.sol | a9933b7f263cccccd8ab039fd576196b33b98b5e |
 
 
 ### Contracts Description Table
@@ -66,11 +66,27 @@
 | └ | _setupDecimals | Internal 🔒 | 🛑  | |
 | └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
 ||||||
-| **Receiver** | Implementation |  |||
+| **Ownable** | Implementation | Context |||
+| └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
+| └ | owner | Public ❗️ |   |NO❗️ |
+| └ | renounceOwnership | Public ❗️ | 🛑  | onlyOwner |
+| └ | transferOwnership | Public ❗️ | 🛑  | onlyOwner |
+||||||
+| **TokenRecover** | Implementation | Ownable |||
+| └ | recoverERC20 | Public ❗️ | 🛑  | onlyOwner |
+||||||
+| **ServiceReceiver** | Implementation | TokenRecover |||
+| └ | pay | Public ❗️ |  💵 |NO❗️ |
+| └ | getPrice | Public ❗️ |   |NO❗️ |
+| └ | setPrice | Public ❗️ | 🛑  | onlyOwner |
+| └ | withdraw | Public ❗️ | 🛑  | onlyOwner |
+| └ | _toBytes32 | Private 🔐 |   | |
+||||||
+| **ServicePayer** | Implementation |  |||
 | └ | <Constructor> | Public ❗️ |  💵 |NO❗️ |
 ||||||
-| **StandardERC20** | Implementation | ERC20, Receiver |||
-| └ | <Constructor> | Public ❗️ |  💵 | ERC20 Receiver |
+| **StandardERC20** | Implementation | ERC20, ServicePayer |||
+| └ | <Constructor> | Public ❗️ |  💵 | ERC20 ServicePayer |
 
 
 ### Legend

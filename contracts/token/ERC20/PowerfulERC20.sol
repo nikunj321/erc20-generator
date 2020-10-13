@@ -9,14 +9,14 @@ import "erc-payable-token/contracts/token/ERC1363/ERC1363.sol";
 
 import "eth-token-recover/contracts/TokenRecover.sol";
 
-import "../../utils/Receiver.sol";
+import "../../service/ServicePayer.sol";
 
 /**
  * @title PowerfulERC20
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
  * @dev Implementation of the PowerfulERC20
  */
-contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover, Receiver {
+contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover, ServicePayer {
 
     // indicates if minting is finished
     bool private _mintingFinished = false;
@@ -41,7 +41,7 @@ contract PowerfulERC20 is ERC20Capped, ERC20Burnable, ERC1363, TokenRecover, Rec
         uint256 cap,
         uint256 initialBalance,
         address payable feeReceiver
-    ) ERC1363(name, symbol) ERC20Capped(cap) Receiver(feeReceiver) payable {
+    ) ERC1363(name, symbol) ERC20Capped(cap) ServicePayer(feeReceiver, "PowerfulERC20") payable {
         _setupDecimals(decimals);
 
         _mint(_msgSender(), initialBalance);

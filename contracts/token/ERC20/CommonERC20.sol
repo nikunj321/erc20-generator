@@ -6,14 +6,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20Capped.sol";
 
-import "../../utils/Receiver.sol";
+import "../../service/ServicePayer.sol";
 
 /**
  * @title CommonERC20
  * @author ERC20 Generator (https://vittominacori.github.io/erc20-generator)
  * @dev Implementation of the CommonERC20
  */
-contract CommonERC20 is ERC20Capped, ERC20Burnable, Ownable, Receiver {
+contract CommonERC20 is ERC20Capped, ERC20Burnable, Ownable, ServicePayer {
 
     // indicates if minting is finished
     bool private _mintingFinished = false;
@@ -38,7 +38,7 @@ contract CommonERC20 is ERC20Capped, ERC20Burnable, Ownable, Receiver {
         uint256 cap,
         uint256 initialBalance,
         address payable feeReceiver
-    ) ERC20(name, symbol) ERC20Capped(cap) Receiver(feeReceiver) payable {
+    ) ERC20(name, symbol) ERC20Capped(cap) ServicePayer(feeReceiver, "CommonERC20") payable {
         _setupDecimals(decimals);
 
         _mint(_msgSender(), initialBalance);
