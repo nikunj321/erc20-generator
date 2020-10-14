@@ -31,11 +31,11 @@ contract('ServicePayer', function ([owner, thirdParty]) {
 
     it('requires a ServiceReceiver', async function () {
       await expectRevert.unspecified(
-        ServicePayer.new(ZERO_ADDRESS, {from: owner, value: fee})
+        ServicePayer.new(ZERO_ADDRESS, { from: owner, value: fee }),
       );
 
       await expectRevert.unspecified(
-        ServicePayer.new(thirdParty, {from: owner, value: fee})
+        ServicePayer.new(thirdParty, { from: owner, value: fee }),
       );
     });
 
