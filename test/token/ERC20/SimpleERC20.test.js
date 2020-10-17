@@ -5,6 +5,7 @@ const { shouldBehaveLikeERC20 } = require('./behaviours/ERC20.behaviour');
 const { shouldBehaveLikeGeneratorCopyright } = require('../../utils/GeneratorCopyright.behaviour');
 
 const SimpleERC20 = artifacts.require('SimpleERC20');
+const ServiceReceiver = artifacts.require('ServiceReceiver');
 
 contract('SimpleERC20', function ([owner, recipient, thirdParty]) {
   const _name = 'SimpleERC20';
@@ -12,11 +13,28 @@ contract('SimpleERC20', function ([owner, recipient, thirdParty]) {
   const _decimals = new BN(18);
   const _initialSupply = new BN(100000000);
 
+  const fee = 0;
+
+  beforeEach(async function () {
+    this.serviceReceiver = await ServiceReceiver.new({ from: owner });
+    // not to set any price means it doesn't require any fee
+    // await this.serviceReceiver.setPrice('SimpleERC20', fee);
+  });
+
   context('creating valid token', function () {
     describe('without initial supply', function () {
       it('should fail', async function () {
         await expectRevert(
-          SimpleERC20.new(_name, _symbol, 0),
+          SimpleERC20.new(
+            _name,
+            _symbol,
+            0,
+            this.serviceReceiver.address,
+            {
+              from: owner,
+              value: fee,
+            },
+          ),
           'SimpleERC20: supply cannot be zero',
         );
       });
@@ -28,7 +46,11 @@ contract('SimpleERC20', function ([owner, recipient, thirdParty]) {
           _name,
           _symbol,
           _initialSupply,
-          { from: owner },
+          this.serviceReceiver.address,
+          {
+            from: owner,
+            value: fee,
+          },
         );
       });
 
@@ -50,7 +72,11 @@ contract('SimpleERC20', function ([owner, recipient, thirdParty]) {
         _name,
         _symbol,
         _initialSupply,
-        { from: owner },
+        this.serviceReceiver.address,
+        {
+          from: owner,
+          value: fee,
+        },
       );
     });
 
