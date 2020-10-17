@@ -19,5 +19,5 @@ module.exports = {
       },
     ],
   ],
-  defaultNetwork: 'mainnet',
+  defaultNetwork: process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? 'mainnet' : 'rinkeby',
 };

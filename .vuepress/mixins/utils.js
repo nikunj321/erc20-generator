@@ -16,6 +16,17 @@ export default {
         solid: true,
       });
     },
+    promisify (fn, ...args) {
+      return new Promise((resolve, reject) => {
+        fn(...args, (err, res) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(res);
+          }
+        });
+      });
+    },
     gaSend (category, action, label) {
       try {
         ga('send', 'event', category, action, label);

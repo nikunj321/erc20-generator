@@ -5,6 +5,8 @@ import StandardERC20 from '../abi/token/StandardERC20.json';
 import CommonERC20 from '../abi/token/CommonERC20.json';
 import PowerfulERC20 from '../abi/token/PowerfulERC20.json';
 
+import ServiceReceiverArtifact from '../abi/service/ServiceReceiver.json';
+
 const tokenList = {
   SimpleERC20,
   StandardERC20,
@@ -66,8 +68,16 @@ export default {
           },
         },
       },
+      serviceReceiver: {
+        mainnet: '0x0',
+        ropsten: '0x0',
+        rinkeby: '0x50261e88A4051B9A80ed66756d2164e5477FD52F',
+        kovan: '0x0',
+        goerli: '0x0',
+      },
       contracts: {
         token: null,
+        service: null,
       },
     };
   },
@@ -113,15 +123,18 @@ export default {
         }
       });
     },
+    initService(network) {
+      this.contracts.service = this.web3.eth.contract(ServiceReceiverArtifact.abi).at(this.serviceReceiver[network]);
+    },
     initToken (tokenType) {
-      const artifact = tokenList[tokenType];
+      const TokenArtifact = tokenList[tokenType];
 
-      this.contracts.token = this.web3.eth.contract(artifact.abi);
-      this.contracts.token.contractName = artifact.contractName;
-      this.contracts.token.compiler = artifact.compiler;
-      this.contracts.token.bytecode = artifact.bytecode;
-      this.contracts.token.devdoc = artifact.devdoc;
-      this.contracts.token.stringifiedAbi = JSON.stringify(artifact.abi);
+      this.contracts.token = this.web3.eth.contract(TokenArtifact.abi);
+      this.contracts.token.contractName = TokenArtifact.contractName;
+      this.contracts.token.compiler = TokenArtifact.compiler;
+      this.contracts.token.bytecode = TokenArtifact.bytecode;
+      this.contracts.token.devdoc = TokenArtifact.devdoc;
+      this.contracts.token.stringifiedAbi = JSON.stringify(TokenArtifact.abi);
     },
   },
 };

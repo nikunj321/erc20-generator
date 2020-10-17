@@ -319,6 +319,7 @@
         transactionStarted: false,
         makingTransaction: false,
         formDisabled: false,
+        feeAmount: 0,
         token: {
           name: '',
           symbol: '',
@@ -339,8 +340,8 @@
         this.network.current = this.network.list[this.currentNetwork];
         try {
           await this.initWeb3(this.currentNetwork, true);
-          this.initToken('SimpleERC20');
-          this.loading = false;
+          this.initService(this.currentNetwork);
+          await this.loadToken('SimpleERC20');
         } catch (e) {
           console.log(e); // eslint-disable-line no-console
           this.makeToast(
@@ -350,6 +351,11 @@
           );
           // document.location.href = this.$withBase('/');
         }
+      },
+      async loadToken (tokenType) {
+        this.initToken(tokenType);
+        this.feeAmount = await this.promisify(this.contracts.service.getPrice, tokenType);
+        this.loading = false;
       },
       async generateToken () {
         this.$refs.observer.validate().then(async (result) => {
@@ -393,14 +399,15 @@
                 this.contracts.token.new(
                   name,
                   symbol,
-                  decimals,
-                  cap,
+                  // decimals,
+                  // cap,
                   initialBalance,
-                  enableTransfer,
-                  finishMinting,
+                  // enableTransfer,
+                  this.contracts.service.address,
                   {
                     from: this.web3.eth.coinbase,
                     data: this.contracts.token.bytecode,
+                    value: this.feeAmount,
                   }, (e, tokenContract) => {
                     if (e) {
                       console.log(e); // eslint-disable-line no-console
