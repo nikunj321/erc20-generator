@@ -1,9 +1,21 @@
 import config from '../config';
-import TokenArtifact from '../abi/BaseToken.json';
+
+import SimpleERC20 from '../abi/token/SimpleERC20.json';
+import StandardERC20 from '../abi/token/StandardERC20.json';
+import CommonERC20 from '../abi/token/CommonERC20.json';
+import PowerfulERC20 from '../abi/token/PowerfulERC20.json';
+
+const tokenList = {
+  SimpleERC20,
+  StandardERC20,
+  CommonERC20,
+  PowerfulERC20,
+};
 
 export default {
   data () {
     return {
+      version: '4.0.0',
       legacy: false,
       web3: null,
       web3Provider: null,
@@ -101,13 +113,15 @@ export default {
         }
       });
     },
-    initToken () {
-      this.contracts.token = this.web3.eth.contract(TokenArtifact.abi);
-      this.contracts.token.contractName = TokenArtifact.contractName;
-      this.contracts.token.compiler = TokenArtifact.compiler;
-      this.contracts.token.bytecode = TokenArtifact.bytecode;
-      this.contracts.token.devdoc = TokenArtifact.devdoc;
-      this.contracts.token.stringifiedAbi = JSON.stringify(TokenArtifact.abi);
+    initToken (tokenType) {
+      const artifact = tokenList[tokenType];
+
+      this.contracts.token = this.web3.eth.contract(artifact.abi);
+      this.contracts.token.contractName = artifact.contractName;
+      this.contracts.token.compiler = artifact.compiler;
+      this.contracts.token.bytecode = artifact.bytecode;
+      this.contracts.token.devdoc = artifact.devdoc;
+      this.contracts.token.stringifiedAbi = JSON.stringify(artifact.abi);
     },
   },
 };

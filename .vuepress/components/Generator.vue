@@ -7,7 +7,7 @@
                      class="mb-0"
                      fluid>
             <p>
-                <b-img src="https://img.shields.io/badge/version-3.2.0-blue"></b-img>
+                <b-img :src="`https://img.shields.io/badge/version-${version}-blue`"></b-img>
                 <b-link href="https://travis-ci.com/github/vittominacori/erc20-generator" target="_blank">
                     <b-img src="https://travis-ci.com/vittominacori/erc20-generator.svg?branch=master"></b-img>
                 </b-link>
@@ -15,7 +15,7 @@
                     <b-img src="https://coveralls.io/repos/github/vittominacori/erc20-generator/badge.svg?branch=master"></b-img>
                 </b-link>
             </p>
-            <p>Easily deploy Smart Contract for a Standard, Capped, Mintable, Burnable ERC20 Token.</p>
+            <p>{{ $site.description }}</p>
             <hr class="my-4">
             <a class="btn btn-lg btn-outline-warning"
                href="#token-generator"
@@ -339,7 +339,7 @@
         this.network.current = this.network.list[this.currentNetwork];
         try {
           await this.initWeb3(this.currentNetwork, true);
-          this.initToken();
+          this.initToken('SimpleERC20');
           this.loading = false;
         } catch (e) {
           console.log(e); // eslint-disable-line no-console

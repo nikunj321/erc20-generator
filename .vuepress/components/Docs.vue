@@ -15,7 +15,7 @@
                                 Source Code:
                                 <b-link :href="sourceCode"
                                         target="_blank">
-                                    <b>BaseToken.dist.sol</b>
+                                    <b>{{ contracts.token.contractName }}.dist.sol</b>
                                 </b-link>
                             </li>
                             <li>Contract Name: <b>{{ contracts.token.contractName }}</b></li>
@@ -116,10 +116,14 @@
     ],
     data () {
       return {
-        sourceCode: 'https://github.com/vittominacori/erc20-generator/blob/v3.2.0/dist/BaseToken.dist.sol',
         loading: true,
         currentNetwork: null,
       };
+    },
+    computed: {
+      sourceCode: function () {
+        return `https://github.com/vittominacori/erc20-generator/blob/v${this.version}/dist/${this.contracts.token.contractName}.dist.sol`;
+      },
     },
     mounted () {
       this.currentNetwork = this.network.default;
@@ -130,7 +134,7 @@
         this.network.current = this.network.list[this.currentNetwork];
         try {
           await this.initWeb3(this.currentNetwork, true);
-          this.initToken();
+          this.initToken('SimpleERC20');
           this.loading = false;
         } catch (e) {
           console.log(e);
