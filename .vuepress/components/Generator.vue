@@ -89,6 +89,20 @@
                                                     To deploy on Main Network you must select Main Ethereum Network.
                                                 </b-alert>
                                             </b-col>
+                                            <b-col lg="12">
+                                                <b-form-group
+                                                        description="Choose your Token."
+                                                        label="Token Type *"
+                                                        label-for="tokenType">
+                                                    <b-form-select id="tokenType"
+                                                                   v-model="tokenType"
+                                                                   size="lg"
+                                                                   @input="loadToken">
+                                                        <option v-for="(n, k) in tokenList" :value="k">{{ n.contractName }}
+                                                        </option>
+                                                    </b-form-select>
+                                                </b-form-group>
+                                            </b-col>
                                         </b-row>
                                     </b-card>
                                 </b-col>
@@ -156,6 +170,7 @@
                                                         name="tokenDecimals"
                                                         placeholder="Your token decimals"
                                                         type="number"
+                                                        :disabled="['SimpleERC20'].includes(tokenType)"
                                                         v-model.trim="token.decimals"
                                                         size="lg"
                                                         :class="{'is-invalid': errors.length > 0}"
@@ -205,7 +220,7 @@
                                                         name="tokenInitialBalance"
                                                         placeholder="Your token initial supply"
                                                         type="number"
-                                                        :disabled="finishMinting"
+                                                        :disabled="['SimpleERC20', 'StandardERC20'].includes(tokenType)"
                                                         v-model.trim="token.initialBalance"
                                                         size="lg"
                                                         :class="{'is-invalid': errors.length > 0}"
@@ -247,6 +262,7 @@
       return {
         loading: true,
         currentNetwork: null,
+        tokenType: 'SimpleERC20',
         trxHash: '',
         transactionStarted: false,
         makingTransaction: false,
@@ -271,7 +287,7 @@
         try {
           await this.initWeb3(this.currentNetwork, true);
           this.initService(this.currentNetwork);
-          await this.loadToken('SimpleERC20');
+          await this.loadToken();
         } catch (e) {
           console.log(e); // eslint-disable-line no-console
           this.makeToast(
@@ -282,9 +298,13 @@
           // document.location.href = this.$withBase('/');
         }
       },
-      async loadToken (tokenType) {
-        this.initToken(tokenType);
-        this.feeAmount = await this.promisify(this.contracts.service.getPrice, tokenType);
+      async loadToken () {
+        this.token.decimals = ['SimpleERC20'].includes(this.tokenType) ? 18 : this.token.decimals;
+        this.updateInitialBalance();
+
+        this.feeAmount = await this.promisify(this.contracts.service.getPrice, this.tokenType);
+
+        this.initToken(this.tokenType);
         this.loading = false;
       },
       async generateToken () {
@@ -392,8 +412,11 @@
         });
       },
       updateInitialBalance () {
-        // TODO update on different token types
-        this.token.initialBalance = false ? this.token.cap : this.token.initialBalance;
+        this.token.initialBalance = ['SimpleERC20', 'StandardERC20'].includes(this.tokenType) ? this.token.cap : this.token.initialBalance;
+      },
+      getDeployParams () {
+        // TODO
+        ['SimpleERC20', 'StandardERC20'].includes(this.tokenType)
       },
       getParam (param) {
         const vars = {};
