@@ -101,7 +101,7 @@ export default {
           }
 
           this.web3 = new Web3(this.web3Provider);
-          this.metamask.installed = true;
+          this.metamask.installed = this.web3Provider.isMetaMask;
           this.web3.version.getNetwork(async (err, netId) => {
             if (err) {
               console.log(err); // eslint-disable-line no-console
