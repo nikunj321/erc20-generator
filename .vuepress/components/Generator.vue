@@ -61,51 +61,6 @@
                             v-if="!makingTransaction">
                         <fieldset :disabled="formDisabled">
                             <b-row>
-                                <b-col lg="4">
-                                    <b-card header="Advanced"
-                                            header-bg-variant="dark"
-                                            header-text-variant="white"
-                                            class="mt-3">
-                                        <b-row>
-                                            <b-col lg="12">
-                                                <b-form-group
-                                                        description="Choose your Network."
-                                                        label="Network *"
-                                                        label-for="network">
-                                                    <b-form-select id="network"
-                                                                   v-model="currentNetwork"
-                                                                   size="lg"
-                                                                   @input="initDapp">
-                                                        <option v-for="(n, k) in network.list" :value="k">{{ n.name }}
-                                                        </option>
-                                                    </b-form-select>
-                                                </b-form-group>
-
-                                                <b-alert show variant="warning" v-if="currentNetwork !== 'mainnet'">
-                                                    <strong>
-                                                        You selected a TEST Network.
-                                                    </strong>
-                                                    <hr>
-                                                    To deploy on Main Network you must select Main Ethereum Network.
-                                                </b-alert>
-                                            </b-col>
-                                            <b-col lg="12">
-                                                <b-form-group
-                                                        description="Choose your Token."
-                                                        label="Token Type *"
-                                                        label-for="tokenType">
-                                                    <b-form-select id="tokenType"
-                                                                   v-model="tokenType"
-                                                                   size="lg"
-                                                                   @input="loadToken">
-                                                        <option v-for="(n, k) in tokenList" :value="k">{{ n.contractName }}
-                                                        </option>
-                                                    </b-form-select>
-                                                </b-form-group>
-                                            </b-col>
-                                        </b-row>
-                                    </b-card>
-                                </b-col>
                                 <b-col lg="8">
                                     <b-card header="Token Details"
                                             header-bg-variant="dark"
@@ -232,6 +187,63 @@
                                             </b-form-group>
                                         </ValidationProvider>
                                     </b-card>
+                                </b-col>
+                                <b-col lg="4">
+                                    <b-card header="Advanced"
+                                            header-bg-variant="dark"
+                                            header-text-variant="white"
+                                            class="mt-3">
+                                        <b-row>
+                                            <b-col lg="12">
+                                                <b-form-group
+                                                        description="Choose your Network."
+                                                        label="Network *"
+                                                        label-for="network">
+                                                    <b-form-select id="network"
+                                                                   v-model="currentNetwork"
+                                                                   size="lg"
+                                                                   @input="initDapp">
+                                                        <option v-for="(n, k) in network.list" :value="k">{{ n.name }}
+                                                        </option>
+                                                    </b-form-select>
+                                                </b-form-group>
+
+                                                <b-alert show variant="warning" v-if="currentNetwork !== 'mainnet'">
+                                                    <strong>
+                                                        You selected a TEST Network.
+                                                    </strong>
+                                                    <hr>
+                                                    To deploy on Main Network you must select Main Ethereum Network.
+                                                </b-alert>
+                                            </b-col>
+                                            <b-col lg="12">
+                                                <b-form-group
+                                                        description="Choose your Token."
+                                                        label="Token Type *"
+                                                        label-for="tokenType">
+                                                    <b-form-select id="tokenType"
+                                                                   v-model="tokenType"
+                                                                   size="lg"
+                                                                   @input="loadToken">
+                                                        <option v-for="(n, k) in tokenList" :value="k">{{ n.contractName }}
+                                                        </option>
+                                                    </b-form-select>
+                                                </b-form-group>
+                                            </b-col>
+                                        </b-row>
+                                    </b-card>
+
+                                    <b-card header="Payment"
+                                            header-bg-variant="dark"
+                                            header-text-variant="white"
+                                            class="mt-3">
+                                        <b-card-text class="text-right">
+                                            Token deployment fee: <b>{{ web3.fromWei(feeAmount) }} ETH</b>
+                                        </b-card-text>
+                                        <template #footer>
+                                            <small>GAS fee will be added to final amount</small>
+                                        </template>
+                                    </b-card>
 
                                     <b-row class="mt-3">
                                         <b-col lg="12" class="text-right">
@@ -338,7 +350,6 @@
               }
 
               setTimeout(() => {
-
                 const params = this.getDeployParams();
 
                 this.contracts.token.new(
@@ -387,23 +398,23 @@
         const params = [name, symbol];
 
         switch (this.tokenType) {
-          case 'SimpleERC20':
-            params.push(cap);
-            break;
-          case 'StandardERC20':
-            params.push(decimals);
-            params.push(cap);
-            break;
-          case 'CommonERC20':
-          case 'PowerfulERC20':
-            params.push(decimals);
-            params.push(cap);
-            params.push(initialBalance);
-            break;
-          default:
-            throw new Error(
-              'Invalid Token Type',
-            );
+        case 'SimpleERC20':
+          params.push(cap);
+          break;
+        case 'StandardERC20':
+          params.push(decimals);
+          params.push(cap);
+          break;
+        case 'CommonERC20':
+        case 'PowerfulERC20':
+          params.push(decimals);
+          params.push(cap);
+          params.push(initialBalance);
+          break;
+        default:
+          throw new Error(
+            'Invalid Token Type',
+          );
         }
 
         return params;
@@ -455,7 +466,7 @@
             this.gaSend('token', `token_${this.network.current.id}`, this.token.address);
           }
         }
-      }
+      },
     },
   };
 </script>

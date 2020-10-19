@@ -122,7 +122,7 @@ export default {
         }
       });
     },
-    initService(network) {
+    initService (network) {
       this.contracts.service = this.web3.eth.contract(ServiceReceiverArtifact.abi).at(this.serviceReceiver[network]);
     },
     initToken (tokenType) {
