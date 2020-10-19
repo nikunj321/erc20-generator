@@ -328,12 +328,6 @@
               }
             }
 
-            const name = this.token.name;
-            const symbol = this.token.symbol.toUpperCase();
-            const decimals = new this.web3.BigNumber(this.token.decimals);
-            const cap = new this.web3.BigNumber(this.token.cap).mul(Math.pow(10, this.token.decimals));
-            const initialBalance = new this.web3.BigNumber(this.token.initialBalance).mul(Math.pow(10, this.token.decimals)); // eslint-disable-line max-len
-
             try {
               this.trxHash = '';
               this.formDisabled = true;
@@ -344,50 +338,19 @@
               }
 
               setTimeout(() => {
+
+                const params = this.getDeployParams();
+
                 this.contracts.token.new(
-                  name,
-                  symbol,
-                  // decimals,
-                  // cap,
-                  initialBalance,
+                  ...params,
                   this.contracts.service.address,
                   {
                     from: this.web3.eth.coinbase,
                     data: this.contracts.token.bytecode,
                     value: this.feeAmount,
-                  }, (e, tokenContract) => {
-                    if (e) {
-                      console.log(e); // eslint-disable-line no-console
-                      this.makingTransaction = false;
-                      this.formDisabled = false;
-                      this.makeToast(
-                        'Some error occurred',
-                        e.message,
-                        'danger',
-                      );
-                    } else {
-                      // NOTE: The callback will fire twice!
-                      // Once the contract has the transactionHash property
-                      // set and once its deployed on an address.
-                      if (!tokenContract.address) {
-                        this.transactionStarted = true;
-                        this.trxHash = tokenContract.transactionHash;
-                        this.trxLink = this.network.current.etherscanLink + '/tx/' + this.trxHash;
-
-                        this.gaSend('transaction', `trx_${this.network.current.id}`, this.trxHash);
-                      } else {
-                        this.token.address = tokenContract.address;
-                        this.token.link = this.network.current.etherscanLink + '/token/' + this.token.address;
-                        this.$forceUpdate();
-                        this.makeToast(
-                          'Well done!',
-                          `Your token has been deployed at ${this.token.address}`,
-                          'success',
-                        );
-
-                        this.gaSend('token', `token_${this.network.current.id}`, this.token.address);
-                      }
-                    }
+                  },
+                  (e, tokenContract) => {
+                    this.deployCallback(e, tokenContract);
                   },
                 );
               }, 500);
@@ -415,8 +378,35 @@
         this.token.initialBalance = ['SimpleERC20', 'StandardERC20'].includes(this.tokenType) ? this.token.cap : this.token.initialBalance;
       },
       getDeployParams () {
-        // TODO
-        ['SimpleERC20', 'StandardERC20'].includes(this.tokenType)
+        const name = this.token.name;
+        const symbol = this.token.symbol.toUpperCase();
+        const decimals = new this.web3.BigNumber(this.token.decimals);
+        const cap = new this.web3.BigNumber(this.token.cap).mul(Math.pow(10, this.token.decimals));
+        const initialBalance = new this.web3.BigNumber(this.token.initialBalance).mul(Math.pow(10, this.token.decimals)); // eslint-disable-line max-len
+
+        const params = [name, symbol];
+
+        switch (this.tokenType) {
+          case 'SimpleERC20':
+            params.push(cap);
+            break;
+          case 'StandardERC20':
+            params.push(decimals);
+            params.push(cap);
+            break;
+          case 'CommonERC20':
+          case 'PowerfulERC20':
+            params.push(decimals);
+            params.push(cap);
+            params.push(initialBalance);
+            break;
+          default:
+            throw new Error(
+              'Invalid Token Type',
+            );
+        }
+
+        return params;
       },
       getParam (param) {
         const vars = {};
@@ -432,6 +422,40 @@
         }
         return vars;
       },
+      deployCallback (e, tokenContract) {
+        if (e) {
+          console.log(e); // eslint-disable-line no-console
+          this.makingTransaction = false;
+          this.formDisabled = false;
+          this.makeToast(
+            'Some error occurred',
+            e.message,
+            'danger',
+          );
+        } else {
+          // NOTE: The callback will fire twice!
+          // Once the contract has the transactionHash property
+          // set and once its deployed on an address.
+          if (!tokenContract.address) {
+            this.transactionStarted = true;
+            this.trxHash = tokenContract.transactionHash;
+            this.trxLink = this.network.current.etherscanLink + '/tx/' + this.trxHash;
+
+            this.gaSend('transaction', `trx_${this.network.current.id}`, this.trxHash);
+          } else {
+            this.token.address = tokenContract.address;
+            this.token.link = this.network.current.etherscanLink + '/token/' + this.token.address;
+            this.$forceUpdate();
+            this.makeToast(
+              'Well done!',
+              `Your token has been deployed at ${this.token.address}`,
+              'success',
+            );
+
+            this.gaSend('token', `token_${this.network.current.id}`, this.token.address);
+          }
+        }
+      }
     },
   };
 </script>
