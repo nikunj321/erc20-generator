@@ -238,7 +238,7 @@
                                             header-text-variant="white"
                                             class="mt-3">
                                         <b-card-text class="text-right">
-                                            Token deployment fee: <b>{{ web3.fromWei(feeAmount) }} ETH</b>
+                                            Token deployment fee: <b>{{ web3.utils.fromWei(feeAmount, 'ether') }} ETH</b>
                                         </b-card-text>
                                         <template #footer>
                                             <small>GAS fee will be added to final amount</small>
@@ -279,7 +279,7 @@
         transactionStarted: false,
         makingTransaction: false,
         formDisabled: false,
-        feeAmount: 0,
+        feeAmount: '0',
         token: {
           name: '',
           symbol: '',
@@ -314,7 +314,7 @@
         this.token.decimals = ['SimpleERC20'].includes(this.tokenType) ? 18 : this.token.decimals;
         this.updateInitialBalance();
 
-        this.feeAmount = await this.promisify(this.contracts.service.getPrice, this.tokenType);
+        this.feeAmount = await this.promisify(this.contracts.service.methods.getPrice(this.tokenType).call);
 
         this.initToken(this.tokenType);
         this.loading = false;
@@ -345,25 +345,23 @@
               this.formDisabled = true;
               this.makingTransaction = true;
 
-              if (!this.legacy) {
-                await this.web3Provider.enable();
-              }
+              await this.web3Provider.enable();
 
-              setTimeout(() => {
-                const params = this.getDeployParams();
+              setTimeout(async () => {
+                const tokenContract = new this.web3.eth.Contract(this.contracts.token.abi);
 
-                this.contracts.token.new(
-                  ...params,
-                  this.contracts.service.address,
-                  {
-                    from: this.web3.eth.coinbase,
-                    data: this.contracts.token.bytecode,
-                    value: this.feeAmount,
-                  },
-                  (e, tokenContract) => {
-                    this.deployCallback(e, tokenContract);
-                  },
-                );
+                tokenContract.deploy({
+                  data: this.contracts.token.bytecode,
+                  arguments: this.getDeployParams(),
+                })
+                  .send(
+                    {
+                      from: await this.promisify(this.web3.eth.getCoinbase),
+                      value: this.feeAmount,
+                    },
+                    (e, tokenContract) => {
+                      this.deployCallback(e, tokenContract);
+                    });
               }, 500);
             } catch (e) {
               this.makingTransaction = false;
@@ -391,9 +389,9 @@
       getDeployParams () {
         const name = this.token.name;
         const symbol = this.token.symbol.toUpperCase();
-        const decimals = new this.web3.BigNumber(this.token.decimals);
-        const cap = new this.web3.BigNumber(this.token.cap).mul(Math.pow(10, this.token.decimals));
-        const initialBalance = new this.web3.BigNumber(this.token.initialBalance).mul(Math.pow(10, this.token.decimals)); // eslint-disable-line max-len
+        const decimals = this.web3.utils.toBN(this.token.decimals);
+        const cap = this.web3.utils.toBN(this.token.cap).mul(this.web3.utils.toBN(Math.pow(10, this.token.decimals)));
+        const initialBalance = this.web3.utils.toBN(this.token.initialBalance).mul(this.web3.utils.toBN(Math.pow(10, this.token.decimals))); // eslint-disable-line max-len
 
         const params = [name, symbol];
 
@@ -416,6 +414,8 @@
             'Invalid Token Type',
           );
         }
+
+        params.push(this.contracts.service.options.address);
 
         return params;
       },

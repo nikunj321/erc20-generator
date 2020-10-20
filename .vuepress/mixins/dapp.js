@@ -11,7 +11,6 @@ export default {
   data () {
     return {
       version: '4.0.0',
-      legacy: false,
       web3: null,
       web3Provider: null,
       metamask: {
@@ -32,31 +31,31 @@ export default {
           mainnet: {
             web3Provider: 'https://mainnet.infura.io/v3/12ca5f4d25964a428951747cf4cd5660',
             etherscanLink: 'https://etherscan.io',
-            id: '1',
+            id: 1,
             name: 'Main Ethereum Network',
           },
           ropsten: {
             web3Provider: 'https://ropsten.infura.io/v3/12ca5f4d25964a428951747cf4cd5660',
             etherscanLink: 'https://ropsten.etherscan.io',
-            id: '3',
+            id: 3,
             name: 'Ropsten Test Network',
           },
           rinkeby: {
             web3Provider: 'https://rinkeby.infura.io/v3/12ca5f4d25964a428951747cf4cd5660',
             etherscanLink: 'https://rinkeby.etherscan.io',
-            id: '4',
+            id: 4,
             name: 'Rinkeby Test Network',
           },
           kovan: {
             web3Provider: 'https://kovan.infura.io/v3/12ca5f4d25964a428951747cf4cd5660',
             etherscanLink: 'https://kovan.etherscan.io',
-            id: '42',
+            id: 42,
             name: 'Kovan Test Network',
           },
           goerli: {
             web3Provider: 'https://goerli.infura.io/v3/12ca5f4d25964a428951747cf4cd5660',
             etherscanLink: 'https://goerli.etherscan.io',
-            id: '5',
+            id: 5,
             name: 'Goerli Test Network',
           },
         },
@@ -88,32 +87,24 @@ export default {
         );
       }
 
-      return new Promise((resolve) => {
-        if (checkWeb3 && (typeof window.ethereum !== 'undefined' || typeof window.web3 !== 'undefined')) {
-          if (window.ethereum) {
-            console.log('injected web3'); // eslint-disable-line no-console
-            this.web3Provider = window.ethereum;
-          } else {
-            console.log('injected web3 (legacy)'); // eslint-disable-line no-console
-            this.web3Provider = window.web3.currentProvider;
-            this.legacy = true;
-          }
+      return new Promise(async (resolve) => {
+        if (checkWeb3 && (typeof window.ethereum !== 'undefined')) {
+          console.log('injected ethereum'); // eslint-disable-line no-console
+          this.web3Provider = window.ethereum;
 
           this.web3 = new Web3(this.web3Provider);
           this.metamask.installed = this.web3Provider.isMetaMask;
-          this.web3.version.getNetwork(async (err, netId) => {
-            if (err) {
-              console.log(err); // eslint-disable-line no-console
-            }
-            this.metamask.netId = netId;
-            if (netId !== this.network.list[network].id) {
-              this.network.current = this.network.list[this.network.map[netId]];
-              await this.initWeb3(network, false);
-            }
-            resolve();
-          });
+
+          const netId = await this.promisify(this.web3.eth.getChainId);
+          this.metamask.netId = netId;
+
+          if (netId !== this.network.list[network].id) {
+            this.network.current = this.network.list[this.network.map[netId]];
+            await this.initWeb3(network, false);
+          }
+          resolve();
         } else {
-          console.log('provided web3'); // eslint-disable-line no-console
+          console.log('provided ethereum'); // eslint-disable-line no-console
           this.network.current = this.network.list[network];
           this.web3Provider = new Web3.providers.HttpProvider(this.network.list[network].web3Provider);
           this.web3 = new Web3(this.web3Provider);
@@ -123,17 +114,14 @@ export default {
       });
     },
     initService (network) {
-      this.contracts.service = this.web3.eth.contract(ServiceReceiverArtifact.abi).at(this.serviceReceiver[network]);
+      this.contracts.service = new this.web3.eth.Contract(
+        ServiceReceiverArtifact.abi,
+        this.serviceReceiver[network],
+      );
     },
     initToken (tokenType) {
-      const TokenArtifact = this.tokenList[tokenType];
-
-      this.contracts.token = this.web3.eth.contract(TokenArtifact.abi);
-      this.contracts.token.contractName = TokenArtifact.contractName;
-      this.contracts.token.compiler = TokenArtifact.compiler;
-      this.contracts.token.bytecode = TokenArtifact.bytecode;
-      this.contracts.token.devdoc = TokenArtifact.devdoc;
-      this.contracts.token.stringifiedAbi = JSON.stringify(TokenArtifact.abi);
+      this.contracts.token = this.tokenList[tokenType];
+      this.contracts.token.stringifiedAbi = JSON.stringify(this.contracts.token.abi);
     },
   },
 };
