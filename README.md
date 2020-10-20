@@ -142,13 +142,6 @@ The `mdreport` command creates a markdown description report with tables compris
 The `sol2uml` generates UML class diagram from Solidity contracts.
 
 
-## Token verification on Etherscan
-
-Use source code inside [dist folder](https://github.com/vittominacori/erc20-generator/blob/master/dist/)
-
-Solc version is 0.7.3
-
-
 ## License
 
 Code released under the [MIT License](https://github.com/vittominacori/erc20-generator/blob/master/LICENSE).
