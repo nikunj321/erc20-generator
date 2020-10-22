@@ -5,7 +5,7 @@
 
 |  File Name  |  SHA-1 Hash  |
 |-------------|--------------|
-| dist/SimpleERC20.dist.sol | 6956df1ced893a945a99a16453a0a32cf490aab1 |
+| dist/SimpleERC20.dist.sol | 811bb1dc48086240e6919f5a0051d3889de39e78 |
 
 
 ### Contracts Description Table
@@ -66,12 +66,31 @@
 | └ | _setupDecimals | Internal 🔒 | 🛑  | |
 | └ | _beforeTokenTransfer | Internal 🔒 | 🛑  | |
 ||||||
+| **Ownable** | Implementation | Context |||
+| └ | <Constructor> | Public ❗️ | 🛑  |NO❗️ |
+| └ | owner | Public ❗️ |   |NO❗️ |
+| └ | renounceOwnership | Public ❗️ | 🛑  | onlyOwner |
+| └ | transferOwnership | Public ❗️ | 🛑  | onlyOwner |
+||||||
+| **TokenRecover** | Implementation | Ownable |||
+| └ | recoverERC20 | Public ❗️ | 🛑  | onlyOwner |
+||||||
+| **ServiceReceiver** | Implementation | TokenRecover |||
+| └ | pay | Public ❗️ |  💵 |NO❗️ |
+| └ | getPrice | Public ❗️ |   |NO❗️ |
+| └ | setPrice | Public ❗️ | 🛑  | onlyOwner |
+| └ | withdraw | Public ❗️ | 🛑  | onlyOwner |
+| └ | _toBytes32 | Private 🔐 |   | |
+||||||
+| **ServicePayer** | Implementation |  |||
+| └ | <Constructor> | Public ❗️ |  💵 |NO❗️ |
+||||||
 | **GeneratorCopyright** | Implementation |  |||
 | └ | generator | Public ❗️ |   |NO❗️ |
 | └ | version | Public ❗️ |   |NO❗️ |
 ||||||
-| **SimpleERC20** | Implementation | ERC20, GeneratorCopyright |||
-| └ | <Constructor> | Public ❗️ | 🛑  | ERC20 |
+| **SimpleERC20** | Implementation | ERC20, ServicePayer, GeneratorCopyright |||
+| └ | <Constructor> | Public ❗️ |  💵 | ERC20 ServicePayer |
 
 
 ### Legend
