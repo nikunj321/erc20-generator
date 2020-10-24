@@ -30,8 +30,14 @@
             <b-col lg="10" offset-lg="1" class="mb-3 p-0">
                 <b-card v-if="!loading" bg-variant="transparent" border-variant="0">
                     <b-alert show variant="danger" v-if="!metamask.installed">
-                        NOTE: to use this app we install <a href="https://metamask.io/" target="_blank">MetaMask</a> extension on Chrome Desktop.<br>
-                        Use any other wallet at your own risk.
+                        <h4 class="alert-heading">Alert</h4>
+                        <p>
+                            To use this app please install <a href="https://metamask.io/" target="_blank">MetaMask</a> extension on Chrome Desktop.
+                        </p>
+                        <hr>
+                        <p class="mb-0">
+                            Use any other wallet at your own risk.
+                        </p>
                     </b-alert>
 
                     <b-card header="Making transaction..."
@@ -356,46 +362,48 @@
 
               await this.web3Provider.request({ method: 'eth_requestAccounts' });
 
-              setTimeout(async () => {
-                const tokenContract = new this.web3.eth.Contract(this.contracts.token.abi);
+              const tokenContract = new this.web3.eth.Contract(this.contracts.token.abi);
 
-                tokenContract.deploy({
-                  data: this.contracts.token.bytecode,
-                  arguments: this.getDeployArguments(),
+              tokenContract.deploy({
+                data: this.contracts.token.bytecode,
+                arguments: this.getDeployArguments(),
+              })
+                .send(
+                  {
+                    from: await this.promisify(this.web3.eth.getCoinbase),
+                    value: this.feeAmount,
+                  })
+                .on('error', (error) => {
+                  console.log(error.message); // eslint-disable-line no-console
+
+                  this.makingTransaction = false;
+                  this.formDisabled = false;
+
+                  this.makeToast(
+                    'Error!',
+                    error.message,
+                    'danger',
+                  );
                 })
-                  .send(
-                    {
-                      from: await this.promisify(this.web3.eth.getCoinbase),
-                      value: this.feeAmount,
-                    })
-                  .on('error', (error) => {
-                    console.log(error.message); // eslint-disable-line no-console
+                .on('transactionHash', (transactionHash) => {
+                  this.transactionStarted = true;
+                  this.trx.hash = transactionHash;
+                  this.trx.link = `${this.network.current.etherscanLink}/tx/${this.trx.hash}`;
 
-                    this.makingTransaction = false;
-                    this.formDisabled = false;
+                  this.gaSend('transaction', `trx_${this.network.current.id}`, this.trx.hash);
+                })
+                .on('receipt', (receipt) => {
+                  this.token.address = receipt.contractAddress;
+                  this.token.link = this.network.current.etherscanLink + '/token/' + this.token.address;
+                  this.$forceUpdate();
+                  this.makeToast(
+                    'Well done!',
+                    `Your token has been deployed at ${this.token.address}`,
+                    'success',
+                  );
 
-                    throw error;
-                  })
-                  .on('transactionHash', (transactionHash) => {
-                    this.transactionStarted = true;
-                    this.trx.hash = transactionHash;
-                    this.trx.link = `${this.network.current.etherscanLink}/tx/${this.trx.hash}`;
-
-                    this.gaSend('transaction', `trx_${this.network.current.id}`, this.trx.hash);
-                  })
-                  .on('receipt', (receipt) => {
-                    this.token.address = receipt.contractAddress;
-                    this.token.link = this.network.current.etherscanLink + '/token/' + this.token.address;
-                    this.$forceUpdate();
-                    this.makeToast(
-                      'Well done!',
-                      `Your token has been deployed at ${this.token.address}`,
-                      'success',
-                    );
-
-                    this.gaSend('token', `token_${this.network.current.id}`, this.token.address);
-                  });
-              }, 500);
+                  this.gaSend('token', `token_${this.network.current.id}`, this.token.address);
+                });
             } catch (e) {
               this.makingTransaction = false;
               this.formDisabled = false;
