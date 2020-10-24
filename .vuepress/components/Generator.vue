@@ -354,7 +354,7 @@
               this.formDisabled = true;
               this.makingTransaction = true;
 
-              await this.web3Provider.enable();
+              await this.web3Provider.request({ method: 'eth_requestAccounts' });
 
               setTimeout(async () => {
                 const tokenContract = new this.web3.eth.Contract(this.contracts.token.abi);
