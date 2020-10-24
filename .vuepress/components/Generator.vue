@@ -39,10 +39,10 @@
                             header-text-variant="white"
                             v-if="makingTransaction || transactionStarted"
                             class="mt-3">
-                        <div v-if="!trxHash">Please wait...</div>
+                        <div v-if="!trx.hash">Please wait...</div>
                         <div v-else>
                             <b>Well! Transaction done!</b><br>
-                            Transaction id <a :href="trxLink" target="_blank"><span v-html="trxHash"></span></a><br>
+                            Transaction id <a :href="trx.link" target="_blank"><span v-html="trx.hash"></span></a><br>
 
                             Retrieving Token.
                             <div v-if="!token.address">Please wait...</div>
@@ -189,7 +189,7 @@
                                     </b-card>
                                 </b-col>
                                 <b-col lg="4">
-                                    <b-card header="Advanced"
+                                    <b-card header="Network"
                                             header-bg-variant="dark"
                                             header-text-variant="white"
                                             class="mt-3">
@@ -216,6 +216,14 @@
                                                     To deploy on Main Network you must select Main Ethereum Network.
                                                 </b-alert>
                                             </b-col>
+                                        </b-row>
+                                    </b-card>
+
+                                    <b-card header="Token Type"
+                                            header-bg-variant="dark"
+                                            header-text-variant="white"
+                                            class="mt-3">
+                                        <b-row>
                                             <b-col lg="12">
                                                 <b-form-group
                                                         description="Choose your Token."
@@ -225,23 +233,21 @@
                                                                    v-model="tokenType"
                                                                    size="lg"
                                                                    @input="loadToken">
-                                                        <option v-for="(n, k) in tokenList" :value="k">{{ n.contractName }}
+                                                        <option v-for="(n, k) in tokenList" :value="k">
+                                                            {{ n.contractName }}
                                                         </option>
                                                     </b-form-select>
                                                 </b-form-group>
                                             </b-col>
                                         </b-row>
-                                    </b-card>
 
-                                    <b-card header="Payment"
-                                            header-bg-variant="dark"
-                                            header-text-variant="white"
-                                            class="mt-3">
-                                        <b-card-text class="text-right">
-                                            Token deployment fee: <b>{{ web3.utils.fromWei(feeAmount, 'ether') }} ETH</b>
-                                        </b-card-text>
+                                        <b-alert show variant="info" class="text-right">
+                                            Token deployment fee <br>
+                                            <b>{{ web3.utils.fromWei(feeAmount, 'ether') }} ETH</b>
+                                        </b-alert>
+
                                         <template #footer>
-                                            <small>GAS fee will be added to final amount</small>
+                                            <small>GAS will be added to final amount</small>
                                         </template>
                                     </b-card>
 
@@ -262,20 +268,21 @@
 
 <script>
   import dapp from '../mixins/dapp';
-  import utils from '../mixins/utils';
 
   export default {
     name: 'Generator',
     mixins: [
       dapp,
-      utils,
     ],
     data () {
       return {
         loading: true,
         currentNetwork: null,
         tokenType: 'SimpleERC20',
-        trxHash: '',
+        trx: {
+          hash: '',
+          link: '',
+        },
         transactionStarted: false,
         makingTransaction: false,
         formDisabled: false,
@@ -311,12 +318,13 @@
         }
       },
       async loadToken () {
+        this.initToken(this.tokenType);
+
         this.token.decimals = ['SimpleERC20'].includes(this.tokenType) ? 18 : this.token.decimals;
         this.updateInitialBalance();
 
         this.feeAmount = await this.promisify(this.contracts.service.methods.getPrice(this.tokenType).call);
 
-        this.initToken(this.tokenType);
         this.loading = false;
       },
       async generateToken () {
@@ -341,7 +349,8 @@
             }
 
             try {
-              this.trxHash = '';
+              this.trx.hash = '';
+              this.trx.link = '';
               this.formDisabled = true;
               this.makingTransaction = true;
 
@@ -352,16 +361,40 @@
 
                 tokenContract.deploy({
                   data: this.contracts.token.bytecode,
-                  arguments: this.getDeployParams(),
+                  arguments: this.getDeployArguments(),
                 })
                   .send(
                     {
                       from: await this.promisify(this.web3.eth.getCoinbase),
                       value: this.feeAmount,
-                    },
-                    (e, tokenContract) => {
-                      this.deployCallback(e, tokenContract);
-                    });
+                    })
+                  .on('error', (error) => {
+                    console.log(error.message); // eslint-disable-line no-console
+
+                    this.makingTransaction = false;
+                    this.formDisabled = false;
+
+                    throw error;
+                  })
+                  .on('transactionHash', (transactionHash) => {
+                    this.transactionStarted = true;
+                    this.trx.hash = transactionHash;
+                    this.trx.link = `${this.network.current.etherscanLink}/tx/${this.trx.hash}`;
+
+                    this.gaSend('transaction', `trx_${this.network.current.id}`, this.trx.hash);
+                  })
+                  .on('receipt', (receipt) => {
+                    this.token.address = receipt.contractAddress;
+                    this.token.link = this.network.current.etherscanLink + '/token/' + this.token.address;
+                    this.$forceUpdate();
+                    this.makeToast(
+                      'Well done!',
+                      `Your token has been deployed at ${this.token.address}`,
+                      'success',
+                    );
+
+                    this.gaSend('token', `token_${this.network.current.id}`, this.token.address);
+                  });
               }, 500);
             } catch (e) {
               this.makingTransaction = false;
@@ -386,7 +419,7 @@
       updateInitialBalance () {
         this.token.initialBalance = ['SimpleERC20', 'StandardERC20'].includes(this.tokenType) ? this.token.cap : this.token.initialBalance;
       },
-      getDeployParams () {
+      getDeployArguments () {
         const name = this.token.name;
         const symbol = this.token.symbol.toUpperCase();
         const decimals = this.web3.utils.toBN(this.token.decimals);
@@ -418,54 +451,6 @@
         params.push(this.contracts.service.options.address);
 
         return params;
-      },
-      getParam (param) {
-        const vars = {};
-        window.location.href.replace(location.hash, '').replace(
-          /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-          function (m, key, value) { // callback
-            vars[key] = value !== undefined ? value : '';
-          },
-        );
-
-        if (param) {
-          return vars[param] ? vars[param] : null;
-        }
-        return vars;
-      },
-      deployCallback (e, tokenContract) {
-        if (e) {
-          console.log(e); // eslint-disable-line no-console
-          this.makingTransaction = false;
-          this.formDisabled = false;
-          this.makeToast(
-            'Some error occurred',
-            e.message,
-            'danger',
-          );
-        } else {
-          // NOTE: The callback will fire twice!
-          // Once the contract has the transactionHash property
-          // set and once its deployed on an address.
-          if (!tokenContract.address) {
-            this.transactionStarted = true;
-            this.trxHash = tokenContract.transactionHash;
-            this.trxLink = this.network.current.etherscanLink + '/tx/' + this.trxHash;
-
-            this.gaSend('transaction', `trx_${this.network.current.id}`, this.trxHash);
-          } else {
-            this.token.address = tokenContract.address;
-            this.token.link = this.network.current.etherscanLink + '/token/' + this.token.address;
-            this.$forceUpdate();
-            this.makeToast(
-              'Well done!',
-              `Your token has been deployed at ${this.token.address}`,
-              'success',
-            );
-
-            this.gaSend('token', `token_${this.network.current.id}`, this.token.address);
-          }
-        }
       },
     },
   };

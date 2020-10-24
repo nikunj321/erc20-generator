@@ -1,4 +1,5 @@
 import config from '../config';
+import utils from './utils';
 
 import SimpleERC20 from '../abi/token/SimpleERC20.json';
 import StandardERC20 from '../abi/token/StandardERC20.json';
@@ -8,6 +9,9 @@ import PowerfulERC20 from '../abi/token/PowerfulERC20.json';
 import ServiceReceiverArtifact from '../abi/service/ServiceReceiver.json';
 
 export default {
+  mixins: [
+    utils,
+  ],
   data () {
     return {
       version: '4.0.0',
