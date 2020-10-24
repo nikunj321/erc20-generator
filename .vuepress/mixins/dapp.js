@@ -84,38 +84,33 @@ export default {
     };
   },
   methods: {
-    initWeb3 (network, checkWeb3) {
+    async initWeb3 (network, checkWeb3) {
       if (!this.network.list.hasOwnProperty(network)) { // eslint-disable-line no-prototype-builtins
         throw new Error(
           `Failed initializing network ${network}. Allowed values are ${Object.keys(this.network.list)}.`,
         );
       }
 
-      return new Promise(async (resolve) => {
-        if (checkWeb3 && (typeof window.ethereum !== 'undefined')) {
-          console.log('injected ethereum'); // eslint-disable-line no-console
-          this.web3Provider = window.ethereum;
+      if (checkWeb3 && (typeof window.ethereum !== 'undefined')) {
+        console.log('injected ethereum'); // eslint-disable-line no-console
+        this.web3Provider = window.ethereum;
 
-          this.web3 = new Web3(this.web3Provider);
-          this.metamask.installed = this.web3Provider.isMetaMask;
+        this.web3 = new Web3(this.web3Provider);
+        this.metamask.installed = this.web3Provider.isMetaMask;
 
-          const netId = await this.promisify(this.web3.eth.getChainId);
-          this.metamask.netId = netId;
+        const netId = await this.promisify(this.web3.eth.getChainId);
+        this.metamask.netId = netId;
 
-          if (netId !== this.network.list[network].id) {
-            this.network.current = this.network.list[this.network.map[netId]];
-            await this.initWeb3(network, false);
-          }
-          resolve();
-        } else {
-          console.log('provided ethereum'); // eslint-disable-line no-console
-          this.network.current = this.network.list[network];
-          this.web3Provider = new Web3.providers.HttpProvider(this.network.list[network].web3Provider);
-          this.web3 = new Web3(this.web3Provider);
-
-          resolve();
+        if (netId !== this.network.list[network].id) {
+          this.network.current = this.network.list[this.network.map[netId]];
+          await this.initWeb3(network, false);
         }
-      });
+      } else {
+        console.log('provided ethereum'); // eslint-disable-line no-console
+        this.network.current = this.network.list[network];
+        this.web3Provider = new Web3.providers.HttpProvider(this.network.list[network].web3Provider);
+        this.web3 = new Web3(this.web3Provider);
+      }
     },
     initService (network) {
       this.contracts.service = new this.web3.eth.Contract(
