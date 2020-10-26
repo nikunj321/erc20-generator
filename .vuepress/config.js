@@ -9,7 +9,7 @@ module.exports = {
     ['meta', { property: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { property: 'twitter:image', content: 'https://vittominacori.github.io/erc20-generator/assets/images/erc20-token-generator.png' }], // eslint-disable-line max-len
     ['meta', { property: 'twitter:title', content: 'ERC20 Token Generator | Create your Token for FREE' }],
-    ['script', { src: 'assets/js/web3.min.js' }],
+    ['script', { src: '/assets/js/web3.min.js' }],
   ],
   plugins: [
     [
@@ -19,5 +19,6 @@ module.exports = {
       },
     ],
   ],
+  version: '4.0.0',
   defaultNetwork: process.env.NODE_ENV && process.env.NODE_ENV === 'production' ? 'mainnet' : 'rinkeby',
 };

@@ -7,7 +7,8 @@
 
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
-                <b-nav-item to="/docs.html">Docs</b-nav-item>
+                <b-nav-item to="/create-token/">Create</b-nav-item>
+                <b-nav-item to="/docs/">Docs</b-nav-item>
                 <b-nav-item target="_blank"
                             href="https://medium.com/@vittominacori/create-an-erc20-token-in-less-than-a-minute-2a8751c4d6f4">
                     About

@@ -14,7 +14,6 @@ export default {
   ],
   data () {
     return {
-      version: '4.0.0',
       web3: null,
       web3Provider: null,
       metamask: {

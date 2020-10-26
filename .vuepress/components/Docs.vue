@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <b-container fluid>
         <b-row>
             <b-col lg="10" offset-lg="1" class="mt-4 p-0" v-if="!loading">
                 <b-card :title="$site.title" bg-variant="transparent" border-variant="0">
@@ -87,10 +87,11 @@
                 </b-card>
             </b-col>
         </b-row>
-    </div>
+    </b-container>
 </template>
 
 <script>
+  import config from '../config';
   import dapp from '../mixins/dapp';
 
   export default {
@@ -100,6 +101,7 @@
     ],
     data () {
       return {
+        version: config.version,
         loading: true,
         currentNetwork: null,
         tokenType: 'SimpleERC20',
