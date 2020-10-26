@@ -45,13 +45,17 @@
                             header-text-variant="white"
                             v-if="makingTransaction || transactionStarted"
                             class="mt-3">
-                        <div v-if="!trx.hash">Please wait...</div>
+                        <div v-if="!trx.hash">
+                            Please wait... <ui--loader :loading="true"></ui--loader>
+                        </div>
                         <div v-else>
                             <b>Well! Transaction done!</b><br>
                             Transaction id <a :href="trx.link" target="_blank"><span v-html="trx.hash"></span></a><br>
 
                             Retrieving Token.
-                            <div v-if="!token.address">Please wait...</div>
+                            <div v-if="!token.address">
+                                Please wait... <ui--loader :loading="true"></ui--loader>
+                            </div>
                             <div v-else>
                                 <b>Your Token</b>
                                 <b-link :href="token.link" target="_blank"><span v-html="token.address"></span></b-link>
