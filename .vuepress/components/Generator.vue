@@ -22,11 +22,20 @@
                v-smooth-scroll="{ duration: 1000, offset: -50, updateHistory: false }">
                 Create a Token
             </a>
-            <b-button to="/docs.html" size="lg" variant="light">
-                Documentation
-            </b-button>
+            <a class="btn btn-lg btn-light"
+               href="#features"
+               v-smooth-scroll="{ duration: 1000, offset: -50, updateHistory: false }">
+                Features
+            </a>
+
         </b-jumbotron>
-        <b-row>
+        <b-row id="features" class="aqua-gradient">
+            <b-col lg="10" offset-lg="1" class="mb-3">
+                <h2 class="p-5 font-weight-lighter text-center text-light">Features</h2>
+                <ui--pricing-table></ui--pricing-table>
+            </b-col>
+        </b-row>
+        <b-row id="token-generator">
             <b-col lg="10" offset-lg="1" class="mb-3 p-0">
                 <b-card v-if="!loading" bg-variant="transparent" border-variant="0">
                     <b-alert show variant="danger" v-if="!metamask.installed">
@@ -46,7 +55,8 @@
                             v-if="makingTransaction || transactionStarted"
                             class="mt-3">
                         <div v-if="!trx.hash">
-                            Please wait... <ui--loader :loading="true"></ui--loader>
+                            <p>Please wait...</p>
+                            <ui--loader :loading="true"></ui--loader>
                         </div>
                         <div v-else>
                             <b>Well! Transaction done!</b><br>
@@ -54,7 +64,8 @@
 
                             Retrieving Token.
                             <div v-if="!token.address">
-                                Please wait... <ui--loader :loading="true"></ui--loader>
+                                <p>Please wait...</p>
+                                <ui--loader :loading="true"></ui--loader>
                             </div>
                             <div v-else>
                                 <b>Your Token</b>
@@ -64,7 +75,6 @@
                     </b-card>
 
                     <ValidationObserver
-                            id="token-generator"
                             ref="observer"
                             tag="form"
                             @submit.prevent="generateToken()"
