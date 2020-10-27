@@ -1,0 +1,63 @@
+<template>
+    <div class="how-it-works-table">
+        <b-row>
+            <b-col lg="4">
+                <b-card class="mb-3" bg-variant="light" border-variant="light">
+                    <b-card-title class="font-weight-light text-center">
+                        <p class="h1 mb-2">
+                            <b-icon-wallet class="m-4"></b-icon-wallet>
+                        </p>
+                        <p>Install MetaMask</p>
+                    </b-card-title>
+                    <p class="card-text text-center">
+                        You need to have
+                        <a class="text-reset" href="https://metamask.io/" target="_blank">MetaMask</a>
+                        installed with an amount of ETH
+                        to pay for contract deployment.
+                    </p>
+                </b-card>
+            </b-col>
+            <b-col lg="4">
+                <b-card class="mb-3" bg-variant="light" border-variant="light">
+                    <b-card-title class="font-weight-light text-center">
+                        <p class="h1 mb-2">
+                            <b-icon-card-checklist class="m-4"></b-icon-card-checklist>
+                        </p>
+                        <p>Enter Details</p>
+                    </b-card-title>
+                    <p class="card-text text-center">
+                        Enter your preferred Token name and symbol.
+                        Choose your supply and Token type.
+                    </p>
+                </b-card>
+            </b-col>
+            <b-col lg="4">
+                <b-card class="mb-3" bg-variant="light" border-variant="light">
+                    <b-card-title class="font-weight-light text-center">
+                        <p class="h1 mb-2">
+                            <b-icon-link class="m-4"></b-icon-link>
+                        </p>
+                        <p>Deploy Token</p>
+                    </b-card-title>
+                    <p class="card-text text-center">
+                        Confirm your transaction using MetaMask.
+                        Once deployed your Token is ready to use.
+                    </p>
+                </b-card>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col lg="4" offset-lg="4" class="text-center">
+                <b-button to="create-token" size="lg" variant="outline-success" class="my-5 py-3 px-5">
+                    Get Started
+                </b-button>
+            </b-col>
+        </b-row>
+    </div>
+</template>
+
+<script>
+  export default {
+    name: 'HowItWorks',
+  };
+</script>

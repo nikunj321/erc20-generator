@@ -238,7 +238,9 @@
 
                                     <b-row class="mt-3">
                                         <b-col lg="12" class="text-right">
-                                            <b-button variant="warning" size="lg" type="submit">Create Token</b-button>
+                                            <b-button variant="warning" size="lg" type="submit" class="py-3 px-5">
+                                                Create Token
+                                            </b-button>
                                         </b-col>
                                     </b-row>
                                 </b-col>

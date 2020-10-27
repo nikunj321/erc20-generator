@@ -41,7 +41,7 @@
 
                         <b-list-group-item variant="warning"
                                 :to="{ path: 'create-token/', query: { tokenType: t.name }}"
-                                class="justify-content-between align-items-center text-center">
+                                class="justify-content-between align-items-center text-center py-3">
                             Create
                         </b-list-group-item>
                     </b-list-group>
@@ -56,7 +56,7 @@
 
 <script>
   import Checkmark from './Checkmark';
-  
+
   export default {
     name: 'PricingTable',
     components: { Checkmark },

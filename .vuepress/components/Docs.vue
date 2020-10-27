@@ -32,6 +32,17 @@
                             header-bg-variant="dark"
                             header-text-variant="white"
                             class="mt-3">
+                        <p>
+                            <b-link :href="`https://github.com/vittominacori/erc20-generator/tree/v${this.version}`" target="_blank">
+                                <b-img :src="`https://img.shields.io/badge/version-${this.version}-blue`"></b-img>
+                            </b-link>
+                            <b-link href="https://travis-ci.com/github/vittominacori/erc20-generator" target="_blank">
+                                <b-img src="https://travis-ci.com/vittominacori/erc20-generator.svg?branch=master"></b-img>
+                            </b-link>
+                            <b-link href="https://coveralls.io/github/vittominacori/erc20-generator" target="_blank">
+                                <b-img src="https://coveralls.io/repos/github/vittominacori/erc20-generator/badge.svg?branch=master"></b-img>
+                            </b-link>
+                        </p>
                         <ul>
                             <li>
                                 Source Code:
@@ -104,7 +115,6 @@
 </template>
 
 <script>
-  import config from '../config';
   import dapp from '../mixins/dapp';
 
   export default {
@@ -114,7 +124,7 @@
     ],
     data () {
       return {
-        version: config.version,
+        version: '4.0.0',
         loading: true,
         currentNetwork: null,
         tokenType: 'SimpleERC20',
