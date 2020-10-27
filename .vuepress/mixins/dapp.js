@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     async initWeb3 (network, checkWeb3) {
-      if (!this.network.list.hasOwnProperty(network)) { // eslint-disable-line no-prototype-builtins
+      if (!Object.prototype.hasOwnProperty.call(this.network.list, network)) {
         throw new Error(
           `Failed initializing network ${network}. Allowed values are ${Object.keys(this.network.list)}.`,
         );

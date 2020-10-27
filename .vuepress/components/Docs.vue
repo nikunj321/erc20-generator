@@ -59,29 +59,42 @@
                             header-text-variant="white"
                             class="mt-3">
                         <b-card v-for="(method, key) in contracts.token.abi"
-                                :header="method.name || 'constructor'"
-                                :sub-title="`Type: ${method.type}`"
                                 :key="key"
+                                no-body
+                                bg-variant="light"
                                 class="mt-4">
-                            <b-card-text v-if="method.stateMutability">
-                                State Mutability: {{ method.stateMutability }}
-                            </b-card-text>
-                            <b-card-text v-if="method.inputs && method.inputs.length > 0">
-                                <p>Inputs:</p>
-                                <ul>
-                                    <li v-for="(param, key) in method.inputs" :key="key">
-                                        <b>{{ param.type }}</b> {{ param.name }}
-                                    </li>
-                                </ul>
-                            </b-card-text>
-                            <b-card-text v-if="method.outputs && method.outputs.length > 0">
-                                <p>Outputs:</p>
-                                <ul>
-                                    <li v-for="(param, key) in method.outputs" :key="key">
-                                        <b>{{ param.type }}</b> {{ param.name }}
-                                    </li>
-                                </ul>
-                            </b-card-text>
+                            <b-card-header>
+                                <a v-b-toggle
+                                   :href="`#method-${key}`"
+                                   @click.prevent
+                                   class="stretched-link text-reset text-decoration-none">
+                                    {{ method.name || 'constructor' }}
+                                </a>
+                            </b-card-header>
+                            <b-collapse :id="`method-${key}`" class="p-4">
+                                <b-card-sub-title>
+                                    Type: {{ method.type }}
+                                </b-card-sub-title>
+                                <b-card-text v-if="method.stateMutability">
+                                    State Mutability: {{ method.stateMutability }}
+                                </b-card-text>
+                                <b-card-text v-if="method.inputs && method.inputs.length > 0">
+                                    <p>Inputs:</p>
+                                    <ul>
+                                        <li v-for="(param, key) in method.inputs" :key="key">
+                                            <b>{{ param.type }}</b> {{ param.name }}
+                                        </li>
+                                    </ul>
+                                </b-card-text>
+                                <b-card-text v-if="method.outputs && method.outputs.length > 0">
+                                    <p>Outputs:</p>
+                                    <ul>
+                                        <li v-for="(param, key) in method.outputs" :key="key">
+                                            <b>{{ param.type }}</b> {{ param.name }}
+                                        </li>
+                                    </ul>
+                                </b-card-text>
+                            </b-collapse>
                         </b-card>
                     </b-card>
                 </b-card>

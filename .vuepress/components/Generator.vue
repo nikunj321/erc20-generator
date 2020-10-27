@@ -263,7 +263,7 @@
       return {
         loading: true,
         currentNetwork: null,
-        tokenType: 'SimpleERC20',
+        tokenType: '',
         trx: {
           hash: '',
           link: '',
@@ -282,6 +282,7 @@
       };
     },
     mounted () {
+      this.tokenType = this.getParam('tokenType') || 'SimpleERC20';
       this.currentNetwork = this.getParam('network') || this.network.default;
       this.initDapp();
     },
@@ -303,6 +304,16 @@
         }
       },
       async loadToken () {
+        if (!Object.prototype.hasOwnProperty.call(this.tokenList, this.tokenType)) {
+          this.makeToast(
+            'Some errors occurred',
+            'Selected token type does not exist!',
+            'danger',
+          );
+
+          this.tokenType = 'SimpleERC20';
+        }
+
         this.initToken(this.tokenType);
 
         this.token.decimals = ['SimpleERC20'].includes(this.tokenType) ? 18 : this.token.decimals;

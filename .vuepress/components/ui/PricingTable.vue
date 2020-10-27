@@ -12,63 +12,54 @@
 
                     <b-list-group flush>
                         <b-list-group-item class="d-flex justify-content-between align-items-center">
-                            ERC20 Compliant
-                            <b-badge :variant="t.standard ? 'success' : 'danger'" pill>
-                                {{ t.standard ? '√' : 'x' }}
-                            </b-badge>
+                            ERC20 Compliant <checkmark :value="t.standard"></checkmark>
                         </b-list-group-item>
 
                         <b-list-group-item class="d-flex justify-content-between align-items-center">
-                            Capped Supply
-                            <b-badge :variant="t.capped ? 'success' : 'danger'" pill>
-                                {{ t.capped ? '√' : 'x' }}
-                            </b-badge>
+                            Capped Supply <checkmark :value="t.capped"></checkmark>
                         </b-list-group-item>
 
                         <b-list-group-item class="d-flex justify-content-between align-items-center">
-                            Mintable
-                            <b-badge :variant="t.mintable ? 'success' : 'danger'" pill>
-                                {{ t.mintable ? '√' : 'x' }}
-                            </b-badge>
+                            Mintable <checkmark :value="t.mintable"></checkmark>
                         </b-list-group-item>
 
                         <b-list-group-item class="d-flex justify-content-between align-items-center">
-                            Burnable
-                            <b-badge :variant="t.burnable ? 'success' : 'danger'" pill>
-                                {{ t.burnable ? '√' : 'x' }}
-                            </b-badge>
+                            Burnable <checkmark :value="t.burnable"></checkmark>
                         </b-list-group-item>
 
                         <b-list-group-item class="d-flex justify-content-between align-items-center">
-                            Token Recover
-                            <b-badge :variant="t.tokenRecover ? 'success' : 'danger'" pill>
-                                {{ t.tokenRecover ? '√' : 'x' }}
-                            </b-badge>
+                            Token Recover <checkmark :value="t.tokenRecover"></checkmark>
                         </b-list-group-item>
 
                         <b-list-group-item class="d-flex justify-content-between align-items-center">
-                            ERC1363
-                            <b-badge :variant="t.erc1363 ? 'success' : 'danger'" pill>
-                                {{ t.erc1363 ? '√' : 'x' }}
-                            </b-badge>
+                            ERC1363 <checkmark :value="t.erc1363"></checkmark>
                         </b-list-group-item>
 
                         <b-list-group-item class="d-flex justify-content-between align-items-center">
-                            Remove Copyright
-                            <b-badge :variant="t.removeCopyright ? 'success' : 'danger'" pill>
-                                {{ t.removeCopyright ? '√' : 'x' }}
-                            </b-badge>
+                            Remove Copyright <checkmark :value="t.removeCopyright"></checkmark>
+                        </b-list-group-item>
+
+                        <b-list-group-item variant="warning"
+                                :to="{ path: 'create-token/', query: { tokenType: t.name }}"
+                                class="justify-content-between align-items-center text-center">
+                            Create
                         </b-list-group-item>
                     </b-list-group>
                 </b-card>
             </b-col>
         </b-row>
+        <p class="text-center text-light">
+            <small>GAS will be added to final amount</small>
+        </p>
     </div>
 </template>
 
 <script>
+  import Checkmark from './Checkmark';
+  
   export default {
     name: 'PricingTable',
+    components: { Checkmark },
     data () {
       return {
         tokenDetails: [

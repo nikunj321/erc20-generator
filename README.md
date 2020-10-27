@@ -1,6 +1,7 @@
 ---
 component: Home
 title: ERC20 Token Generator | Create your Token for FREE
+description: Create an ERC20 Token in less than a minute. The most used Smart Contract Generator for ERC20 Token.
 ---
 
 # ERC20 Token Generator - DAPP

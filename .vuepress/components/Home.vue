@@ -3,7 +3,7 @@
         <b-jumbotron bg-variant="dark"
                      text-variant="white"
                      header="ERC20 Token Generator"
-                     lead="Create your Token for FREE"
+                     lead="The most used Smart Contract Generator for ERC20 Token"
                      class="mb-0"
                      fluid>
             <p>
@@ -15,7 +15,6 @@
                     <b-img src="https://coveralls.io/repos/github/vittominacori/erc20-generator/badge.svg?branch=master"></b-img>
                 </b-link>
             </p>
-            <p>{{ $site.description }}</p>
             <hr class="my-4">
             <b-button to="create-token" size="lg" variant="outline-warning">
                 Create a Token
