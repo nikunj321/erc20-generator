@@ -47,7 +47,7 @@
             </b-col>
         </b-row>
         <b-row>
-            <b-col lg="4" offset-lg="4" class="text-center">
+            <b-col lg="10" offset-lg="1" class="text-center">
                 <b-button to="create-token" size="lg" variant="outline-success" class="my-5 py-3 px-5">
                     Get Started
                 </b-button>
